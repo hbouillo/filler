@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2017/11/23 15:13:54 by hbouillo         ###   ########.fr        #
+#    Updated: 2017/11/30 20:27:24 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,10 @@ INCS_DIR = inc
 
 DMEM = src/mem/
 DOUT = src/out/
+DIN = src/in/
 DSTR = src/str/
 DUTIL = src/util/
+DXTOABASE = src/util/xtoabase/
 
 SMEM =  ft_bzero.c ft_memadr.c ft_memalloc.c ft_memccpy.c \
 		ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memdel.c \
@@ -48,6 +50,8 @@ SOUT =  ft_putchar.c ft_putchar_fd.c ft_putendl.c \
 		ft_putendl_fd.c ft_putnbr.c ft_putnbr_fd.c ft_putstr.c \
 		ft_putstr_fd.c \
 
+SIN  =  ft_gnl.c
+
 SSTR =  ft_strcat.c ft_strchr.c ft_strclr.c ft_strcmp.c \
 		ft_strcpy.c ft_strdel.c ft_strdup.c ft_strequ.c \
 		ft_striter.c ft_striteri.c ft_strjoin.c ft_strlcat.c \
@@ -55,17 +59,24 @@ SSTR =  ft_strcat.c ft_strchr.c ft_strclr.c ft_strcmp.c \
 		ft_strncat.c ft_strncmp.c ft_strncpy.c ft_strnequ.c \
 		ft_strnew.c ft_strnstr.c ft_strrchr.c ft_strsplit.c \
 		ft_strssplit.c ft_strstr.c ft_strsub.c ft_strtrim.c \
+		ft_strfjoin.c \
 
 SUTIL =	ft_atoi.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 		ft_isdigit.c ft_islower.c ft_isprint.c \
-		ft_isupper.c ft_itoa.c ft_itoabase.c ft_ltoabase.c \
-		ft_nbrmax.c ft_nbrmin.c ft_tolower.c ft_toupper.c \
-		ft_ultoabase.c
+		ft_isupper.c ft_itoa.c ft_nbrmax.c ft_nbrmin.c ft_tolower.c \
+		ft_toupper.c \
+
+SXTOABASE = ft_itoabase.c ft_uitoabase.c ft_ctoabase.c ft_uctoabase.c \
+		ft_stoabase.c ft_ustoabase.c ft_ltoabase.c ft_ultoabase.c \
+		ft_lltoabase.c ft_ulltoabase.c ft_imtoabase.c ft_uimtoabase.c \
+		ft_sitoabase.c ft_ssitoabase.c
 
 OMEM = $(addprefix $(DMEM), $(SMEM:.c=.o))
 OSTR = $(addprefix $(DSTR), $(SSTR:.c=.o))
 OOUT = $(addprefix $(DOUT), $(SOUT:.c=.o))
+OIN = $(addprefix $(DIN), $(SIN:.c=.o))
 OUTIL = $(addprefix $(DUTIL), $(SUTIL:.c=.o))
+OXTOABASE = $(addprefix $(DXTOABASE), $(SXTOABASE:.c=.o))
 
 
 # STYLE VARIABLES
@@ -104,11 +115,11 @@ $(NAME)-precompil:
 $(NAME)-endcompil:
 	@echo $(END_MSG)
 
-$(NAME): $(OMEM) $(OSTR) $(OOUT) $(OUTIL)
+$(NAME): $(OMEM) $(OSTR) $(OOUT) $(OUTIL) $(OXTOABASE) $(OIN)
 ifeq ($(MODE),DEBUG)
 	@echo "\tArchiving $(STL_BOLD)$(RGB_LRED)$@$(RGB_RESET)..."
 endif
-	@ar rc $(NAME) $(OMEM) $(OSTR) $(OOUT) $(OUTIL)
+	@ar rc $(NAME) $(OMEM) $(OSTR) $(OOUT) $(OUTIL) $(OXTOABASE) $(OIN)
 ifeq ($(MODE),DEBUG)
 	@echo "\tIndexing  $(STL_BOLD)$(RGB_LRED)$@$(RGB_RESET)..."
 endif
@@ -137,9 +148,17 @@ ifeq ($(MODE),DEBUG)
 endif
 	@/bin/rm -f $(OOUT)
 ifeq ($(MODE),DEBUG)
+	@echo "\tCleaning $(STL_BOLD)$(RGB_LBLUE)in$(RGB_RESET)..."
+endif
+	@/bin/rm -f $(OIN)
+ifeq ($(MODE),DEBUG)
 	@echo "\tCleaning $(STL_BOLD)$(RGB_LBLUE)util$(RGB_RESET)..."
 endif
 	@/bin/rm -f $(OUTIL)
+ifeq ($(MODE),DEBUG)
+	@echo "\tCleaning $(STL_BOLD)$(RGB_LBLUE)util/xtoabase$(RGB_RESET)..."
+endif
+	@/bin/rm -f $(OXTOABASE)
 	@echo "$(STL_BOLD)$(RGB_BLUE)✓  Cleaned $(RGB_CYAN)$(NAME)\
 	$(RGB_BLUE) objs successfully. ✓$(RGB_RESET)"
 
