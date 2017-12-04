@@ -6,11 +6,11 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 00:34:38 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/11/30 19:59:30 by hbouillo         ###   ########.fr       */
+/*   Updated: 2017/12/04 22:04:34 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "in/ft_gnl.h"
+#include "./ft_gnl.h"
 
 /*
 ** Returns a fresh intitialized header

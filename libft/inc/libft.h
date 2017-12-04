@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 12:22:15 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/12/03 14:31:50 by hbouillo         ###   ########.fr       */
+/*   Updated: 2017/12/04 22:06:35 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 # include <string.h>
 # include <inttypes.h>
+
+int					ft_printf(const char *str, ...);
 
 void				ft_putchar(char c);
 void				ft_putchar_fd(char c, int fd);
@@ -167,7 +169,5 @@ void				ft_lstadd(t_list **alst, t_list *new);
 
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-
-int					ft_gnl(const int fd, char **line);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 14:14:37 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/12/03 22:59:20 by hbouillo         ###   ########.fr       */
+/*   Updated: 2017/12/04 22:09:49 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,9 @@ static t_pos	*place_first_good(t_player *player, t_map *map, t_piece *piece)
 static int		reply_filler(t_player *player, t_map *map, t_piece *piece)
 {
 	t_pos		*pos;
-	char		*str;
 
 	pos = place_first_good(player, map, piece);
-	str = ft_strnew(0);
-	str = ft_strfjoin(str, ft_itoa(pos->y));
-	str = ft_strfjoin(str, ft_strdup(" "));
-	str = ft_strfjoin(str, ft_itoa(pos->x));
-	str = ft_strfjoin(str, ft_strdup("\n"));
-	write(1, str, ft_strlen(str));
+	ft_printf("%d %d\n", pos->y, pos->x);
 	return (0);
 }
 

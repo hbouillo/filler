@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 12:22:15 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/12/03 15:40:48 by hbouillo         ###   ########.fr       */
+/*   Updated: 2017/12/04 22:12:24 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 # include <string.h>
 # include <inttypes.h>
+
+int					ft_printf(const char *str, ...);
 
 void				ft_putchar(char c);
 void				ft_putchar_fd(char c, int fd);

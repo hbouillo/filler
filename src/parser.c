@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 14:38:22 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/12/03 22:34:10 by hbouillo         ###   ########.fr       */
+/*   Updated: 2017/12/04 21:59:28 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int			init_piece(t_piece **piece)
 	(*piece)->offset.x = (*piece)->size.x;
 	return (0);
 }
-
-#include <stdio.h>
 
 static int	analyse_piece(t_piece *piece)
 {

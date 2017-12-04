@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2017/11/30 20:27:24 by hbouillo         ###   ########.fr        #
+#    Updated: 2017/12/04 22:10:43 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,11 +46,21 @@ SMEM =  ft_bzero.c ft_memadr.c ft_memalloc.c ft_memccpy.c \
 		ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memdel.c \
 		ft_memmove.c ft_memset.c \
 
+SIN  =  ft_gnl.c
+
 SOUT =  ft_putchar.c ft_putchar_fd.c ft_putendl.c \
 		ft_putendl_fd.c ft_putnbr.c ft_putnbr_fd.c ft_putstr.c \
 		ft_putstr_fd.c \
-
-SIN  =  ft_gnl.c
+		printf/convert.c printf/convseq.c printf/ft_printf.c \
+		printf/handlers_helper.c \
+		printf/handlers/handle_b.c printf/handlers/handle_c.c \
+		printf/handlers/handle_d.c printf/handlers/handle_m_c.c \
+		printf/handlers/handle_m_d.c printf/handlers/handle_m_o.c \
+		printf/handlers/handle_m_s.c printf/handlers/handle_m_u.c \
+		printf/handlers/handle_m_x.c printf/handlers/handle_o.c \
+		printf/handlers/handle_p.c printf/handlers/handle_percent.c \
+		printf/handlers/handle_rgb.c printf/handlers/handle_s.c \
+		printf/handlers/handle_u.c printf/handlers/handle_x.c \
 
 SSTR =  ft_strcat.c ft_strchr.c ft_strclr.c ft_strcmp.c \
 		ft_strcpy.c ft_strdel.c ft_strdup.c ft_strequ.c \
@@ -59,7 +69,7 @@ SSTR =  ft_strcat.c ft_strchr.c ft_strclr.c ft_strcmp.c \
 		ft_strncat.c ft_strncmp.c ft_strncpy.c ft_strnequ.c \
 		ft_strnew.c ft_strnstr.c ft_strrchr.c ft_strsplit.c \
 		ft_strssplit.c ft_strstr.c ft_strsub.c ft_strtrim.c \
-		ft_strfjoin.c \
+		ft_strfjoin.c
 
 SUTIL =	ft_atoi.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 		ft_isdigit.c ft_islower.c ft_isprint.c \

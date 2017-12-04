@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbouillo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 17:49:48 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/11/09 21:30:10 by hbouillo         ###   ########.fr       */
+/*   Updated: 2017/12/01 19:30:44 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t		ft_strlcat(char *str1, const char *str2, size_t size)
 
 	len1 = ft_strlen(str1);
 	len2 = ft_strlen(str2);
-	if (len1 > size)
+	if (len1 >= size)
 		return (size + len2);
 	str1 += len1;
 	ft_strncpy(str1, str2, ft_nbrmin(len2, size - len1));
