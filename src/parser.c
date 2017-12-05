@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 14:38:22 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/12/04 21:59:28 by hbouillo         ###   ########.fr       */
+/*   Updated: 2017/12/05 20:31:55 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ int			init_map(t_map **map)
 	return (0);
 }
 
-int			parse_map(t_map *map)
+int			parse_map(t_map *map, t_player *player)
 {
 	char	*line;
 	int		i;
+	int		j;
 
 	skip_line(0, &line);
 	if (!(map->data = (char *)malloc(sizeof(char) * (map->size.x * map->size.y))))
@@ -43,6 +44,23 @@ int			parse_map(t_map *map)
 	{
 		ft_gnl(0, &line);
 		ft_strcpy(map->data + map->size.x * i, line + 4);
+		if (player->enemy_spawn.x < 0 || player->my_spawn.x < 0)
+		{
+			j = -1;
+			while (line[++j])
+			{
+				if (line[j] == player->enemy_char)
+				{
+					player->enemy_spawn.x = j;
+					player->enemy_spawn.y = i;
+				}
+				if (line[j] == player->place_char)
+				{
+					player->my_spawn.x = j;
+					player->my_spawn.y = i;
+				}
+			}
+		}
 	}
 	return (0);
 }
