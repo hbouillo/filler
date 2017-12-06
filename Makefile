@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2017/12/05 15:47:39 by hbouillo         ###   ########.fr        #
+#    Updated: 2017/12/06 15:17:43 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,9 @@ INCS_DIR = inc
 DMAIN = src/
 
 SMAIN = filler.c parser.c helper.c main.c analyse.c strategy_helper.c \
- 		dumb/dumb1_champ.c dumb/dumb2_champ.c fork/fork_champ.c
+ 		dumb/dumb1_champ.c dumb/dumb2_champ.c fork/fork_champ.c \
+		fork/fork_arms.c fork/behaviours/back_behaviour.c \
+		fork/behaviours/right_behaviour.c fork/behaviours/left_behaviour.c
 
 OMAIN = $(addprefix $(DMAIN), $(SMAIN:.c=.o))
 
