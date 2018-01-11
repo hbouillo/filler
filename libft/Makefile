@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2017/12/04 22:10:43 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/01/11 03:23:23 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ SSTR =  ft_strcat.c ft_strchr.c ft_strclr.c ft_strcmp.c \
 SUTIL =	ft_atoi.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 		ft_isdigit.c ft_islower.c ft_isprint.c \
 		ft_isupper.c ft_itoa.c ft_nbrmax.c ft_nbrmin.c ft_tolower.c \
-		ft_toupper.c \
+		ft_toupper.c ft_chartabfree.c \
 
 SXTOABASE = ft_itoabase.c ft_uitoabase.c ft_ctoabase.c ft_uctoabase.c \
 		ft_stoabase.c ft_ustoabase.c ft_ltoabase.c ft_ultoabase.c \

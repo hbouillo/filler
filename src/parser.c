@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 14:38:22 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/12/30 18:43:17 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/01/11 04:44:27 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,24 @@ int			init_map(t_map **map)
 	char	**split;
 
 	ft_gnl(0, &line);
+	if (line && !*line)
+	{
+		free(line);
+		return (FILLER_END_PARSE);
+	}
 	if (!(split = ft_strsplit(line, ' ')))
 		exit(1);
 	free(line);
 	if (!(*map = (t_map *)malloc(sizeof(t_map))))
 		exit(1);
 	if (!ft_strequ(split[0], "Plateau"))
+	{
+		ft_chartabfree(split);
 		return (FILLER_ERR_PARSE);
+	}
 	(*map)->size.y = ft_atoi(split[1]);
 	(*map)->size.x = ft_atoi(split[2]);
+	ft_chartabfree(split);
 	return (0);
 }
 
@@ -37,8 +46,8 @@ int			parse_map(t_map *map, t_player *player)
 	int		i;
 	int		j;
 
-	skip_line(0, &line);
-	if (!(map->data = (char *)malloc(sizeof(char) * (map->size.x * map->size.y))))
+	skip_line(0);
+	if (!(map->data = (char *)ft_memalloc(sizeof(char) * (map->size.x * map->size.y + 1))))
 		exit(1);
 	i = -1;
 	while (++i < map->size.y)
@@ -62,6 +71,7 @@ int			parse_map(t_map *map, t_player *player)
 				}
 			}
 		}
+		free(line);
 	}
 	return (0);
 }
@@ -74,16 +84,21 @@ int			init_piece(t_piece **piece)
 	ft_gnl(0, &line);
 	if (!(split = ft_strsplit(line, ' ')))
 		exit(1);
+	free(line);
 	if (!(*piece = (t_piece *)malloc(sizeof(t_piece))))
 		exit(1);
 	if (!ft_strequ(split[0], "Piece"))
+	{
+		ft_chartabfree(split);
 		return (FILLER_ERR_PARSE);
+	}
 	(*piece)->size.y = ft_atoi(split[1]);
 	(*piece)->size.x = ft_atoi(split[2]);
 	(*piece)->compact_size.y = -1;
 	(*piece)->compact_size.x = -1;
 	(*piece)->offset.y = (*piece)->size.y;
 	(*piece)->offset.x = (*piece)->size.x;
+	ft_chartabfree(split);
 	return (0);
 }
 
@@ -117,13 +132,14 @@ int			parse_piece(t_piece *piece)
 	char	*line;
 	int		i;
 
-	if (!(piece->data = (char *)malloc(sizeof(char) * (piece->size.x * piece->size.y + 1))))
+	if (!(piece->data = (char *)ft_memalloc(sizeof(char) * (piece->size.x * piece->size.y + 1))))
 		exit(1);
 	i = -1;
 	while (++i < piece->size.y)
 	{
 		ft_gnl(0, &line);
 		ft_strcpy(piece->data + piece->size.x * i, line);
+		free(line);
 	}
 	analyse_piece(piece);
 	return (0);

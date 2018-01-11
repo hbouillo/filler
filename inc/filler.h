@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 14:12:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/11 02:16:45 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/01/11 04:43:40 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 
 # define FILLER_ERR_PARSE 1
+# define FILLER_END_PARSE 1
 
 typedef struct		s_size
 {
@@ -70,9 +71,10 @@ int					parse_map(t_map *map, t_player *player);
 int					init_piece(t_piece **piece);
 int					parse_piece(t_piece *piece);
 
-int					skip_line(int fd, char **line);
+int					skip_line(int fd);
 
 t_sol				*analyse(t_player *player, t_map *map, t_piece *piece);
+void				free_sol(t_sol *sol);
 
 t_pos				*get_arm_next_pos(t_sol *sol, t_arm arm);
 

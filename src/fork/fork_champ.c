@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 11:30:58 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/12/06 19:51:09 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/01/11 04:46:19 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static t_fork			*getfork(t_player *player)
 		fork->last_contact_count = 0;
 		fork->contacts = 0;
 		fork->priority = NO_PRIORITY;
-		fork->arms = (t_arm *)malloc(sizeof(t_arm) * 3);
+		if (!(fork->arms = (t_arm *)malloc(sizeof(t_arm) * 3)))
+			exit(1);
 		fork->arms[BACK_ARM] = get_back_arm(player);
 		fork->arms[RIGHT_ARM] = get_right_arm(player);
 		fork->arms[LEFT_ARM] = get_left_arm(player);

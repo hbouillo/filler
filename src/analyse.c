@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 13:29:05 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/12/05 16:17:50 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/01/11 03:34:27 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,12 @@ t_sol			*analyse(t_player *player, t_map *map, t_piece *piece)
 		add_pos(&sol, pos);
 	}
 	return (sol);
+}
+
+void			free_sol(t_sol *sol)
+{
+	if (!sol)
+		return ;
+	free_sol(sol->nxt);
+	free(sol);
 }

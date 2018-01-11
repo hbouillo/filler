@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 02:01:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/11 02:32:55 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/01/11 04:39:37 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static t_pos		last_enemy_pos(t_map *map, t_player *player)
 	i = -1;
 	pos.x = 0;
 	pos.y = 0;
+	if (last_data)
+		free(last_data);
 	while (++i < map->size.x * map->size.y)
 	{
 		if ((!last_data && map->data[i] == player->enemy_char) ||
@@ -58,5 +60,6 @@ t_pos				*choke_nextpos(t_player *player, t_map *map, t_piece *piece)
 	pos = NULL;
 	while (!pos)
 		pos = nextpos(sol, map, player);
+	free_sol(sol);
 	return (pos);
 }
