@@ -6,18 +6,19 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 14:14:37 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/12/06 14:40:58 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/01/11 02:15:27 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 #include <unistd.h>
+#include <stdio.h>
 
 static int		reply_filler(t_player *player, t_map *map, t_piece *piece)
 {
 	t_pos		*pos;
 
-	pos = fork_nextpos(player, map, piece);
+	pos = choke_nextpos(player, map, piece);
 	ft_printf("%d %d\n", pos->y, pos->x);
 	return (0);
 }
@@ -36,8 +37,6 @@ static int		loop_filler(t_player *player)
 		init_piece(&piece);
 		parse_piece(piece);
 		reply_filler(player, map, piece);
-		free(map);
-		free(piece);
 	}
 	return (0);
 }

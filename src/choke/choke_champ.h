@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   choke_champ.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/01 14:11:46 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/12/12 19:23:01 by hbouillo         ###   ########.fr       */
+/*   Created: 2018/01/11 02:02:20 by hbouillo          #+#    #+#             */
+/*   Updated: 2018/01/11 02:03:29 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#ifndef CHOKE_CHAMP
+# define CHOKE_CHAMP
 
-int				main(void)
-{
-	init_filler();
-	return (0);
-}
+# include "filler.h"
+
+
+
+#endif

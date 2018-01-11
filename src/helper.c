@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 17:18:02 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/12/04 21:59:17 by hbouillo         ###   ########.fr       */
+/*   Updated: 2017/12/12 18:38:32 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,5 @@
 int			skip_line(int fd, char **line)
 {
 	ft_gnl(fd, line);
-	free(*line);
 	return (0);
 }

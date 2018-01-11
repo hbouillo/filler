@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 00:58:13 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/11/30 20:04:22 by hbouillo         ###   ########.fr       */
+/*   Updated: 2017/12/12 19:44:48 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define GNL_EOF 0
 # define GNL_ERR -1
 
-# define BUFF_SIZE 1
+# define BUFF_SIZE 4096
 
 typedef struct		s_reader
 {

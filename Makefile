@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2017/12/06 15:17:43 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/01/11 02:15:02 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ endif
 export MODE
 
 # CC VARIABLES
-CC = clang
+CC = gcc
 ifeq ($(MODE),DEBUG)
 CFLAGS = -fsanitize=address
 LFLAGS = -fsanitize=address
@@ -45,7 +45,8 @@ DMAIN = src/
 SMAIN = filler.c parser.c helper.c main.c analyse.c strategy_helper.c \
  		dumb/dumb1_champ.c dumb/dumb2_champ.c fork/fork_champ.c \
 		fork/fork_arms.c fork/behaviours/back_behaviour.c \
-		fork/behaviours/right_behaviour.c fork/behaviours/left_behaviour.c
+		fork/behaviours/right_behaviour.c fork/behaviours/left_behaviour.c \
+		choke/choke_champ.c
 
 OMAIN = $(addprefix $(DMAIN), $(SMAIN:.c=.o))
 

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 14:12:04 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/12/05 18:37:14 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/01/11 02:16:45 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ t_pos				*dumb1_nextpos(t_player *player, t_map *map, t_piece *piece);
 t_pos				*dumb2_nextpos(t_player *player, t_map *map, t_piece *piece);
 
 t_pos				*fork_nextpos(t_player *player, t_map *map, t_piece *piece);
+t_pos				*choke_nextpos(t_player *player, t_map *map, t_piece *piece);
 
 #endif

@@ -6,11 +6,12 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 14:38:22 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/12/05 20:31:55 by hbouillo         ###   ########.fr       */
+/*   Updated: 2017/12/30 18:43:17 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
+#include <stdio.h>
 
 int			init_map(t_map **map)
 {
@@ -73,7 +74,6 @@ int			init_piece(t_piece **piece)
 	ft_gnl(0, &line);
 	if (!(split = ft_strsplit(line, ' ')))
 		exit(1);
-	free(line);
 	if (!(*piece = (t_piece *)malloc(sizeof(t_piece))))
 		exit(1);
 	if (!ft_strequ(split[0], "Piece"))
@@ -117,7 +117,7 @@ int			parse_piece(t_piece *piece)
 	char	*line;
 	int		i;
 
-	if (!(piece->data = (char *)malloc(sizeof(char) * (piece->size.x * piece->size.y))))
+	if (!(piece->data = (char *)malloc(sizeof(char) * (piece->size.x * piece->size.y + 1))))
 		exit(1);
 	i = -1;
 	while (++i < piece->size.y)
