@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 00:34:38 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/12/12 19:44:19 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/01/19 05:03:04 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_reader			*init_reader(void)
 {
 	t_reader			*reader;
 
-	if (!(reader = (t_reader *)malloc(sizeof(t_reader))))
+	if (!(reader = (t_reader *)ft_memalloc(sizeof(t_reader))))
 		return (NULL);
 	reader->bgn = reader->buf + BUFF_SIZE;
 	reader->end = reader->bgn;

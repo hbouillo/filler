@@ -6,131 +6,94 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2018/01/11 02:15:02 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/01/19 04:33:24 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# SHELL
-ZSH = /bin/zsh
-ifneq ("$(wildcard $(ZSH))","")
-SHELL = /bin/zsh
-endif
+include Makefile.inc
 
-# MAKING MODE
-ifneq ($(MODE),DEBUG)
-override MODE = NORMAL
-endif
-export MODE
+# COMPILATION VARIABLES
+CC = clang
 
-# CC VARIABLES
-CC = gcc
-ifeq ($(MODE),DEBUG)
-CFLAGS = -fsanitize=address
-LFLAGS = -fsanitize=address
-else
-CFLAGS = -Wall -Werror -Wextra
-LFLAGS =
-endif
+# TARGET 1
+TARGET_1 = hbouillo.filler
+DEP_1 = libft/libft.a
+SRC_1 = filler/filler.c filler/parser.c filler/helper.c filler/main.c \
+		filler/analyse.c filler/strategy_helper.c filler/dumb/dumb1_champ.c \
+		filler/dumb/dumb2_champ.c filler/fork/fork_champ.c \
+		filler/fork/fork_arms.c filler/fork/behaviours/back_behaviour.c \
+		filler/fork/behaviours/right_behaviour.c \
+		filler/fork/behaviours/left_behaviour.c \
+		filler/choke/choke_champ.c
+OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
+CFLAGS_1 = $(DEBUG_FLAGS) \
+	-I./inc \
+	-I./libft/inc
+LFLAGS_1 = $(DEBUG_FLAGS) \
+	-L./libft -lft
 
-# TARGET VARIABLES
-NAME = hbouillo.filler
+# TARGET 2
+TARGET_2 = show-filler
+DEP_2 = libft/libft.a
+SRC_2 = show-filler/main.c
+OBJ_2 = $(addprefix obj/src/,$(SRC_2:.c=.o))
+CFLAGS_2 = $(DEBUG_FLAGS) \
+	-I./inc \
+	-I./libft/inc \
+	-I/Users/hbouillo/.brew/include
+LFLAGS_2 = $(DEBUG_FLAGS) \
+	-L./libft -lft \
+	-L/Users/hbouillo/.brew/lib -lSDL2
 
-LIBFT = libft
-LIBS = $(LIBFT)/$(LIBFT).a
-
-INCS_DIR = inc
-
-DMAIN = src/
-
-SMAIN = filler.c parser.c helper.c main.c analyse.c strategy_helper.c \
- 		dumb/dumb1_champ.c dumb/dumb2_champ.c fork/fork_champ.c \
-		fork/fork_arms.c fork/behaviours/back_behaviour.c \
-		fork/behaviours/right_behaviour.c fork/behaviours/left_behaviour.c \
-		choke/choke_champ.c
-
-OMAIN = $(addprefix $(DMAIN), $(SMAIN:.c=.o))
-
-
-# STYLE VARIABLES
-STL_BOLD = \x1b[1m
-
-RGB_YELLOW = \x1b[38;2;239;196;23m
-RGB_LGREEN = \x1b[38;2;93;239;183m
-RGB_CYAN = \x1b[38;2;112;225;232m
-RGB_BLUE = \x1b[38;2;83;154;252m
-RGB_LBLUE = \x1b[38;2;147;204;252m
-RGB_LRED = \x1b[38;2;255;100;100m
-RGB_RESET = \x1b[0m
-
-ifeq ($(MODE),DEBUG)
-BGN_MSG = "$(STL_BOLD)$(RGB_YELLOW)⚠  Compiling $(RGB_LRED)$(NAME)\
-$(RGB_YELLOW)in $(RGB_LRED)$(MODE)$(RGB_YELLOW) mode. ⚠ $(RGB_RESET)"
-else
-BGN_MSG = "$(STL_BOLD)$(RGB_BLUE)⧖  Compiling $(RGB_CYAN)$(NAME)\
-$(RGB_BLUE)in $(RGB_CYAN)$(MODE)$(RGB_BLUE) mode. ⧖ $(RGB_RESET)"
-endif
-
-NOTHING_DONE = "$(STL_BOLD)$(RGB_LRED)✗  Nothing to be done for$(RGB_CYAN)\
-$(NAME)$(RGB_LRED). ✗$(RGB_RESET)"
-SOMETHING_DONE = "$(STL_BOLD)$(RGB_BLUE)✓  Compiled $(RGB_CYAN)$(NAME)\
-$(RGB_BLUE)successfully. ✓$(RGB_RESET)"
-
-
-END_MSG = $(NOTHING_DONE)
-
-all: $(NAME)-precompil $(NAME) $(NAME)-endcompil
+all: build.$(TARGET_1) build.$(TARGET_2)
 	@echo > /dev/null
 
-$(NAME)-precompil:
-	@echo $(BGN_MSG)
+build.$(TARGET_1): prebuild.$(TARGET_1) $(TARGET_1) postbuild.$(TARGET_1)
 
-$(NAME)-endcompil:
-	@echo $(END_MSG)
+prebuild.$(TARGET_1):
+	@$(MAKE) -C libft
+	$(eval CFLAGS = $(CFLAGS_1))
+	$(eval LFLAGS = $(LFLAGS_1))
+	$(call bgn_msg,$(TARGET_1))
 
-$(NAME): $(OMAIN)
-	@$(MAKE) -C $(LIBFT)
-ifeq ($(MODE),DEBUG)
-	@echo "\tLinking $(STL_BOLD)$(RGB_LRED)$@$(RGB_RESET)..."
-endif
-	@$(CC) $(CFLAGS) -o $(NAME) $(OMAIN) $(LIBS)
+postbuild.$(TARGET_1):
+	$(call $(END_MSG),$(TARGET_1))
 
-%.o: %.c
-ifeq ($(MODE),DEBUG)
-	@echo "\tCompiling $(STL_BOLD)$(RGB_LBLUE)$<$(RGB_RESET)..."
-endif
-	@$(CC) $(CFLAGS) -I$(INCS_DIR) -c $< -o $@
-	@$(eval END_MSG = $(SOMETHING_DONE))
+$(TARGET_1): $(OBJ_1) $(DEP_1)
+	$(call link)
+
+$(OBJ_1): ./obj/%.o: %.c
+	$(call compile)
+
+build.$(TARGET_2): prebuild.$(TARGET_2) $(TARGET_2) postbuild.$(TARGET_2)
+
+prebuild.$(TARGET_2):
+	@$(MAKE) -C libft
+	$(eval CFLAGS = $(CFLAGS_2))
+	$(eval LFLAGS = $(LFLAGS_2))
+	$(call bgn_msg,$(TARGET_2))
+
+postbuild.$(TARGET_2):
+	$(call $(END_MSG),$(TARGET_2))
+
+$(TARGET_2): $(OBJ_2) $(DEP_2)
+	$(call link)
+
+$(OBJ_2): ./obj/%.o: %.c
+	$(call compile)
 
 clean:
-	@$(MAKE) -C $(LIBFT) clean
-	@echo "$(STL_BOLD)$(RGB_BLUE)⧖  Cleaning $(RGB_CYAN)$(NAME)\
-	$(RGB_BLUE) objs... ⧖$(RGB_RESET)"
-ifeq ($(MODE),DEBUG)
-	@echo "\tCleaning $(STL_BOLD)$(RGB_LBLUE)main$(RGB_RESET)..."
-endif
-	@/bin/rm -f $(OMAIN)
-	@echo "$(STL_BOLD)$(RGB_BLUE)✓  Cleaned $(RGB_CYAN)$(NAME)\
-	$(RGB_BLUE) objs successfully. ✓$(RGB_RESET)"
+	@$(MAKE) -C libft clean
+	$(call clean,$(TARGET_1),$(OBJ_1))
+	$(call clean,$(TARGET_2),$(OBJ_2))
 
 fclean:
-	@$(MAKE) -C $(LIBFT) fclean
-	@echo "$(STL_BOLD)$(RGB_BLUE)⧖  Cleaning $(RGB_CYAN)$(NAME)\
-	$(RGB_BLUE) objs... ⧖$(RGB_RESET)"
-ifeq ($(MODE),DEBUG)
-	@echo "\tCleaning $(STL_BOLD)$(RGB_LBLUE)main$(RGB_RESET)..."
-endif
-	@/bin/rm -f $(OMAIN)
-	@echo "$(STL_BOLD)$(RGB_BLUE)✓  Cleaned $(RGB_CYAN)$(NAME)\
-	$(RGB_BLUE) objs successfully. ✓$(RGB_RESET)"
-	@echo "$(STL_BOLD)$(RGB_BLUE)⧖  Cleaning $(RGB_CYAN)$(NAME)\
-	$(RGB_BLUE) executable... ⧖$(RGB_RESET)"
-ifeq ($(MODE),DEBUG)
-	@echo "\tCleaning $(STL_BOLD)$(RGB_LRED)$(NAME)$(RGB_RESET)..."
-endif
-	@/bin/rm -f $(NAME)
-	@echo "$(STL_BOLD)$(RGB_BLUE)✓  Cleaned $(RGB_CYAN)$(NAME)\
-	$(RGB_BLUE) executable successfully. ✓$(RGB_RESET)"
+	@$(MAKE) -C libft fclean
+	$(call fclean,$(TARGET_1),$(OBJ_1))
+	$(call fclean,$(TARGET_2),$(OBJ_2))
 
 re: fclean all
 
-.PHONY: all clean fclean $(NAME)-precompil $(NAME)-endcompil
+.PHONY: all clean fclean \
+	build.$(TARGET_1) prebuild.$(TARGET_1) postbuild.$(TARGET_1) \
+	build.$(TARGET_2) prebuild.$(TARGET_2) postbuild.$(TARGET_2)

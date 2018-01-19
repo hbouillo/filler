@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 10:17:53 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/11 04:14:39 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/01/19 05:14:28 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char		**ft_strsplit(const char *str, char c)
 		while (!str0[prev0 - 1])
 			prev0--;
 		curr0 = prev0;
-		while (str0[prev0 - 1] && prev0)
+		while (prev0 && str0[prev0 - 1])
 			prev0--;
 		if (!(tab[--words] = ft_strsub(str, prev0, curr0 - prev0)))
 			return (NULL);

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 00:58:13 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/12/12 19:44:48 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/01/19 04:58:35 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct		s_reader
 	int				eof;
 	char			*bgn;
 	char			*end;
-	char			buf[BUFF_SIZE];
+	char			buf[BUFF_SIZE + 1];
 }					t_reader;
 
 /*
