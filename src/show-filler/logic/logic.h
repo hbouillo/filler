@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   choke_champ.h                                      :+:      :+:    :+:   */
+/*   logic.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/11 02:02:20 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/20 06:11:59 by hbouillo         ###   ########.fr       */
+/*   Created: 2018/01/19 23:29:56 by hbouillo          #+#    #+#             */
+/*   Updated: 2018/01/20 02:43:40 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHOKE_CHAMP
-# define CHOKE_CHAMP
+#ifndef LOGIC_H
+# define LOGIC_H
 
-# include "filler.h"
+# include "show_filler.h"
 
-# define GRADE_PROXIMITY 1
-# define GRADE_BREAK 100
-
-t_pos				*default_pos(t_sol *sol, t_map *map, t_player *player,
-						t_piece *piece);
+int			read_input(t_show *show);
 
 #endif

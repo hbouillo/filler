@@ -6,22 +6,22 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 13:28:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/17 23:17:01 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/01/20 01:52:42 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FORK_CHAMP_H
 # define FORK_CHAMP_H
 
-// # define FORK_COS COS50
-// # define FORK_SIN SIN50
-// # define FORK_COS2 COS20
-// # define FORK_SIN2 SIN20
-
 # define FORK_COS COS50
 # define FORK_SIN SIN50
 # define FORK_COS2 COS20
 # define FORK_SIN2 SIN20
+
+// # define FORK_COS COS50
+// # define FORK_SIN SIN50
+// # define FORK_COS2 COS20
+// # define FORK_SIN2 SIN20
 
 # define DEV_COS COS3
 # define DEV_SIN SIN3

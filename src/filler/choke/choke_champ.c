@@ -6,81 +6,90 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 02:01:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/18 01:13:55 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/01/20 06:27:22 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "choke_champ.h"
 #include <stdio.h>
 
-static t_pos		last_enemy_pos(t_map *map, t_player *player)
+static int			subgrade(t_pos pos, t_map *map, t_player *player, t_pos tmp)
 {
-	static char		*last_data;
-	int				i;
-	t_pos			pos;
+	int				subgrade;
 
-	i = -1;
-	pos.x = 0;
-	pos.y = 0;
-	while (++i < map->size.x * map->size.y)
+	subgrade = 0;
+	if (map->data[ft_nbrmax(0, pos.y + tmp.y - 1) * map->size.x
+		+ (pos.x + tmp.x)] == player->enemy_char)
+	subgrade += GRADE_PROXIMITY;
+	if (map->data[ft_nbrmin(map->size.y - 1, pos.y + tmp.y + 1)
+		* map->size.x + (pos.x + tmp.x)] == player->enemy_char)
+	subgrade += GRADE_PROXIMITY;
+	if (map->data[(pos.y + tmp.y) * map->size.x +
+		ft_nbrmax(0, (pos.x + tmp.x - 1))] == player->enemy_char)
+	subgrade += GRADE_PROXIMITY;
+	if (map->data[(pos.y + tmp.y) * map->size.x +
+		ft_nbrmin(map->size.x - 1, (pos.x + tmp.x + 1))]
+		== player->enemy_char)
+	subgrade += GRADE_PROXIMITY;
+	subgrade = subgrade * subgrade;
+	return (subgrade);
+}
+
+static int			evaluate_pos(t_pos pos, t_map *map, t_player *player,
+						t_piece *piece)
+{
+	int				grade;
+	t_pos			tmp;
+
+	grade = 0;
+	tmp.x = -1;
+	while (++tmp.x < piece->size.x)
 	{
-		if ((!last_data && map->data[i] == player->enemy_char) ||
-			(last_data && last_data[i] == '.' &&
-			map->data[i] == player->enemy_char))
+		tmp.y = -1;
+		while (++tmp.y < piece->size.y)
 		{
-			pos.x = i % map->size.x;
-			pos.y = i / map->size.x;
+			if (piece->data[tmp.y * piece->size.x + tmp.x] == '*')
+			{
+				grade += subgrade(pos, map, player, tmp);
+			}
 		}
 	}
-	if (last_data)
-		free(last_data);
-	last_data = ft_strdup(map->data);
-	return (pos);
+	return (grade);
 }
 
-static int			touched_right(t_map *map, t_player *player)
+static t_pos		*most_annoying_pos(t_sol *sol, t_map *map, t_player *player,
+						t_piece *piece)
 {
-	int				i;
+	t_pos			*pos;
+	int				max_grade;
+	int				tmp_grade;
 
-	i = 0;
-	while (++i <= map->size.y)
+	max_grade = 0;
+	pos = NULL;
+	while (sol)
 	{
-		if (map->data[i * map->size.x - 1] == player->place_char)
-			return (1);
-	}
-	return (0);
-}
-
-static t_pos		carli_is_annoying_af(t_map *map, t_player *player)
-{
-	t_pos			pos;
-
-	if (!touched_right(map, player))
-	{
-		pos.x = map->size.x * 2;
-		pos.y = player->my_spawn.y;
-	}
-	else
-	{
-		pos.x = 0;
-		pos.y = -map->size.y * 5;
+		tmp_grade = evaluate_pos(sol->pos, map, player, piece);
+		if (tmp_grade > max_grade)
+		{
+			if (!pos)
+				pos = (t_pos *)ft_memalloc(sizeof(t_pos));
+			max_grade = tmp_grade;
+			pos->x = sol->pos.x;
+			pos->y = sol->pos.y;
+		}
+		sol = sol->nxt;
 	}
 	return (pos);
 }
 
-static t_pos		*nextpos(t_sol *sol, t_map *map, t_player *player)
+static t_pos		*nextpos(t_sol *sol, t_map *map, t_player *player,
+						t_piece *piece)
 {
-	t_arm			head;
-
-	if (map->size.x * map->size.y < 300 && player->my_spawn.x > map->size.x / 2)
-		head.point = carli_is_annoying_af(map, player);
-	else
-		head.point = last_enemy_pos(map, player);
-	head.dir.x = 0;
-	head.dir.y = 0;
-	map = 0;
-	player = 0;
-	return (get_arm_next_pos(sol, head));
+	t_pos			*pos;
+	pos = most_annoying_pos(sol, map, player, piece);
+	if (!pos)
+		pos = default_pos(sol, map, player, piece);
+	return (pos);
 }
 
 t_pos				*choke_nextpos(t_player *player, t_map *map, t_piece *piece)
@@ -90,8 +99,7 @@ t_pos				*choke_nextpos(t_player *player, t_map *map, t_piece *piece)
 
 	sol = analyse(player, map, piece);
 	pos = NULL;
-	while (!pos)
-		pos = nextpos(sol, map, player);
+	pos = nextpos(sol, map, player, piece);
 	free_sol(sol);
 	return (pos);
 }
