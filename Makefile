@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2018/01/20 06:18:15 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/01/27 01:24:38 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRC_1 = filler/filler.c filler/parser.c filler/helper.c filler/main.c \
 		filler/fork/fork_arms.c filler/fork/behaviours/back_behaviour.c \
 		filler/fork/behaviours/right_behaviour.c \
 		filler/fork/behaviours/left_behaviour.c \
-		filler/choke/choke_champ.c filler/choke/choke_default.c
+		filler/choke/choke_champ.c filler/choke/choke_default.c \
+		filler/woo/woo_champ.c filler/woo/woo_grade.c
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \
 	-I./inc \

@@ -6,13 +6,13 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 06:10:08 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/20 06:41:47 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/01/27 00:42:44 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "choke_champ.h"
 
-void				set_arm(t_arm *arm, int x, int y)
+static void			set_arm(t_arm *arm, int x, int y)
 {
 	arm->dir.x = 0;
 	arm->dir.y = 0;
