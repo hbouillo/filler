@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/27 01:24:46 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/27 02:03:59 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/01/27 06:34:45 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static int		grade_pos(char *grademap, t_map *map, t_player *player, t_pos pos)
 	return (grade);
 }
 
+//TODO: Get rid of all those damn loops. 1 loop, gets X positions, then only works on nearby positions per loop. Huge perfs gains...
 int				woo_grade_map(t_map *map, char *grademap, t_player *player)
 {
 	int			done;

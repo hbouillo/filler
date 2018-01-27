@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 02:01:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/20 06:27:22 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/01/27 06:23:25 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static t_pos		*nextpos(t_sol *sol, t_map *map, t_player *player,
 	t_pos			*pos;
 	pos = most_annoying_pos(sol, map, player, piece);
 	if (!pos)
-		pos = default_pos(sol, map, player, piece);
+		pos = default_pos(sol, map, player);
 	return (pos);
 }
 
