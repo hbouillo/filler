@@ -1,0 +1,65 @@
+=================================================================
+==84852==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x0001070b0320 at pc 0x000100c75e8e bp 0x7fff5ef9dcd0 sp 0x7fff5ef9dcc8
+WRITE of size 4 at 0x0001070b0320 thread T0
+    #0 0x100c75e8d in add_positions (hbouillo.filler:x86_64+0x100014e8d)
+    #1 0x100c72dfa in extend (hbouillo.filler:x86_64+0x100011dfa)
+    #2 0x100c7184f in woo_grade_map (hbouillo.filler:x86_64+0x10001084f)
+    #3 0x100c71524 in evaluate_pos (hbouillo.filler:x86_64+0x100010524)
+    #4 0x100c70a53 in most_annoying_pos (hbouillo.filler:x86_64+0x10000fa53)
+    #5 0x100c709ac in nextpos (hbouillo.filler:x86_64+0x10000f9ac)
+    #6 0x100c70965 in woo_nextpos (hbouillo.filler:x86_64+0x10000f965)
+    #7 0x100c62dc4 in reply_filler (hbouillo.filler:x86_64+0x100001dc4)
+    #8 0x100c62bd5 in loop_filler (hbouillo.filler:x86_64+0x100001bd5)
+    #9 0x100c628f1 in init_filler (hbouillo.filler:x86_64+0x1000018f1)
+    #10 0x100c65723 in main (hbouillo.filler:x86_64+0x100004723)
+    #11 0x7fffe73da234 in start (libdyld.dylib:x86_64+0x5234)
+
+0x0001070b0320 is located 0 bytes to the right of 768800-byte region [0x000106ff4800,0x0001070b0320)
+allocated by thread T0 here:
+    #0 0x100d07ffc in wrap_malloc (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x55ffc)
+    #1 0x100c76a84 in ft_memalloc (hbouillo.filler:x86_64+0x100015a84)
+    #2 0x100c72bf1 in extend (hbouillo.filler:x86_64+0x100011bf1)
+    #3 0x100c7184f in woo_grade_map (hbouillo.filler:x86_64+0x10001084f)
+    #4 0x100c71524 in evaluate_pos (hbouillo.filler:x86_64+0x100010524)
+    #5 0x100c70a53 in most_annoying_pos (hbouillo.filler:x86_64+0x10000fa53)
+    #6 0x100c709ac in nextpos (hbouillo.filler:x86_64+0x10000f9ac)
+    #7 0x100c70965 in woo_nextpos (hbouillo.filler:x86_64+0x10000f965)
+    #8 0x100c62dc4 in reply_filler (hbouillo.filler:x86_64+0x100001dc4)
+    #9 0x100c62bd5 in loop_filler (hbouillo.filler:x86_64+0x100001bd5)
+    #10 0x100c628f1 in init_filler (hbouillo.filler:x86_64+0x1000018f1)
+    #11 0x100c65723 in main (hbouillo.filler:x86_64+0x100004723)
+    #12 0x7fffe73da234 in start (libdyld.dylib:x86_64+0x5234)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow (hbouillo.filler:x86_64+0x100014e8d) in add_positions
+Shadow bytes around the buggy address:
+  0x100020e16010: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100020e16020: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100020e16030: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100020e16040: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100020e16050: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x100020e16060: 00 00 00 00[fa]fa fa fa fa fa fa fa fa fa fa fa
+  0x100020e16070: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x100020e16080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x100020e16090: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x100020e160a0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x100020e160b0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==84852==ABORTING

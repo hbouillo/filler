@@ -6,13 +6,14 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 23:28:32 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/20 02:26:22 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/08 06:55:47 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./logic.h"
+#include <unistd.h>
 
-int			run_logic(t_show *show)
+int					run_logic(t_show *show)
 {
 	read_input(show);
 	return (0);

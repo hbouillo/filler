@@ -6,54 +6,31 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 02:25:24 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/20 02:49:29 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/08 06:58:21 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./logic.h"
 
-static int	parse_player_name(t_show *show, char *line)
+int				read_input(t_show *show)
 {
-	char	*name;
-	char	*name_tmp;
-
-	if (ft_strlen(line) > 10)
-	{
-		if ((name_tmp = ft_strrchr(line, '/')))
-		{
-			name = ft_strdup(name_tmp);
-			name_tmp = name;
-			while (*name_tmp && *name_tmp != '.')
-				name_tmp++;
-			*name_tmp = 0;
-			if (ft_strlen(name))
-			{
-				if (line[10] == '1')
-					show->reader.p1 = name;
-				else
-					show->reader.p2 = name;
-				return (0);
-			}
-		}
-	}
-	name = ft_strdup("Unknown");
-	return (1);
-}
-
-int			read_input(t_show *show)
-{
-	char	*line;
-	int		ret;
-	static int i = 0;
+	static char	*previous_line;
+	char		*line;
+	int			ret;
 
 	line = NULL;
 	if ((ret = ft_gnl(0, &line)) > 0)
 	{
-		if (i++ < 50)
-			ft_printf("Player 1 is '%s' and Player 2 is '%s' || %s\n", show->reader.p1, show->reader.p1, line);
-		if (ft_strnequ(line, "$$$ exec p", 10))
-			parse_player_name(show, line);
+		if (previous_line)
+		{
+			line = ft_strfjoin(previous_line, line);
+			previous_line = NULL;
+		}
+		ft_printf("%s\n", line);
+		parse_line(show, line);
 	}
+	else if (ret < 0 && ft_strlen(line))
+		previous_line = ft_strdup(line);
 	if (line)
 		free(line);
 	return (0);

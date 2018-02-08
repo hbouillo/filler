@@ -55,6 +55,23 @@ define end_msg_ndone
 	@echo $(NDONE_1)$(1)$(NDONE_2)
 endef
 
+define lib_configure_make_install
+	@echo "$(STL_BOLD)$(RGB_BLUE)⧖  Creating $(RGB_CYAN)$(1)\
+	$(RGB_BLUE)... ⧖ $(RGB_RESET)"
+	@$(MAKE) -C $(1) 1>/dev/null 2>/dev/null
+	@$(MAKE) -C $(1) install DESTDIR=$(shell pwd)/$(1)/lib 1>/dev/null 2>/dev/null
+	@echo "$(STL_BOLD)$(RGB_BLUE)✓  Compiled $(RGB_CYAN)$(1)\
+	$(RGB_BLUE) successfully. ✓$(RGB_RESET)"
+endef
+
+define lib_configure_clean
+	@echo "$(STL_BOLD)$(RGB_BLUE)⧖  Cleaning $(RGB_CYAN)$(1)\
+	$(RGB_BLUE)... ⧖$(RGB_RESET)"
+	@$(MAKE) -C $(1) 1>/dev/null 2>/dev/null clean
+	@echo "$(STL_BOLD)$(RGB_BLUE)✓  Cleaned $(RGB_CYAN)$(1)\
+	$(RGB_BLUE) objs successfully. ✓$(RGB_RESET)"
+endef
+
 define compile
 	@echo "\tCompiling $(STL_BOLD)$(RGB_LBLUE)$@$(RGB_RESET)..."
 	@mkdir -p $(@D)
@@ -75,6 +92,22 @@ define link_lib
 	@$(eval END_MSG = end_msg_sdone)
 endef
 
+define link_dylib
+	@mkdir -p lib
+	@echo "\tCompiling $(STL_BOLD)$(RGB_LRED)$@$(RGB_RESET)..."
+	@$(CC) -dynamiclib -install_name "@executable_path/lib/$(notdir $@)" -o $@ $^ $(LFLAGS)
+	@$(eval END_MSG = end_msg_sdone)
+endef
+
+define dylib_install
+	@install_name_tool -id "@executable_path/lib/$(notdir $(1))" $(1)
+	@cp $(1) ./lib
+endef
+
+define dylib_include_install
+	@cp -R $(1)/* ./lib/inc/
+endef
+
 define clean
 	@echo "$(STL_BOLD)$(RGB_BLUE)⧖  Cleaning $(RGB_CYAN)$(1)\
 	$(RGB_BLUE) objs... ⧖$(RGB_RESET)"
@@ -89,6 +122,16 @@ define fclean
 	$(RGB_BLUE)... ⧖$(RGB_RESET)"
 	@echo "\tCleaning $(STL_BOLD)$(RGB_LRED)$(1)$(RGB_RESET)..."
 	@/bin/rm -f $(1)
+	@echo "$(STL_BOLD)$(RGB_BLUE)✓  Cleaned $(RGB_CYAN)$(1)\
+	$(RGB_BLUE) successfully. ✓$(RGB_RESET)"
+endef
+
+define lib_fclean
+	$(call clean,$(1),$(2))
+	@echo "$(STL_BOLD)$(RGB_BLUE)⧖  Cleaning $(RGB_CYAN)$(1)\
+	$(RGB_BLUE)... ⧖$(RGB_RESET)"
+	@echo "\tCleaning $(STL_BOLD)$(RGB_LRED)$(1)$(RGB_RESET)..."
+	@/bin/rm -rf lib
 	@echo "$(STL_BOLD)$(RGB_BLUE)✓  Cleaned $(RGB_CYAN)$(1)\
 	$(RGB_BLUE) successfully. ✓$(RGB_RESET)"
 endef

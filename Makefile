@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2018/01/27 01:24:38 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/02/08 06:56:15 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ CC = clang
 
 # TARGET 1
 TARGET_1 = hbouillo.filler
-DEP_1 = libft/libft.a
 SRC_1 = filler/filler.c filler/parser.c filler/helper.c filler/main.c \
 		filler/analyse.c filler/strategy_helper.c filler/dumb/dumb1_champ.c \
 		filler/dumb/dumb2_champ.c filler/fork/fork_champ.c \
@@ -29,23 +28,22 @@ SRC_1 = filler/filler.c filler/parser.c filler/helper.c filler/main.c \
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \
 	-I./inc \
-	-I./libft/inc
+	-I./lib/inc
 LFLAGS_1 = $(DEBUG_FLAGS) \
-	-L./libft -lft
+	-L./lib -lft
 
 # TARGET 2
 TARGET_2 = show-filler
-DEP_2 = libft/libft.a
 SRC_2 = show-filler/main.c show-filler/event/event.c show-filler/logic/logic.c \
-	show-filler/logic/read.c
+	show-filler/logic/read.c show-filler/event/frame_event.c \
+	show-filler/logic/parse.c
 OBJ_2 = $(addprefix obj/src/,$(SRC_2:.c=.o))
 CFLAGS_2 = $(DEBUG_FLAGS) \
 	-I./inc \
-	-I./libft/inc \
-	-I/Users/hbouillo/.brew/include
+	-I./lib/inc
 LFLAGS_2 = $(DEBUG_FLAGS) \
-	-L./libft -lft \
-	-L/Users/hbouillo/.brew/lib -lSDL2
+	-framework OpenGL -framework GLUT \
+	-L./lib -lhgui -lft -lSDL2 -lfreetype
 
 all: build.$(TARGET_1) build.$(TARGET_2)
 	@echo > /dev/null
@@ -53,7 +51,15 @@ all: build.$(TARGET_1) build.$(TARGET_2)
 build.$(TARGET_1): prebuild.$(TARGET_1) $(TARGET_1) postbuild.$(TARGET_1)
 
 prebuild.$(TARGET_1):
-	@$(MAKE) -C libft
+	@mkdir -p lib
+	@mkdir -p lib/inc
+	@$(MAKE) -C hgui
+	$(call dylib_install,./hgui/lib/libft.dylib)
+	$(call dylib_install,./hgui/lib/libSDL2.dylib)
+	$(call dylib_install,./hgui/lib/libhgui.dylib)
+	$(call dylib_install,./hgui/lib/libfreetype.dylib)
+	$(call dylib_include_install,./hgui/lib/inc)
+	$(call dylib_include_install,./hgui/inc)
 	$(eval CFLAGS = $(CFLAGS_1))
 	$(eval LFLAGS = $(LFLAGS_1))
 	$(call bgn_msg,$(TARGET_1))
@@ -70,7 +76,15 @@ $(OBJ_1): ./obj/%.o: %.c
 build.$(TARGET_2): prebuild.$(TARGET_2) $(TARGET_2) postbuild.$(TARGET_2)
 
 prebuild.$(TARGET_2):
-	@$(MAKE) -C libft
+	@mkdir -p lib
+	@mkdir -p lib/inc
+	@$(MAKE) -C hgui
+	$(call dylib_install,./hgui/lib/libft.dylib)
+	$(call dylib_install,./hgui/lib/libSDL2.dylib)
+	$(call dylib_install,./hgui/lib/libhgui.dylib)
+	$(call dylib_install,./hgui/lib/libfreetype.dylib)
+	$(call dylib_include_install,./hgui/lib/inc)
+	$(call dylib_include_install,./hgui/inc)
 	$(eval CFLAGS = $(CFLAGS_2))
 	$(eval LFLAGS = $(LFLAGS_2))
 	$(call bgn_msg,$(TARGET_2))
@@ -85,12 +99,12 @@ $(OBJ_2): ./obj/%.o: %.c
 	$(call compile)
 
 clean:
-	@$(MAKE) -C libft clean
+	@$(MAKE) -C hgui clean
 	$(call clean,$(TARGET_1),$(OBJ_1))
 	$(call clean,$(TARGET_2),$(OBJ_2))
 
 fclean:
-	@$(MAKE) -C libft fclean
+	@$(MAKE) -C hgui fclean
 	$(call fclean,$(TARGET_1),$(OBJ_1))
 	$(call fclean,$(TARGET_2),$(OBJ_2))
 

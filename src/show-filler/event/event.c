@@ -6,11 +6,33 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 23:28:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/19 23:38:38 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/08 01:02:58 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./event.h"
+
+unsigned int	get_user_event(void)
+{
+	static unsigned int	user_event = 0xFFFFFFFF;
+
+	if (user_event == 0xFFFFFFFF)
+		user_event = SDL_RegisterEvents(1);
+	if (user_event == 0xFFFFFFFF)
+		error(ERR_SDL, ERR_CRITICAL);
+	return (user_event);
+}
+
+void			push_user_event(int code, void *data1, void *data2)
+{
+	SDL_Event	e;
+
+	e.type = get_user_event();
+	e.user.type = code;
+	e.user.data1 = data1;
+	e.user.data2 = data2;
+	SDL_PushEvent(&e);
+}
 
 int				run_event(t_show *show)
 {
@@ -21,6 +43,12 @@ int				run_event(t_show *show)
 		if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN &&
 				event.key.keysym.sym == SDLK_ESCAPE))
 			show->run = 0;
+		if (event.type == get_user_event())
+		{
+			if (event.user.type == FILLER_EVENT_FRAME)
+				handle_new_frame_event(show, event.user);
+		}
+
 	}
 	return (0);
 }
