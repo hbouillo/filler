@@ -6,18 +6,19 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 04:25:24 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/06 00:55:31 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/09 03:06:46 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HGUI_H
 # define HGUI_H
 
-#include "libft.h"
-#include "ft2build.h"
-#include FT_FREETYPE_H
-#include <OpenGL/gl3.h>
-#include <SDL2/SDL.h>
+# include "libft.h"
+# include "ft2build.h"
+# include FT_FREETYPE_H
+# include <OpenGL/gl3.h>
+# include <SDL2/SDL.h>
+# include "hgui_commands.h"
 
 typedef struct			s_color
 {

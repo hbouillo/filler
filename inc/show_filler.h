@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:47:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/08 05:06:58 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/09 04:47:36 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@
 # define ERR_CRITICAL "Error", 1
 # define ERR_WARNING "Warning", 0
 
+# define FILLER_EVENT_ERROR -1
 # define FILLER_EVENT_FRAME 0
-# define FILLER_EVENT_ERROR 1
+# define FILLER_EVENT_PLAYERS 1
+# define FILLER_EVENT_RESULT 2
 
 typedef struct		s_map
 {
@@ -41,6 +43,7 @@ typedef struct		s_map
 
 typedef struct		s_result
 {
+	int				set;
 	int				score_1;
 	int				score_2;
 }					t_result;
@@ -55,42 +58,38 @@ typedef struct		s_frame
 
 typedef struct		s_reader
 {
-	t_result		*result;
+	t_result		result;
 	t_map			*map;
-	t_frame			*frame;
 	char			*p1;
 	char			*p2;
 }					t_reader;
-
-# define FILLER_SCENES_AMOUNT 1
-
-# define FILLER_SCENE_START 0
-
-typedef struct		s_scenes
-{
-	void			*active;
-	void			*scenes[FILLER_SCENES_AMOUNT];
-}					t_scenes;
 
 typedef struct		s_show
 {
 	SDL_Window		*window;
 	SDL_GLContext	context;
 	SDL_Rect		max_size;
-	t_reader		reader;
-	t_scenes		scenes;
+	char			*players[2];
+	t_frame			*frames;
+	t_result		result;
 	int				run;
 }					t_show;
 
 void				error(int errcode, char const *const errmsg, char *errtype,
 						int errexit);
 
+void				init_gui(t_show *show);
+
 int					run_logic(t_show *show);
 int					run_event(t_show *show);
+void				run_gui(t_show *show);
+void				run_gui_event(SDL_Event e);
 
 unsigned int		get_user_event(void);
 void				push_user_event(int code, void *data1, void *data2);
 
 void				handle_new_frame_event(t_show *show, SDL_UserEvent user_event);
+void				handle_players_event(t_show *show, SDL_UserEvent user_event);
+void				handle_result_event(t_show *show, SDL_UserEvent user_event);
 
 #endif

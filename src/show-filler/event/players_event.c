@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   logic.c                                            :+:      :+:    :+:   */
+/*   players_event.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/19 23:28:32 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/08 23:36:38 by hbouillo         ###   ########.fr       */
+/*   Created: 2018/02/09 00:37:26 by hbouillo          #+#    #+#             */
+/*   Updated: 2018/02/09 01:30:23 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./logic.h"
-#include <unistd.h>
+#include "show_filler.h"
 
-int					run_logic(t_show *show)
+void			handle_players_event(t_show *show, SDL_UserEvent user_event)
 {
-	read_input(show);
-	return (0);
+	if (!show->players[0] && user_event.data1)
+		show->players[0] = user_event.data1;
+	if (!show->players[1] && user_event.data2)
+		show->players[1] = user_event.data2;
 }

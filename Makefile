@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2018/02/08 06:56:15 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/02/09 04:45:34 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,9 @@ LFLAGS_1 = $(DEBUG_FLAGS) \
 TARGET_2 = show-filler
 SRC_2 = show-filler/main.c show-filler/event/event.c show-filler/logic/logic.c \
 	show-filler/logic/read.c show-filler/event/frame_event.c \
-	show-filler/logic/parse.c
+	show-filler/event/players_event.c show-filler/event/result_event.c \
+	show-filler/logic/parse.c show-filler/gui/gui.c \
+	show-filler/gui/scene/main_scene.c
 OBJ_2 = $(addprefix obj/src/,$(SRC_2:.c=.o))
 CFLAGS_2 = $(DEBUG_FLAGS) \
 	-I./inc \

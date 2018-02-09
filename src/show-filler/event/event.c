@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 23:28:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/08 01:02:58 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/09 03:26:57 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			push_user_event(int code, void *data1, void *data2)
 	SDL_Event	e;
 
 	e.type = get_user_event();
-	e.user.type = code;
+	e.user.code = code;
 	e.user.data1 = data1;
 	e.user.data2 = data2;
 	SDL_PushEvent(&e);
@@ -45,10 +45,14 @@ int				run_event(t_show *show)
 			show->run = 0;
 		if (event.type == get_user_event())
 		{
-			if (event.user.type == FILLER_EVENT_FRAME)
+			if (event.user.code == FILLER_EVENT_FRAME)
 				handle_new_frame_event(show, event.user);
+			else if (event.user.code == FILLER_EVENT_PLAYERS)
+				handle_players_event(show, event.user);
+			else if (event.user.code == FILLER_EVENT_RESULT)
+				handle_result_event(show, event.user);
 		}
-
+		run_gui_event(event);
 	}
 	return (0);
 }
