@@ -6,18 +6,20 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 04:25:24 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/09 03:06:46 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/13 05:28:30 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HGUI_H
 # define HGUI_H
 
+# include <OpenGL/gl3.h>
+# include <SDL2/SDL.h>
+# include <mach-o/dyld.h>
+
 # include "libft.h"
 # include "ft2build.h"
 # include FT_FREETYPE_H
-# include <OpenGL/gl3.h>
-# include <SDL2/SDL.h>
 # include "hgui_commands.h"
 
 typedef struct			s_color
@@ -48,12 +50,24 @@ typedef struct			s_rect
 	float				h;
 }						t_rect;
 
-typedef struct			s_font
+typedef struct			s_glyph
 {
-	FT_Face				fontface;
-	int					size;
+	char				*buffer;
+	unsigned int		rows;
+	unsigned int		width;
+	long				horiBearingX;
+	long				horiBearingY;
+	long				height;
+	long				advance_x;
+	long				advance_y;
+}						t_glyph;
+
+typedef struct			s_gstr
+{
+	t_glyph				*glyphs;
+	t_size				size;
 	t_color				color;
-}						t_font;
+}						t_gstr;
 
 # define STATE_COMPONENT_PRESSED 0x01
 # define STATE_COMPONENT_HOVERED 0x02
@@ -93,6 +107,8 @@ void					*hgui_new_scene(SDL_Window *window);
 */
 void					hgui_destroy_scene(void *scene);
 
+char					*get_resource_path(char const *resource);
+
 # define HGUI_MODE_ACTIVE 0
 # define HGUI_MODE_PASSIVE 1
 
@@ -125,8 +141,8 @@ int						hgui_create_component(void *scene, void *cmanager,
 
 typedef struct			s_button
 {
-	t_font				font;
-	char				*label;
+	t_gstr				gstr;
+	t_color				font_color;
 	void				(*button_action)(void *scene, t_component_data *data);
 	t_color				icolor;
 	t_color				ocolor;
@@ -140,8 +156,8 @@ int						hgui_create_button(void *scene, t_rect bounds, t_button button);
 
 typedef struct			s_label
 {
-	t_font				font;
-	char				*label;
+	t_gstr				gstr;
+	t_color				color;
 }						t_label;
 
 int						hgui_create_label(void *scene, t_rect bounds, t_label label);
@@ -176,9 +192,8 @@ void					hgui_uniform_rect(GLuint uniform, t_rect bounds);
 
 GLuint					get_shader_prog(char const *fs_file, char const *vs_file);
 
-t_font					hgui_create_font(void *scene, char const *file, int size, t_color color);
-t_size					hgui_str_font_size(void *scene, t_font font, char const *str);
+t_gstr					hgui_create_glyph_string(void *scene, char const *file, int size, char const *str);
 
-void					hgui_draw_string(void *scene, char const *str, t_font font, t_pos pos);
+void					hgui_draw_gstr(void *scene, t_gstr gstr, t_color color, t_pos pos);
 
 #endif

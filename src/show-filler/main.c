@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:46:35 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/09 05:12:11 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/13 04:42:23 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,21 @@ static int			init_show(t_show *show)
 
 static void			run(t_show *show)
 {
+	t_time			before_time;
+	t_time			after_time;
+	unsigned long	delta;
+
 	while (show->run)
 	{
 		run_event(show);
 		run_logic(show);
+		clock_gettime(CLOCK_MONOTONIC_RAW, &before_time);
 		run_gui(show);
+		clock_gettime(CLOCK_MONOTONIC_RAW, &after_time);
+		delta = (after_time.tv_sec - before_time.tv_sec) * 1000000000 +
+				after_time.tv_nsec - before_time.tv_nsec;
+		// if (delta / 1000 > 100)
+		// 	printf("Gui rendering time is %f ms\n", ((float)(delta / 1000)) / 1000);
 	}
 }
 
@@ -59,6 +69,7 @@ int					main(void)
 	fcntl(0, F_SETFL, fcntl(0, F_GETFL) | O_NONBLOCK);
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		error(ERR_SDL, ERR_CRITICAL);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 	if (init_show(&show))
 		error(ERR_SDL, ERR_CRITICAL);
