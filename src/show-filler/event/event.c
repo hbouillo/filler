@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 23:28:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/13 03:29:51 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/14 04:08:36 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void			push_user_event(int code, void *data1, void *data2)
 int				run_event(t_show *show)
 {
 	SDL_Event		event;
+	int				index;
 
 	while (SDL_PollEvent(&event))
 	{
@@ -52,7 +53,15 @@ int				run_event(t_show *show)
 			else if (event.user.code == FILLER_EVENT_RESULT)
 				handle_result_event(show, event.user);
 		}
-		run_gui_event(event);
-	}
+		index = -1;
+		while (++index < FILLER_SCENES_AMOUNT)
+		{
+			if (show->gui.scenes + index == show->gui.active_scene)
+				hgui_event(show->gui.scenes[index].ptr, event,
+					HGUI_MODE_ACTIVE);
+			else
+				hgui_event(show->gui.scenes[index].ptr, event,
+					HGUI_MODE_PASSIVE);
+		}	}
 	return (0);
 }

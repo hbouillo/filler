@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:47:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/13 05:15:20 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/14 05:22:24 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <time.h>
 
 # include "libft.h"
+# include "hgui.h"
 
 # define FRAME_PER_SECOND 60
 # define TICKS_PER_SECOND 60
@@ -36,6 +37,10 @@
 # define FILLER_EVENT_FRAME 0
 # define FILLER_EVENT_PLAYERS 1
 # define FILLER_EVENT_RESULT 2
+
+# define FILLER_COLOR_BACKGROUND 0.9, 0.9, 0.9, 1.0
+
+# define FILLER_COLOR_TEXT 0.3, 0.3, 0.3, 1.0
 
 typedef struct	timespec	t_time;
 
@@ -70,11 +75,38 @@ typedef struct		s_reader
 	char			*p2;
 }					t_reader;
 
+# define FILLER_SCENES_AMOUNT 1
+
+# define FILLER_SCENE_MAIN 0
+
+typedef struct		s_main_scene
+{
+	void			*ptr;
+	int				p1_label;
+	int				p2_label;
+	int				vs_label;
+	int				top_button;
+	int				mid_button;
+}					t_main_scene;
+
+typedef union		u_scene
+{
+	void			*ptr;
+	t_main_scene	main;
+}					t_scene;
+
+typedef struct		s_gui
+{
+	t_scene			*active_scene;
+	t_scene			scenes[FILLER_SCENES_AMOUNT];
+}					t_gui;
+
 typedef struct		s_show
 {
 	SDL_Window		*window;
 	SDL_GLContext	context;
 	SDL_Rect		max_size;
+	t_gui			gui;
 	char			*players[2];
 	t_frame			*frames;
 	t_result		result;
@@ -89,7 +121,6 @@ void				init_gui(t_show *show);
 int					run_logic(t_show *show);
 int					run_event(t_show *show);
 void				run_gui(t_show *show);
-void				run_gui_event(SDL_Event e);
 
 unsigned int		get_user_event(void);
 void				push_user_event(int code, void *data1, void *data2);
@@ -97,5 +128,7 @@ void				push_user_event(int code, void *data1, void *data2);
 void				handle_new_frame_event(t_show *show, SDL_UserEvent user_event);
 void				handle_players_event(t_show *show, SDL_UserEvent user_event);
 void				handle_result_event(t_show *show, SDL_UserEvent user_event);
+
+void				init_main_scene(t_show *show, t_main_scene *main);
 
 #endif

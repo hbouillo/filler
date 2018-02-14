@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 12:22:15 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/12 23:15:10 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/14 01:50:11 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,21 +157,6 @@ void				ft_ssitoabase_buf(ssize_t nbr, const char *base,
 						char *buf);
 void				ft_sitoabase_buf(size_t nbr, const char *base, char *buf);
 
-typedef struct		s_list
-{
-	void			*content;
-	size_t			content_size;
-	struct s_list	*next;
-}					t_list;
-
-t_list				*ft_lstnew(const void *content, size_t content_size);
-void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstadd(t_list **alst, t_list *new);
-
-void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
-t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-
 int					ft_gnl(const int fd, char **line);
 
 int					ft_chartablen(char **tab);
@@ -211,5 +196,22 @@ int					parse_args(int argc, char **argv);
 t_args				**get_args();
 void				destroy_args();
 t_arg				*get_arg(int idx);
+
+/*
+** Simple linked lists (llist)
+*/
+
+typedef struct		s_llist
+{
+	void			*data;
+	struct s_llist	*next;
+}					t_llist;
+
+t_llist				*ft_llist_new(void *data);
+void				ft_llist_rem(t_llist **head, t_llist *elem,
+						void (*del_data)(void *));
+void				ft_llist_del(t_llist **head, void (*del_data)(void *));
+void				ft_llist_front(t_llist **head, t_llist *new);
+void				ft_llist_back(t_llist **head, t_llist *new);
 
 #endif
