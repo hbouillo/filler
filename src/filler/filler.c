@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 14:14:37 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/27 00:55:44 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/15 20:16:56 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static int		reply_filler(t_player *player, t_map *map, t_piece *piece)
 {
 	t_pos		*pos;
 
-	pos = woo_nextpos(player, map, piece);
+	if (map->size.x * map->size.y < 1000)
+		pos = woo_nextpos(player, map, piece);
+	else
+		pos = choke_nextpos(player, map, piece);
 	ft_printf("%d %d\n", pos->y, pos->x);
 	free(pos);
 	return (0);
