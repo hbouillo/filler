@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 23:28:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/14 04:08:36 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/17 18:07:18 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ int				run_event(t_show *show)
 		while (++index < FILLER_SCENES_AMOUNT)
 		{
 			if (show->gui.scenes + index == show->gui.active_scene)
-				hgui_event(show->gui.scenes[index].ptr, event,
-					HGUI_MODE_ACTIVE);
+				sg_event(show->gui.scenes[index].ptr, event,
+					SG_MODE_ACTIVE);
 			else
-				hgui_event(show->gui.scenes[index].ptr, event,
-					HGUI_MODE_PASSIVE);
+				sg_event(show->gui.scenes[index].ptr, event,
+					SG_MODE_PASSIVE);
 		}	}
 	return (0);
 }

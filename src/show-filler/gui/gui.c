@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 02:21:03 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/14 05:03:36 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/17 16:57:03 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void				run_gui(t_show *show)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		if (show->gui.active_scene != NULL)
-			hgui_draw(show->gui.active_scene->ptr);
+			sg_draw(show->gui.active_scene->ptr);
 		delta -= 1000000000 / FRAME_PER_SECOND;
 		last_time = current_time;
 		SDL_GL_SwapWindow(show->window);

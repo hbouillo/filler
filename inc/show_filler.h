@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:47:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/17 04:34:13 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/17 16:56:59 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <time.h>
 
 # include "libft.h"
-# include "hgui.h"
+# include "sg.h"
 
 # define FRAME_PER_SECOND 60
 # define TICKS_PER_SECOND 60

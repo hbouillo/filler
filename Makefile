@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2018/02/17 04:39:24 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/02/17 16:58:24 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ CFLAGS_2 = $(DEBUG_FLAGS) \
 	-I./lib/inc
 LFLAGS_2 = $(DEBUG_FLAGS) \
 	-framework OpenGL -framework GLUT \
-	-L./lib -lhgui -lft -lSDL2 -lfreetype
+	-L./lib -lsimplegui -lft -lSDL2 -lfreetype
 
 all: $(TARGET_1) $(TARGET_2)
 	@echo > /dev/null
@@ -55,13 +55,13 @@ $(TARGET_1): prebuild.$(TARGET_1) build.$(TARGET_1) postbuild.$(TARGET_1)
 prebuild.$(TARGET_1):
 	@mkdir -p lib
 	@mkdir -p lib/inc
-	@$(MAKE) -C hgui
-	$(call dylib_install,./hgui/lib/libft.dylib)
-	$(call dylib_install,./hgui/lib/libSDL2.dylib)
-	$(call dylib_install,./hgui/lib/libhgui.dylib)
-	$(call dylib_install,./hgui/lib/libfreetype.dylib)
-	$(call dylib_include_install,./hgui/lib/inc)
-	$(call dylib_include_install,./hgui/inc)
+	@$(MAKE) -C simple-gui
+	$(call dylib_install,./simple-gui/lib/libft.dylib)
+	$(call dylib_install,./simple-gui/lib/libSDL2.dylib)
+	$(call dylib_install,./simple-gui/lib/libsimplegui.dylib)
+	$(call dylib_install,./simple-gui/lib/libfreetype.dylib)
+	$(call dylib_include_install,./simple-gui/lib/inc)
+	$(call dylib_include_install,./simple-gui/inc)
 	$(eval CFLAGS = $(CFLAGS_1))
 	$(eval LFLAGS = $(LFLAGS_1))
 	$(call bgn_msg,$(TARGET_1))
@@ -80,13 +80,13 @@ $(TARGET_2): prebuild.$(TARGET_2) build.$(TARGET_2) postbuild.$(TARGET_2)
 prebuild.$(TARGET_2):
 	@mkdir -p lib
 	@mkdir -p lib/inc
-	@$(MAKE) -C hgui
-	$(call dylib_install,./hgui/lib/libft.dylib)
-	$(call dylib_install,./hgui/lib/libSDL2.dylib)
-	$(call dylib_install,./hgui/lib/libhgui.dylib)
-	$(call dylib_install,./hgui/lib/libfreetype.dylib)
-	$(call dylib_include_install,./hgui/lib/inc)
-	$(call dylib_include_install,./hgui/inc)
+	@$(MAKE) -C simple-gui
+	$(call dylib_install,./simple-gui/lib/libft.dylib)
+	$(call dylib_install,./simple-gui/lib/libSDL2.dylib)
+	$(call dylib_install,./simple-gui/lib/libsimplegui.dylib)
+	$(call dylib_install,./simple-gui/lib/libfreetype.dylib)
+	$(call dylib_include_install,./simple-gui/lib/inc)
+	$(call dylib_include_install,./simple-gui/inc)
 	$(eval CFLAGS = $(CFLAGS_2))
 	$(eval LFLAGS = $(LFLAGS_2))
 	$(call bgn_msg,$(TARGET_2))
@@ -101,12 +101,12 @@ $(OBJ_2): ./obj/%.o: %.c
 	$(call compile)
 
 clean:
-	@$(MAKE) -C hgui clean
+	@$(MAKE) -C simple-gui clean
 	$(call clean,$(TARGET_1),$(OBJ_1))
 	$(call clean,$(TARGET_2),$(OBJ_2))
 
 fclean:
-	@$(MAKE) -C hgui fclean
+	@$(MAKE) -C simple-gui clean
 	$(call fclean,$(TARGET_1),$(OBJ_1))
 	$(call fclean,$(TARGET_2),$(OBJ_2))
 
