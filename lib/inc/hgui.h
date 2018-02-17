@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 04:25:24 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/16 20:18:17 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/17 05:39:40 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include "libft.h"
 # include "ft2build.h"
 # include FT_FREETYPE_H
-# include "hgui_commands.h"
 
 typedef struct			s_color
 {
@@ -101,53 +100,24 @@ void					hgui_draw(void *scene);
 void					hgui_event(void *scene, SDL_Event e, int mode);
 
 /*
-** Returns a pointer to a new to-be-instanced component manager
-*/
-void					*hgui_init_component_manager(void *data,
-							void (*draw)(void *scene, t_component_data *data,
-								t_rect boundsf),
-							void (*event)(void *scene, t_component_data *data,
-								SDL_Event e));
-
-/*
 ** Creates a component using a float based rectangle (OpenGL coordinate system)
 ** (OpenGL Viewport is defined on [-1.0;1.0] on both axis)
 */
-int						hgui_create_component(void *scene, void *cmanager,
-							t_rect bounds, GLuint shader_prog);
+void					*hgui_create_component(void *scene, GLuint shader_prog);
 
 /*
 ** The following section contains basic components functions.
 */
 
-typedef struct			s_button
-{
-	void				*gstr;
-	t_color				font_color;
-	void				(*button_action)(void *scene, t_component_data *data);
-	t_color				icolor;
-	t_color				ocolor;
-	t_color				hcolor;
-	t_color				pcolor;
-	int					radius;
-	int					edge;
-}						t_button;
+void					*hgui_create_button(void *scene);
 
-int						hgui_create_button(void *scene, t_rect bounds, t_button button);
+void					*hgui_create_label(void *scene);
 
-typedef struct			s_label
-{
-	void				*gstr;
-	t_color				color;
-}						t_label;
-
-int						hgui_create_label(void *scene, t_rect bounds, t_label label);
-
-void					hgui_hide_component(void *scene, int index);
-void					hgui_show_component(void *scene, int index);
-int						hgui_has_flags(void *scene, int index, int flags);
-void					hgui_set_flags(void *scene, int index, int flags);
-void					hgui_unset_flags(void *scene, int index, int flags);
+void					hgui_hide_component(void *component);
+void					hgui_show_component(void *component);
+int						hgui_has_flags(void *component, int flags);
+void					hgui_set_flags(void *component, int flags);
+void					hgui_unset_flags(void *component, int flags);
 
 /*
 **	Utils
@@ -178,5 +148,7 @@ void					*hgui_new_gstr(char const *str,
 void					hgui_del_gstr(void *gstr_ptr);
 
 void					hgui_draw_gstr(void *gstr, t_color color, t_pos pos);
+
+# include "hgui_commands.h"
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 00:37:26 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/14 20:08:40 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/17 04:34:59 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void			update_gui_p1(t_show *show)
 	t_main_scene	*main;
 
 	main = &(show->gui.scenes[FILLER_SCENE_MAIN].main);
-	hgui_set_label_text(main->ptr, main->p1_label, hgui_new_gstr(
+	hgui_set_label_text(main->p1_label, hgui_new_gstr(
 		show->players[0],
 		get_resource_path("fonts/good_times_rg.ttf"),
 		25));
@@ -28,7 +28,7 @@ static void			update_gui_p2(t_show *show)
 	t_main_scene	*main;
 
 	main = &(show->gui.scenes[FILLER_SCENE_MAIN].main);
-	hgui_set_label_text(main->ptr, main->p2_label, hgui_new_gstr(
+	hgui_set_label_text(main->p2_label, hgui_new_gstr(
 		show->players[1],
 		get_resource_path("fonts/good_times_rg.ttf"),
 		25));

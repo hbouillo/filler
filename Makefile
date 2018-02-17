@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2018/02/16 20:32:52 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/02/17 04:39:24 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,10 +47,10 @@ LFLAGS_2 = $(DEBUG_FLAGS) \
 	-framework OpenGL -framework GLUT \
 	-L./lib -lhgui -lft -lSDL2 -lfreetype
 
-all: build.$(TARGET_1) build.$(TARGET_2)
+all: $(TARGET_1) $(TARGET_2)
 	@echo > /dev/null
 
-build.$(TARGET_1): prebuild.$(TARGET_1) $(TARGET_1) postbuild.$(TARGET_1)
+$(TARGET_1): prebuild.$(TARGET_1) build.$(TARGET_1) postbuild.$(TARGET_1)
 
 prebuild.$(TARGET_1):
 	@mkdir -p lib
@@ -69,13 +69,13 @@ prebuild.$(TARGET_1):
 postbuild.$(TARGET_1):
 	$(call $(END_MSG),$(TARGET_1))
 
-$(TARGET_1): $(OBJ_1) $(DEP_1)
-	$(call link)
+build.$(TARGET_1): $(OBJ_1) $(DEP_1)
+	$(call link,$(TARGET_1))
 
 $(OBJ_1): ./obj/%.o: %.c
 	$(call compile)
 
-build.$(TARGET_2): prebuild.$(TARGET_2) $(TARGET_2) postbuild.$(TARGET_2)
+$(TARGET_2): prebuild.$(TARGET_2) build.$(TARGET_2) postbuild.$(TARGET_2)
 
 prebuild.$(TARGET_2):
 	@mkdir -p lib
@@ -94,8 +94,8 @@ prebuild.$(TARGET_2):
 postbuild.$(TARGET_2):
 	$(call $(END_MSG),$(TARGET_2))
 
-$(TARGET_2): $(OBJ_2) $(DEP_2)
-	$(call link)
+build.$(TARGET_2): $(OBJ_2) $(DEP_2)
+	$(call link,$(TARGET_2))
 
 $(OBJ_2): ./obj/%.o: %.c
 	$(call compile)

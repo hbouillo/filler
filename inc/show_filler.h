@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:47:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/14 05:22:24 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/17 04:34:13 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ typedef struct		s_reader
 typedef struct		s_main_scene
 {
 	void			*ptr;
-	int				p1_label;
-	int				p2_label;
-	int				vs_label;
-	int				top_button;
-	int				mid_button;
+	void			*p1_label;
+	void			*p2_label;
+	void			*vs_label;
+	void			*top_button;
+	void			*mid_button;
 }					t_main_scene;
 
 typedef union		u_scene

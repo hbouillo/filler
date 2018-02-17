@@ -79,8 +79,8 @@ define compile
 endef
 
 define link
-	@echo "\tLinking $(STL_BOLD)$(RGB_LRED)$@$(RGB_RESET)..."
-	@$(CC) -o $@ $^ $(LFLAGS)
+	@echo "\tLinking $(STL_BOLD)$(RGB_LRED)$(1)$(RGB_RESET)..."
+	@$(CC) -o $(1) $^ $(LFLAGS)
 	@$(eval END_MSG = end_msg_sdone)
 endef
 
