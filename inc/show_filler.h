@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:47:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/17 16:56:59 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/18 19:07:06 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@
 # define FILLER_COLOR_BACKGROUND 0.9, 0.9, 0.9, 1.0
 
 # define FILLER_COLOR_TEXT 0.3, 0.3, 0.3, 1.0
+
+# define FILLER_FONT "fonts/TheLightFont.ttf"
+# define FILLER_TOP_FONT_SIZE 30
 
 typedef struct	timespec	t_time;
 
@@ -106,6 +109,8 @@ typedef struct		s_show
 	SDL_Window		*window;
 	SDL_GLContext	context;
 	SDL_Rect		max_size;
+	int				win_h;
+	int				win_w;
 	t_gui			gui;
 	char			*players[2];
 	t_frame			*frames;

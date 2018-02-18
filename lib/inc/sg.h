@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 04:25:24 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/17 16:51:04 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/18 19:13:23 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,17 @@ typedef struct			s_rect
 	float				h;
 }						t_rect;
 
-# define STATE_COMPONENT_PRESSED 0x01
-# define STATE_COMPONENT_HOVERED 0x02
+# define SG_PRESSED 0x01
+# define SG_HOVERED 0x02
 
-# define STATE_COMPONENT_LOCK_TOP 0x0100
-# define STATE_COMPONENT_LOCK_BOTTOM 0x0200
-# define STATE_COMPONENT_LOCK_LEFT 0x0400
-# define STATE_COMPONENT_LOCK_RIGHT 0x0800
+# define SG_LOCK_TOP 0x0100
+# define SG_LOCK_BOTTOM 0x0200
+# define SG_LOCK_LEFT 0x0400
+# define SG_LOCK_RIGHT 0x0800
 
-# define STATE_COMPONENT_LOCK_WIDTH 0x1000
-# define STATE_COMPONENT_LOCK_HEIGHT 0x2000
-# define STATE_COMPONENT_LOCK_SIZE 0x3000
+# define SG_LOCK_WIDTH 0x1000
+# define SG_LOCK_HEIGHT 0x2000
+# define SG_LOCK_SIZE 0x3000
 
 # define SG_ALIGN_TOP 0x010000
 # define SG_ALIGN_BOTTOM 0x020000
@@ -124,10 +124,12 @@ void					sg_unset_flags(void *component, int flags);
 */
 
 t_pos					sg_posf(float x, float y);
+t_pos					sg_posf_pad(float x, float y);
 t_pos					sg_posi(int x, int y);
 t_size					sg_sizef(float w, float h);
 t_size					sg_sizei(int w, int h);
 t_rect					sg_rectf(float x, float y, float w, float h);
+t_rect					sg_recti(int x, int y, int w, int h);
 t_rect					sg_rect(t_pos pos, t_size size);
 
 void					sg_align_bounds(t_rect *bounds, int alignement);

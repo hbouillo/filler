@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 23:28:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/17 18:07:18 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/18 18:45:04 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ int				run_event(t_show *show)
 		if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN &&
 				event.key.keysym.sym == SDLK_ESCAPE))
 			show->run = 0;
+		if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+				show->win_w = (int)event.window.data1;
+				show->win_h = (int)event.window.data2;
 		if (event.type == get_user_event())
 		{
 			if (event.user.code == FILLER_EVENT_FRAME)
