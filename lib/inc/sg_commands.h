@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 03:06:54 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/17 16:50:41 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/20 06:07:16 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,10 @@ void		sg_set_button_hcolor(void *component, t_color color);
 void		sg_set_button_pcolor(void *component, t_color color);
 void		sg_set_button_edge(void *component, int edge);
 void		sg_set_button_radius(void *component, int radius);
+
+void		sg_set_rectangle_icolor(void *component, t_color color);
+void		sg_set_rectangle_ocolor(void *component, t_color color);
+void		sg_set_rectangle_edge(void *component, int edge);
+void		sg_set_rectangle_radius(void *component, int radius);
 
 #endif

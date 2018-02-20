@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 04:25:24 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/18 19:13:23 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/20 06:02:45 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void					*sg_create_component(void *scene, GLuint shader_prog);
 /*
 ** The following section contains basic components functions.
 */
+
+void					*sg_create_rectangle(void *scene);
 
 void					*sg_create_button(void *scene);
 
