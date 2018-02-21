@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event.h                                            :+:      :+:    :+:   */
+/*   key_event.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/19 23:28:52 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/21 05:12:18 by hbouillo         ###   ########.fr       */
+/*   Created: 2018/02/21 05:05:45 by hbouillo          #+#    #+#             */
+/*   Updated: 2018/02/21 05:13:23 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EVENT_H
-# define EVENT_H
+#include "event.h"
 
-# include "show_filler.h"
-
-void				handle_new_frame_event(t_show *show, SDL_UserEvent user_event);
-void				handle_players_event(t_show *show, SDL_UserEvent user_event);
-void				handle_result_event(t_show *show, SDL_UserEvent user_event);
-void				handle_key_event(t_show *show, SDL_KeyboardEvent event);
-
-#endif
+void			handle_key_event(t_show *show, SDL_KeyboardEvent event)
+{
+	if (event.keysym.sym == SDLK_RIGHT)
+		if (show->frames && show->frames->next)
+			show->frames = show->frames->next;
+	if (event.keysym.sym == SDLK_LEFT)
+		if (show->frames && show->frames->prev)
+			show->frames = show->frames->prev;
+}

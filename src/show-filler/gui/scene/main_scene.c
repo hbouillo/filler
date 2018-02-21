@@ -6,11 +6,20 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 03:23:32 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/20 06:11:19 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/21 05:47:30 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "show_filler.h"
+
+static void				display(t_show *show, t_main_scene *main)
+{
+	main->display_frame = show_create_display(main->ptr, show);
+	sg_set_component_boundaries(main->display_frame, sg_recti(40, 40, show->win_w - 2 * 40, show->win_h - 40 - 40 - 50 - 20));
+	sg_set_flags(main->display_frame, SG_ALIGN_TOP | SG_ALIGN_RIGHT | SG_LOCK_BOTTOM | SG_LOCK_LEFT | SG_LOCK_TOP | SG_LOCK_RIGHT);
+	show_set_display_xcolor(main->display_frame, sg_colorf(FILLER_COLOR_BACKGROUND));
+	show_set_display_ocolor(main->display_frame, sg_colorf(FILLER_COLOR_TEXT));
+}
 
 static void				frames(t_show *show, t_main_scene *main)
 {
@@ -63,4 +72,5 @@ void					init_main_scene(t_show *show, t_main_scene *main)
 	main->ptr = sg_new_scene(show->window);
 	frames(show, main);
 	labels(show, main);
+	display(show, main);
 }

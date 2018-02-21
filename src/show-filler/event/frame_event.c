@@ -6,11 +6,11 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 04:24:56 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/13 02:52:44 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/21 05:18:11 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "show_filler.h"
+#include "event.h"
 
 static void		push_frame(t_show *show, t_frame *frame)
 {
@@ -40,5 +40,4 @@ void			handle_new_frame_event(t_show *show, SDL_UserEvent user_event)
 		error(ERR_MALLOC, ERR_CRITICAL);
 	new_frame->map = (t_map *)user_event.data1;
 	push_frame(show, new_frame);
-	ft_putchar('.');
 }

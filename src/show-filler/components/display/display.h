@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event.h                                            :+:      :+:    :+:   */
+/*   display.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/19 23:28:52 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/21 05:12:18 by hbouillo         ###   ########.fr       */
+/*   Created: 2018/02/20 20:07:36 by hbouillo          #+#    #+#             */
+/*   Updated: 2018/02/21 02:32:26 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EVENT_H
-# define EVENT_H
+#ifndef DISPLAY_H
+# define DISPLAY_H
 
 # include "show_filler.h"
 
-void				handle_new_frame_event(t_show *show, SDL_UserEvent user_event);
-void				handle_players_event(t_show *show, SDL_UserEvent user_event);
-void				handle_result_event(t_show *show, SDL_UserEvent user_event);
-void				handle_key_event(t_show *show, SDL_KeyboardEvent event);
+typedef struct			s_display
+{
+	t_frame				**frame;
+	t_frame				*last_frame;
+	int					*win_h;
+	int					*win_w;
+	t_color				xcolor;
+	t_color				ocolor;
+	GLuint				tex;
+}						t_display;
+
+void			display_draw(void *scene, t_component_data *data, t_rect bounds);
+
+void			display_event(void *scene, t_component_data *data, SDL_Event e);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 03:06:54 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/20 06:07:16 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/20 20:56:00 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define SG_COMMANDS_H
 
 # include "sg.h"
+
+void		sg_redraw_component(void *component);
+
+/*
+** Setters
+*/
 
 void		sg_set_component_boundaries(void *component, t_rect bounds);
 
@@ -27,6 +33,7 @@ void		sg_set_component_draw(void *component,
 void		sg_set_component_event(void *component,
 				void (*event)(void *component, t_component_data *data,
 					SDL_Event e));
+void		sg_set_component_data(void *component, void *data);
 
 void		sg_set_label_color(void *component, t_color color);
 void		sg_set_label_text(void *component, void *gstr);
@@ -42,5 +49,11 @@ void		sg_set_rectangle_icolor(void *component, t_color color);
 void		sg_set_rectangle_ocolor(void *component, t_color color);
 void		sg_set_rectangle_edge(void *component, int edge);
 void		sg_set_rectangle_radius(void *component, int radius);
+
+/*
+** Getters
+*/
+
+void		*sg_get_component_data(void *component);
 
 #endif

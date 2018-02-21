@@ -6,11 +6,11 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 00:37:26 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/18 19:07:19 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/21 05:09:00 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "show_filler.h"
+#include "event.h"
 
 static void			update_gui_p1(t_show *show)
 {

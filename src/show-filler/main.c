@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:46:35 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/18 18:45:06 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/21 05:53:17 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static void			run(t_show *show)
 		clock_gettime(CLOCK_MONOTONIC_RAW, &after_time);
 		delta = (after_time.tv_sec - before_time.tv_sec) * 1000000000 +
 				after_time.tv_nsec - before_time.tv_nsec;
-		// if (delta / 1000 > 100)
-		// 	printf("Gui rendering time is %f ms\n", ((float)(delta / 1000)) / 1000);
+		if (delta / 1000 > 100)
+			printf("Frame time: %f, ms\n", ((float)(delta / 1000)) / 1000);
 	}
 }
 
@@ -62,6 +62,7 @@ void				init_sdl_window(t_show *show)
 	show->context = SDL_GL_CreateContext(show->window);
 	show->win_w = show->max_size.w * 2 / 3;
 	show->win_h = show->max_size.h * 2 / 3;
+	SDL_SetWindowMinimumSize(show->window, 600, 670);
 }
 
 int					main(void)
