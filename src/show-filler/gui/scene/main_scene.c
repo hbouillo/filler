@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 03:23:32 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/21 05:47:30 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/22 05:59:08 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ static void				display(t_show *show, t_main_scene *main)
 	main->display_frame = show_create_display(main->ptr, show);
 	sg_set_component_boundaries(main->display_frame, sg_recti(40, 40, show->win_w - 2 * 40, show->win_h - 40 - 40 - 50 - 20));
 	sg_set_flags(main->display_frame, SG_ALIGN_TOP | SG_ALIGN_RIGHT | SG_LOCK_BOTTOM | SG_LOCK_LEFT | SG_LOCK_TOP | SG_LOCK_RIGHT);
-	show_set_display_xcolor(main->display_frame, sg_colorf(FILLER_COLOR_BACKGROUND));
-	show_set_display_ocolor(main->display_frame, sg_colorf(FILLER_COLOR_TEXT));
+	show_set_display_xcolor(main->display_frame, sg_colorf(0.4, 0.4, 0.4, 1.0));
+	show_set_display_ocolor(main->display_frame, sg_colorf(0.7, 0.7, 0.7, 1.0));
+	show_set_display_ecolor(main->display_frame, sg_colorf(0.3, 0.3, 0.3, 1.0));
+	show_set_display_gcolor(main->display_frame, sg_colorf(0.6, 0.6, 0.6, 1.0));
+	show_set_display_edge(main->display_frame, 2);
 }
 
 static void				frames(t_show *show, t_main_scene *main)

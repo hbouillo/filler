@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:47:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/21 05:08:44 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/22 06:16:41 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # define ERR_MALLOC 1001, "Malloc failed"
 # define ERR_DATA 1010, "Filler VM sent wrong data"
 # define ERR_FILLER 1011, "Filler VM returned an error"
-# define ERR_SIGNAL_READ 1020, "Read ready signal registration failed"
 
 # define ERR_CRITICAL "Error", 1
 # define ERR_WARNING "Warning", 0
@@ -103,6 +102,7 @@ typedef struct		s_gui
 {
 	t_scene			*active_scene;
 	t_scene			scenes[FILLER_SCENES_AMOUNT];
+	int				pause;
 }					t_gui;
 
 typedef struct		s_show
@@ -117,6 +117,7 @@ typedef struct		s_show
 	t_frame			*frames;
 	t_result		result;
 	int				run;
+	int				tps;
 }					t_show;
 
 void				error(int errcode, char const *const errmsg, char *errtype,
@@ -136,5 +137,8 @@ void				init_main_scene(t_show *show, t_main_scene *main);
 void				*show_create_display(void *scene, t_show *show);
 void				show_set_display_xcolor(void *component, t_color color);
 void				show_set_display_ocolor(void *component, t_color color);
+void				show_set_display_ecolor(void *component, t_color color);
+void				show_set_display_gcolor(void *component, t_color color);
+void				show_set_display_edge(void *component, int edge);
 
 #endif

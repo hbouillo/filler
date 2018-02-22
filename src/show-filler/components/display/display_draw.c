@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 20:10:34 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/21 05:42:17 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/22 05:48:51 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,14 @@ static void		uniforms(t_component_data *data, t_rect bounds)
 	sg_uniform_color(uniform, display->xcolor);
 	uniform = glGetUniformLocation(data->shader_prog, "ocolor");
 	sg_uniform_color(uniform, display->ocolor);
+	uniform = glGetUniformLocation(data->shader_prog, "ecolor");
+	sg_uniform_color(uniform, display->ecolor);
+	uniform = glGetUniformLocation(data->shader_prog, "gcolor");
+	sg_uniform_color(uniform, display->gcolor);
 	uniform = glGetUniformLocation(data->shader_prog, "map");
 	glUniform1i(uniform, 1);
+	uniform = glGetUniformLocation(data->shader_prog, "edge");
+	glUniform1i(uniform, display->edge);
 	uniform = glGetUniformLocation(data->shader_prog, "mapSize");
 	glUniform2i(uniform, (*(display->frame))->map->width, (*(display->frame))->map->height);
 }

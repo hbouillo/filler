@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 20:07:36 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/21 02:32:26 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/22 05:41:32 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ typedef struct			s_display
 	int					*win_w;
 	t_color				xcolor;
 	t_color				ocolor;
+	t_color				ecolor;
+	t_color				gcolor;
+	int					edge;
 	GLuint				tex;
 }						t_display;
 

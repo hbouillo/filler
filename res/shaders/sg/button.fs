@@ -21,23 +21,10 @@ void		clip()
 float		circleIntensity(ivec2 pos, ivec2 center, int radius)
 {
 	float	intensity = 1.0;
-	int		work_on_x = abs(center.x - pos.x) > abs(center.y - pos.y) ? 1 : 0;
+	float 	dist = sqrt(pow(float(center.x - pos.x), 2.0) + pow(float(center.y - pos.y), 2.0));
 
-	float angle = atan(abs(float(pos.y - center.y) / float(pos.x - center.x)));
-	if (work_on_x == 1)
-	{
-		if (pos.x < center.x && pos.x < center.x - cos(angle) * radius)
-			intensity = ANTI_ALIASING * max(1 - (center.x - cos(angle) * radius - pos.x), 0);
-		if (pos.x > center.x && pos.x > center.x + cos(angle) * radius)
-			intensity = ANTI_ALIASING * max(1 - (pos.x - (center.x + cos(angle) * radius)), 0);
-	}
-	else
-	{
-		if (pos.y < center.y && pos.y < center.y - sin(angle) * radius)
-			intensity = ANTI_ALIASING * max(1 - (center.y - sin(angle) * radius - pos.y), 0);
-		if (pos.y > center.y && pos.y > center.y + sin(angle) * radius)
-			intensity = ANTI_ALIASING * max(1 - (pos.y - (center.y + sin(angle) * radius)), 0);
-	}
+	if (dist > float(radius))
+		intensity = max (1.0 - (dist - float(radius)), 0);
 	return (intensity);
 }
 
@@ -49,8 +36,7 @@ vec4		circle_with_edge(ivec2 center, int radius, int edge, vec4 ocolor, vec4 ico
 	vec4	color;
 
 	radius--;
-	if (pos.x > center.x + radius || pos.x < center.x - radius || pos.y > center.y + radius || pos.y < center.y - radius)
-		return (vec4(0.0, 0.0, 0.0, 0.0));
+
 	if (edge > 0)
 		edge++;
 	circle_intensity = circleIntensity(pos, center, radius - edge);

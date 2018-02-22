@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 02:21:03 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/17 16:57:03 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/22 06:02:55 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void				init_gui(t_show *show)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	init_main_scene(show, &(show->gui.scenes[FILLER_SCENE_MAIN].main));
 	show->gui.active_scene = show->gui.scenes + FILLER_SCENE_MAIN;
+	show->gui.pause = 0;
 }
 
 void				run_gui(t_show *show)

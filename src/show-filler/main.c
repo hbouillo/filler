@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:46:35 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/21 05:53:17 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/22 06:18:23 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int			init_show(t_show *show)
 {
 	ft_bzero(show, sizeof(t_show));
 	show->run = 1;
+	show->tps = TICKS_PER_SECOND;
 	return (0);
 }
 
