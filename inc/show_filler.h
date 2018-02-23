@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:47:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/22 06:16:41 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/23 18:21:13 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,24 @@ typedef struct		s_reader
 
 # define FILLER_SCENE_MAIN 0
 
+# define MAIN_SCENE_TOP_HEIGHT 50
+# define MAIN_SCENE_BOTTOM_HEIGHT 100
+# define MAIN_SCENE_MARGIN 20
+# define MAIN_SCENE_CORNER_RADIUS 7
+# define MAIN_SCENE_EDGE 1
+# define MAIN_SCENE_BUTTON_HEIGHT 50
+
 typedef struct		s_main_scene
 {
 	void			*ptr;
+	void			*top_frame;
 	void			*p1_label;
 	void			*p2_label;
 	void			*vs_label;
-	void			*top_frame;
 	void			*main_frame;
 	void			*display_frame;
+	void			*bottom_frame;
+	void			*pause_button;
 }					t_main_scene;
 
 typedef union		u_scene

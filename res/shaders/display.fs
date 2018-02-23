@@ -3,6 +3,8 @@
 #define ANTI_ALIASING 1
 #define FLOOR_SQUARE_SIZE 1
 
+#define VARIATION 0.4
+
 #define x_char 120
 #define X_char 88
 #define o_char 111
@@ -21,6 +23,11 @@ uniform usampler2D	map;
 uniform ivec2		mapSize;
 
 out vec4 			frag_color;
+
+float rand(vec2 co)
+{
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
 
 float		getSquareSize()
 {
@@ -86,20 +93,22 @@ vec4		getNewBounds()
 void		main()
 {
 	ivec2	mapCoord;
+	vec2	mapCoordF;
 	uint	mapContent;
 	vec4	newBounds;
 
 	newBounds = getNewBounds();
 	mapCoord = getMapCoord(gl_FragCoord.xy, newBounds);
+	mapCoordF = vec2(float(mapCoord.x), float(mapCoord.y));
 	if (drawBorders(mapCoord, newBounds))
 		return ;
 	mapContent = texelFetch(map, mapCoord, 0).r;
 	if (mapContent == X_char)
-		frag_color = xcolor;
+		frag_color = vec4(xcolor.r * (1.0 - rand(mapCoordF) * VARIATION), xcolor.g * (1.0 - rand(mapCoordF) * VARIATION), xcolor.b * (1.0 - rand(mapCoordF) * VARIATION), xcolor.a);
 	else if (mapContent == x_char)
 		frag_color = vec4(xcolor.r + 0.1, xcolor.g + 0.1, xcolor.b + 0.1, xcolor.a);
 	else if (mapContent == O_char)
-		frag_color = ocolor;
+		frag_color = vec4(ocolor.r * (1.0 - rand(mapCoordF) * VARIATION), ocolor.g * (1.0 - rand(mapCoordF) * VARIATION), ocolor.b * (1.0 - rand(mapCoordF) * VARIATION), ocolor.a);
 	else if (mapContent == o_char)
 		frag_color = vec4(ocolor.r + 0.1, ocolor.g + 0.1, ocolor.b + 0.1, ocolor.a);
 	else
