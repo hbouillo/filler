@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2018/02/24 06:16:20 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/02/24 06:33:33 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,7 @@ postbuild.$(TARGET_1):
 
 .build.$(TARGET_1): $(OBJ_1)
 	$(call link,$(TARGET_1))
+	@rm -f .build.$(TARGET_1)
 	@ln $(TARGET_1) .build.$(TARGET_1)
 
 $(OBJ_1): ./obj/%.o: %.c
@@ -107,6 +108,7 @@ postbuild.$(TARGET_2):
 
 .build.$(TARGET_2): $(OBJ_2)
 	$(call link,$(TARGET_2))
+	@rm -f .build.$(TARGET_2)
 	@ln $(TARGET_2) .build.$(TARGET_2)
 
 $(OBJ_2): ./obj/%.o: %.c
