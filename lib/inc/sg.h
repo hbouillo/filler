@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 04:25:24 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/22 20:55:44 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/23 18:26:16 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ int						sg_is_in_rect(t_rect rect, t_pos pos);
 
 t_color					sg_colorf(float r, float g, float b, float a);
 t_color					sg_colori(int r, int g, int b, int a);
+t_color					sg_color(int hexcolor);
 
 void					sg_uniform_color(GLuint uniform, t_color color);
 void					sg_uniform_rect(GLuint uniform, t_rect bounds);

@@ -3,12 +3,14 @@
 #define ANTI_ALIASING 1
 #define FLOOR_SQUARE_SIZE 1
 
-#define VARIATION 0.4
+#define VARIATION 0.3
 
 #define x_char 120
 #define X_char 88
 #define o_char 111
 #define O_char 79
+
+uniform int			render_mode;
 
 uniform ivec4		bounds;
 
@@ -47,7 +49,7 @@ ivec2		getMapCoord(vec2 pos, vec4 newBounds)
 	return (mapCoord);
 }
 
-bool		drawBorders(ivec2 mapCoord, vec4 newBounds)
+void		drawBorders(ivec2 mapCoord, vec4 newBounds)
 {
 	ivec2	under;
 	ivec2	pos;
@@ -60,21 +62,19 @@ bool		drawBorders(ivec2 mapCoord, vec4 newBounds)
 		pos.x >= int(floor(newBounds.x + newBounds.z) + edge) ||
 		pos.y >= int(floor(newBounds.y + newBounds.w) + edge))
 		discard ;
-	if ((pos.x <= int(floor(newBounds.x))) ||
+	else if ((pos.x <= int(floor(newBounds.x))) ||
 		(pos.y <= int(floor(newBounds.y))) ||
 		(pos.x >= int(floor(newBounds.x + newBounds.z))) ||
 		(pos.y >= int(floor(newBounds.y + newBounds.w))))
 	{
 		frag_color = ecolor;
-		return (true);
 	}
-	if (under.x != mapCoord.x || under.y != mapCoord.y)
+	else if (under.x != mapCoord.x || under.y != mapCoord.y)
 	{
+		/* frag_color = frag_color * (1.0 - gcolor.a) + gcolor * gcolor.a;
+		frag_color.a = 1.0; */
 		frag_color = gcolor;
-		return (true);
 	}
-
-	return (false);
 }
 
 vec4		getNewBounds()
@@ -99,18 +99,23 @@ void		main()
 
 	newBounds = getNewBounds();
 	mapCoord = getMapCoord(gl_FragCoord.xy, newBounds);
-	mapCoordF = vec2(float(mapCoord.x), float(mapCoord.y));
-	if (drawBorders(mapCoord, newBounds))
-		return ;
-	mapContent = texelFetch(map, mapCoord, 0).r;
-	if (mapContent == X_char)
-		frag_color = vec4(xcolor.r * (1.0 - rand(mapCoordF) * VARIATION), xcolor.g * (1.0 - rand(mapCoordF) * VARIATION), xcolor.b * (1.0 - rand(mapCoordF) * VARIATION), xcolor.a);
-	else if (mapContent == x_char)
-		frag_color = vec4(xcolor.r + 0.1, xcolor.g + 0.1, xcolor.b + 0.1, xcolor.a);
-	else if (mapContent == O_char)
-		frag_color = vec4(ocolor.r * (1.0 - rand(mapCoordF) * VARIATION), ocolor.g * (1.0 - rand(mapCoordF) * VARIATION), ocolor.b * (1.0 - rand(mapCoordF) * VARIATION), ocolor.a);
-	else if (mapContent == o_char)
-		frag_color = vec4(ocolor.r + 0.1, ocolor.g + 0.1, ocolor.b + 0.1, ocolor.a);
-	else
-		discard ;
+	if (render_mode == 0)
+	{
+		mapContent = texelFetch(map, mapCoord, 0).r;
+		mapCoordF = vec2(float(mapCoord.x), float(mapCoord.y));
+		if (mapContent == X_char)
+			frag_color = vec4(xcolor.r * (1.0 - rand(mapCoordF) * VARIATION), xcolor.g * (1.0 - rand(mapCoordF) * VARIATION), xcolor.b * (1.0 - rand(mapCoordF) * VARIATION), xcolor.a);
+		else if (mapContent == x_char)
+			frag_color = vec4(xcolor.r + 0.1, xcolor.g + 0.1, xcolor.b + 0.1, xcolor.a);
+		else if (mapContent == O_char)
+			frag_color = vec4(ocolor.r * (1.0 - rand(mapCoordF) * VARIATION), ocolor.g * (1.0 - rand(mapCoordF) * VARIATION), ocolor.b * (1.0 - rand(mapCoordF) * VARIATION), ocolor.a);
+		else if (mapContent == o_char)
+			frag_color = vec4(ocolor.r + 0.1, ocolor.g + 0.1, ocolor.b + 0.1, ocolor.a);
+		else
+			discard;
+	}
+	else if (render_mode == 1)
+	{
+		drawBorders(mapCoord, newBounds);
+	}
 }

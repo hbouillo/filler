@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 20:10:34 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/22 05:48:51 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/23 20:01:03 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,9 @@ void			display_draw(void *component, t_component_data *data, t_rect bounds)
 	glActiveTexture(GL_TEXTURE0 + 1);
 	glBindTexture(GL_TEXTURE_2D, display->tex);
 	glBindVertexArray(data->vao);
+	glUniform1i(glGetUniformLocation(data->shader_prog, "render_mode"), 0);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	glUniform1i(glGetUniformLocation(data->shader_prog, "render_mode"), 1);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	glBindVertexArray(0);
 	data->full_draw = 0;

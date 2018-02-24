@@ -6,22 +6,60 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 02:21:03 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/22 06:02:55 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/23 23:55:32 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./show_filler.h"
+#include "./gui.h"
 
-void				init_gui(t_show *show)
+static t_color_set		set_from_tab(int *color_set)
+{
+	t_color_set			set;
+
+	set.background = sg_color(color_set[0]);
+	set.main_text = sg_color(color_set[1]);
+	set.display_edge = sg_color(color_set[2]);
+	set.display_grid = sg_color(color_set[3]);
+	set.display_o = sg_color(color_set[4]);
+	set.display_x = sg_color(color_set[5]);
+	return (set);
+}
+
+static t_color_set				*get_color_set(int set)
+{
+	static int			init;
+	static t_color_set	sets[10];
+
+	if (!init)
+	{
+		sets[init++] = set_from_tab((int [6]) { 0x252525, 0xe2e2e2, 0xe2e2e2, 0xaf252525, 0xf2f2f2, 0x7f7f7f });
+		sets[init++] = set_from_tab((int [6]) { 0xe2e2e2, 0x565656, 0x565656, 0xafe2e2e2, 0x474747, 0x999999 });
+		sets[init++] = set_from_tab((int [6]) { 0xe2e2e2, 0x565656, 0x565656, 0xafe2e2e2, 0xa14fff, 0xff4949 });
+	}
+	if (set >= init)
+		set = 0;
+	return (&(sets[set]));
+}
+
+void					set_color_set(t_show *show, int set)
+{
+	show->gui.colors = get_color_set(set);
+	main_update_colors(show, &(show->gui.scenes[FILLER_SCENE_MAIN].main));
+	glClearColor(show->gui.colors->background.r, show->gui.colors->background.g,
+		show->gui.colors->background.b, show->gui.colors->background.a);
+}
+
+void					init_gui(t_show *show)
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	show->gui.pause = 0;
+	show->gui.colors = get_color_set(0);
 	init_main_scene(show, &(show->gui.scenes[FILLER_SCENE_MAIN].main));
 	show->gui.active_scene = show->gui.scenes + FILLER_SCENE_MAIN;
-	show->gui.pause = 0;
 }
 
-void				run_gui(t_show *show)
+void					run_gui(t_show *show)
 {
 	static t_time		last_time;
 	t_time				current_time;

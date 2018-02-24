@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2018/02/21 05:10:15 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/02/24 06:16:20 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,10 +27,14 @@ SRC_1 = filler/filler.c filler/parser.c filler/helper.c filler/main.c \
 		filler/woo/woo_champ.c filler/woo/woo_grade.c
 OBJ_1 = $(addprefix obj/src/,$(SRC_1:.c=.o))
 CFLAGS_1 = $(DEBUG_FLAGS) \
-	-I./inc \
-	-I./lib/inc
+	-I$(LIBS_PATH)/include \
+	-I$(LIBS_PATH)/include/freetype2 \
+	-Iinc \
+	-Ilib/inc
 LFLAGS_1 = $(DEBUG_FLAGS) \
-	-L./lib -lft
+	-L$(LIBS_PATH)/lib \
+	-Llib \
+	-lft
 
 # TARGET 2
 TARGET_2 = show-filler
@@ -47,25 +51,27 @@ SRC_2 = show-filler/main.c show-filler/event/event.c show-filler/logic/logic.c \
 	show-filler/components/display/display_setters.c
 OBJ_2 = $(addprefix obj/src/,$(SRC_2:.c=.o))
 CFLAGS_2 = $(DEBUG_FLAGS) \
-	-I./inc \
-	-I./lib/inc
+	-I$(LIBS_PATH)/include \
+	-I$(LIBS_PATH)/include/freetype2 \
+	-Iinc \
+	-Ilib/inc
 LFLAGS_2 = $(DEBUG_FLAGS) \
 	-framework OpenGL -framework GLUT \
-	-L./lib -lsimplegui -lft -lSDL2 -lfreetype
+	-L$(LIBS_PATH)/lib \
+	-L./lib \
+	-lsimplegui -lft -lSDL2 -lfreetype
 
 all: $(TARGET_1) $(TARGET_2)
 	@echo > /dev/null
 
-$(TARGET_1): prebuild.$(TARGET_1) build.$(TARGET_1) postbuild.$(TARGET_1)
+$(TARGET_1): prebuild.$(TARGET_1) .build.$(TARGET_1) postbuild.$(TARGET_1)
 
 prebuild.$(TARGET_1):
 	@mkdir -p lib
 	@mkdir -p lib/inc
 	@$(MAKE) -C simple-gui
 	$(call dylib_install,./simple-gui/lib/libft.dylib)
-	$(call dylib_install,./simple-gui/lib/libSDL2.dylib)
 	$(call dylib_install,./simple-gui/lib/libsimplegui.dylib)
-	$(call dylib_install,./simple-gui/lib/libfreetype.dylib)
 	$(call dylib_include_install,./simple-gui/lib/inc)
 	$(call dylib_include_install,./simple-gui/inc)
 	$(eval CFLAGS = $(CFLAGS_1))
@@ -75,22 +81,21 @@ prebuild.$(TARGET_1):
 postbuild.$(TARGET_1):
 	$(call $(END_MSG),$(TARGET_1))
 
-build.$(TARGET_1): $(OBJ_1) $(DEP_1)
+.build.$(TARGET_1): $(OBJ_1)
 	$(call link,$(TARGET_1))
+	@ln $(TARGET_1) .build.$(TARGET_1)
 
 $(OBJ_1): ./obj/%.o: %.c
 	$(call compile)
 
-$(TARGET_2): prebuild.$(TARGET_2) build.$(TARGET_2) postbuild.$(TARGET_2)
+$(TARGET_2): prebuild.$(TARGET_2) .build.$(TARGET_2) postbuild.$(TARGET_2)
 
 prebuild.$(TARGET_2):
 	@mkdir -p lib
 	@mkdir -p lib/inc
 	@$(MAKE) -C simple-gui
 	$(call dylib_install,./simple-gui/lib/libft.dylib)
-	$(call dylib_install,./simple-gui/lib/libSDL2.dylib)
 	$(call dylib_install,./simple-gui/lib/libsimplegui.dylib)
-	$(call dylib_install,./simple-gui/lib/libfreetype.dylib)
 	$(call dylib_include_install,./simple-gui/lib/inc)
 	$(call dylib_include_install,./simple-gui/inc)
 	$(eval CFLAGS = $(CFLAGS_2))
@@ -100,21 +105,30 @@ prebuild.$(TARGET_2):
 postbuild.$(TARGET_2):
 	$(call $(END_MSG),$(TARGET_2))
 
-build.$(TARGET_2): $(OBJ_2) $(DEP_2)
+.build.$(TARGET_2): $(OBJ_2)
 	$(call link,$(TARGET_2))
+	@ln $(TARGET_2) .build.$(TARGET_2)
 
 $(OBJ_2): ./obj/%.o: %.c
 	$(call compile)
 
 clean:
 	@$(MAKE) -C simple-gui clean
+	@rm .build.$(TARGET_1)
+	@rm .build.$(TARGET_2)
 	$(call clean,$(TARGET_1),$(OBJ_1))
 	$(call clean,$(TARGET_2),$(OBJ_2))
 
 fclean:
 	@$(MAKE) -C simple-gui clean
+	@rm -f .build.$(TARGET_1)
+	@rm -f .build.$(TARGET_2)
 	$(call fclean,$(TARGET_1),$(OBJ_1))
 	$(call fclean,$(TARGET_2),$(OBJ_2))
+
+libclean:
+	@make -C simple-gui libclean
+	@rm -rf ./lib
 
 re: fclean all
 

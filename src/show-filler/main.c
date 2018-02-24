@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:46:35 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/22 22:53:40 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/23 21:14:28 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int					main(void)
 	}
 	init_sdl_window(&show);
 	init_gui(&show);
-	glClearColor(FILLER_COLOR_BACKGROUND);
+	glClearColor(show.gui.colors->background.r, show.gui.colors->background.g,
+		show.gui.colors->background.b, show.gui.colors->background.a);
 	run(&show);
 	SDL_GL_DeleteContext(show.context);
 	SDL_DestroyWindow(show.window);

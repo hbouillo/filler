@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:47:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/23 18:21:13 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/23 21:34:56 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,6 @@
 # define FILLER_EVENT_FRAME 0
 # define FILLER_EVENT_PLAYERS 1
 # define FILLER_EVENT_RESULT 2
-
-# define FILLER_COLOR_BACKGROUND 0.9, 0.9, 0.9, 1.0
-
-# define FILLER_COLOR_TEXT 0.3, 0.3, 0.3, 1.0
 
 # define FILLER_FONT "fonts/TheLightFont.ttf"
 # define FILLER_TOP_FONT_SIZE 30
@@ -107,8 +103,19 @@ typedef union		u_scene
 	t_main_scene	main;
 }					t_scene;
 
+typedef struct		s_color_set
+{
+	t_color			background;
+	t_color			main_text;
+	t_color			display_edge;
+	t_color			display_grid;
+	t_color			display_o;
+	t_color			display_x;
+}					t_color_set;
+
 typedef struct		s_gui
 {
+	t_color_set		*colors;
 	t_scene			*active_scene;
 	t_scene			scenes[FILLER_SCENES_AMOUNT];
 	int				pause;
@@ -149,5 +156,7 @@ void				show_set_display_ocolor(void *component, t_color color);
 void				show_set_display_ecolor(void *component, t_color color);
 void				show_set_display_gcolor(void *component, t_color color);
 void				show_set_display_edge(void *component, int edge);
+
+void				set_color_set(t_show *show, int set);
 
 #endif

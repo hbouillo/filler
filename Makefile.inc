@@ -15,6 +15,9 @@ else
 DEBUG_FLAGS = -Wall -Werror -Wextra
 endif
 
+# LIBS VARS
+LIBS_PATH=$(shell echo ~/.libs)
+
 # STYLE VARS
 STL_BOLD = \x1b[1m
 RGB_YELLOW = \x1b[38;2;239;196;23m
@@ -58,13 +61,17 @@ endef
 define lib_configure_make_install
 	@echo "$(STL_BOLD)$(RGB_BLUE)⧖  Creating $(RGB_CYAN)$(1)\
 	$(RGB_BLUE)... ⧖ $(RGB_RESET)"
-	@$(MAKE) -C $(1) 1>/dev/null 2>/dev/null
-	@$(MAKE) -C $(1) install DESTDIR=$(shell pwd)/$(1)/lib 1>/dev/null 2>/dev/null
-	@echo "$(STL_BOLD)$(RGB_BLUE)✓  Compiled $(RGB_CYAN)$(1)\
+	@echo "\tConfiguring..."
+	@cd $(1) && ./configure --prefix=$(LIBS_PATH) 1>/dev/null
+	@echo "\tCompiling..."
+	@$(MAKE) -C $(1) 1>/dev/null
+	@echo "\tInstalling to $(STL_BOLD)$(RGB_LBLUE)$(LIBS_PATH)$(RGB_RESET)..."
+	@$(MAKE) -C $(1) install 1>/dev/null
+	@echo "$(STL_BOLD)$(RGB_BLUE)✓  Installed $(RGB_CYAN)$(1)\
 	$(RGB_BLUE) successfully. ✓$(RGB_RESET)"
 endef
 
-define lib_configure_clean
+define lib_clean
 	@echo "$(STL_BOLD)$(RGB_BLUE)⧖  Cleaning $(RGB_CYAN)$(1)\
 	$(RGB_BLUE)... ⧖$(RGB_RESET)"
 	@$(MAKE) -C $(1) 1>/dev/null 2>/dev/null clean
