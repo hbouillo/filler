@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 02:25:24 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/13 00:51:36 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/27 21:21:16 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void			send_events(t_reader *reader)
 	}
 }
 
-int					read_input()
+static int				read_input(void)
 {
 	static t_reader	reader;
 	static char		*previous_line;
@@ -54,4 +54,20 @@ int					read_input()
 	if (line)
 		free(line);
 	return (0);
+}
+
+static void				*run_read(void *arg)
+{
+	pthread_detach(pthread_self());
+	pthread_setname_np("Parsing");
+	while(1)
+		read_input();
+	return (NULL);
+}
+
+void					start_read()
+{
+	pthread_t			read_thread;
+
+	pthread_create(&read_thread, NULL, &run_read, NULL);
 }

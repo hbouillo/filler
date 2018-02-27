@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:47:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/27 07:30:39 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/27 21:21:15 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <SDL2/SDL.h>
 # include <fcntl.h>
 # include <time.h>
+# include <pthread.h>
 
 # include "libft.h"
 # include "sg.h"
@@ -140,6 +141,8 @@ void				error(int errcode, char const *const errmsg, char *errtype,
 						int errexit);
 
 void				init_gui(t_show *show);
+
+void				start_read();
 
 int					run_logic(t_show *show);
 int					run_event(t_show *show);
