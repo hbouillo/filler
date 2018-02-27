@@ -6,11 +6,31 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 05:05:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/23 23:40:15 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/27 07:25:05 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "event.h"
+
+static void		set_pause(t_show *show, int pause)
+{
+	if (pause)
+	{
+		show->gui.pause = 1;
+		sg_set_button_text(
+			show->gui.scenes[FILLER_SCENE_MAIN].main.pause_button,
+			sg_new_gstr("Play",
+				get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
+	}
+	else
+	{
+		show->gui.pause = 0;
+		sg_set_button_text(
+			show->gui.scenes[FILLER_SCENE_MAIN].main.pause_button,
+			sg_new_gstr("Pause",
+				get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
+	}
+}
 
 static void		handle_command_key_event(t_show *show, SDL_KeyboardEvent event)
 {
@@ -18,27 +38,28 @@ static void		handle_command_key_event(t_show *show, SDL_KeyboardEvent event)
 	{
 		if (show->frames && show->frames->next)
 			show->frames = show->frames->next;
-		show->gui.pause = 1;
+		set_pause(show, 1);
 	}
 	else if (event.keysym.sym == SDLK_LEFT)
 	{
 		if (show->frames && show->frames->prev)
 			show->frames = show->frames->prev;
-		show->gui.pause = 1;
+		set_pause(show, 1);
 	}
+	else if (event.keysym.sym == SDLK_UP)
+		show->tps++;
+	else if (event.keysym.sym == SDLK_DOWN)
+		show->tps--;
 	else if (event.keysym.sym == SDLK_SPACE)
-		show->gui.pause = show->gui.pause ? 0 : 1;
+		set_pause(show, show->gui.pause ? 0 : 1);
 	else if (event.keysym.sym == SDLK_DELETE ||
 		event.keysym.sym == SDLK_BACKSPACE)
-	{
 		while (show->frames && show->frames->prev)
 			show->frames = show->frames->prev;
-	}
 	else if (event.keysym.sym == SDLK_END)
-	{
 		while (show->frames && show->frames->next)
 			show->frames = show->frames->next;
-	}
+	ft_printf("%d\n", show->tps);
 }
 
 static void		handle_color_set_pick(t_show *show, SDL_KeyboardEvent event)

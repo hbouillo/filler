@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:46:35 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/23 21:14:28 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/27 07:31:34 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void				init_sdl_window(t_show *show)
 	show->context = SDL_GL_CreateContext(show->window);
 	show->win_w = show->max_size.w * 2 / 3;
 	show->win_h = show->max_size.h * 2 / 3;
-	SDL_SetWindowMinimumSize(show->window, 600, 670);
+	SDL_SetWindowMinimumSize(show->window, 1000, 670);
 }
 
 int					main(void)

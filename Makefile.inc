@@ -82,12 +82,12 @@ endef
 define compile
 	@echo "\tCompiling $(STL_BOLD)$(RGB_LBLUE)$@$(RGB_RESET)..."
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(1) -c $< -o $@
 endef
 
 define link
-	@echo "\tLinking $(STL_BOLD)$(RGB_LRED)$(1)$(RGB_RESET)..."
-	@$(CC) -o $(1) $^ $(LFLAGS)
+	@echo "\tLinking $(STL_BOLD)$(RGB_LRED)$@$(RGB_RESET)..."
+	@$(CC) -o $@ $^ $(1)
 	@$(eval END_MSG = end_msg_sdone)
 endef
 
@@ -142,3 +142,5 @@ define lib_fclean
 	@echo "$(STL_BOLD)$(RGB_BLUE)✓  Cleaned $(RGB_CYAN)$(1)\
 	$(RGB_BLUE) successfully. ✓$(RGB_RESET)"
 endef
+
+.NOTPARALLEL:

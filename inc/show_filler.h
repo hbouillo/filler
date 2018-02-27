@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:47:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/24 06:30:24 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/27 07:30:39 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,6 @@ typedef struct		s_reader
 
 # define FILLER_SCENE_MAIN 0
 
-# define MAIN_SCENE_TOP_HEIGHT 50
-# define MAIN_SCENE_BOTTOM_HEIGHT 100
-# define MAIN_SCENE_MARGIN 20
-# define MAIN_SCENE_CORNER_RADIUS 7
-# define MAIN_SCENE_EDGE 1
-# define MAIN_SCENE_BUTTON_HEIGHT 50
-
 typedef struct		s_main_scene
 {
 	void			*ptr;
@@ -94,6 +87,12 @@ typedef struct		s_main_scene
 	void			*main_frame;
 	void			*display_frame;
 	void			*pause_button;
+	void			*next_button;
+	void			*prev_button;
+	void			*end_button;
+	void			*begin_button;
+	void			*faster_button;
+	void			*slower_button;
 }					t_main_scene;
 
 typedef union		u_scene
@@ -110,6 +109,8 @@ typedef struct		s_color_set
 	t_color			display_grid;
 	t_color			display_o;
 	t_color			display_x;
+	t_color			button_hover;
+	t_color			button_pressed;
 }					t_color_set;
 
 typedef struct		s_gui

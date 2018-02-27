@@ -35,8 +35,8 @@ float		getSquareSize()
 {
 	float	size;
 
-	size = float(bounds.z - 5 * 2) / float(mapSize.x);
-	size = min(size, float(bounds.w - 5 * 2) / float(mapSize.y));
+	size = float(bounds.z - 1 * 2) / float(mapSize.x);
+	size = min(size, float(bounds.w - 1 * 2) / float(mapSize.y));
 	return (FLOOR_SQUARE_SIZE == 1 ? floor(size) : size);
 }
 

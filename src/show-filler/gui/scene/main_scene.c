@@ -6,11 +6,11 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 03:23:32 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/24 06:32:47 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/27 07:21:15 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../gui.h"
+#include "./main_scene.h"
 
 static void				display(t_show *show, t_main_scene *main)
 {
@@ -64,26 +64,24 @@ static void				labels(t_show *show, t_main_scene *main)
 	sg_set_label_text(main->vs_label, sg_new_gstr("vs", get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
 }
 
-static void				pause_button(void *component, t_component_data *data)
-{
-	SDL_Event	e;
-
-	e.type = SDL_KEYDOWN;
-	e.key.keysym.sym = SDLK_SPACE;
-	SDL_PushEvent(&e);
-}
-
 static void				buttons(t_show *show, t_main_scene *main)
 {
-	main->pause_button = sg_create_button(main->ptr);
-	sg_set_component_boundaries(main->pause_button,
-		sg_recti(show->win_w / 2, MAIN_SCENE_MARGIN,
-			200, MAIN_SCENE_BUTTON_HEIGHT));
-	sg_set_flags(main->pause_button, SG_LOCK_BOTTOM | SG_LOCK_SIZE | SG_ALIGN_TOP);
-	sg_set_button_text(main->pause_button, sg_new_gstr("Pause", get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
-	sg_set_button_edge(main->pause_button, MAIN_SCENE_EDGE);
-	sg_set_button_radius(main->pause_button, MAIN_SCENE_CORNER_RADIUS);
-	sg_set_button_action(main->pause_button, &pause_button);
+	pause_button(show, main);
+	next_button(show, main);
+	prev_button(show, main);
+	end_button(show, main);
+	begin_button(show, main);
+	faster_button(show, main);
+	slower_button(show, main);
+}
+
+static void				update_button_color(t_show *show, void *button)
+{
+	sg_set_button_icolor(button, show->gui.colors->background);
+	sg_set_button_ocolor(button, show->gui.colors->main_text);
+	sg_set_button_hcolor(button, show->gui.colors->button_hover);
+	sg_set_button_pcolor(button, show->gui.colors->button_pressed);
+	sg_set_button_text_color(button, show->gui.colors->main_text);
 }
 
 void					main_update_colors(t_show *show, t_main_scene *main)
@@ -97,11 +95,12 @@ void					main_update_colors(t_show *show, t_main_scene *main)
 	show_set_display_xcolor(main->display_frame, show->gui.colors->display_x);
 	show_set_display_ecolor(main->display_frame, show->gui.colors->display_edge);
 	show_set_display_gcolor(main->display_frame, show->gui.colors->display_grid);
-	sg_set_button_icolor(main->pause_button, show->gui.colors->background);
-	sg_set_button_ocolor(main->pause_button, show->gui.colors->main_text);
-	sg_set_button_hcolor(main->pause_button, show->gui.colors->background);
-	sg_set_button_pcolor(main->pause_button, show->gui.colors->background);
-	sg_set_button_text_color(main->pause_button, show->gui.colors->main_text);
+	update_button_color(show, main->pause_button);
+	update_button_color(show, main->next_button);
+	update_button_color(show, main->prev_button);
+	update_button_color(show, main->end_button);
+	update_button_color(show, main->begin_button);
+	update_button_color(show, main->faster_button);
 }
 
 void					init_main_scene(t_show *show, t_main_scene *main)

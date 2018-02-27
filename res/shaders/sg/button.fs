@@ -12,9 +12,9 @@ out vec4 frag_color;
 
 void		clip()
 {
-	if (gl_FragCoord.x < clipBounds.x || gl_FragCoord.x > clipBounds.x + clipBounds.z)
+	if (int(gl_FragCoord.x) <= clipBounds.x || int(gl_FragCoord.x) >= clipBounds.x + clipBounds.z)
 		discard;
-	if (gl_FragCoord.y < clipBounds.y || gl_FragCoord.y > clipBounds.y + clipBounds.w)
+	if (int(gl_FragCoord.y) <= clipBounds.y || int(gl_FragCoord.y) >= clipBounds.y + clipBounds.w)
 		discard;
 }
 

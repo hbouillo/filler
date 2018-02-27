@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2018/02/24 06:33:33 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/02/27 07:21:28 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,15 @@ SRC_2 = show-filler/main.c show-filler/event/event.c show-filler/logic/logic.c \
 	show-filler/event/players_event.c show-filler/event/result_event.c \
 	show-filler/event/key_event.c \
 	show-filler/logic/parse.c show-filler/gui/gui.c \
+	\
 	show-filler/gui/scene/main_scene.c \
+	show-filler/gui/scene/pause_button.c \
+	show-filler/gui/scene/next_button.c \
+	show-filler/gui/scene/prev_button.c \
+	show-filler/gui/scene/end_button.c \
+	show-filler/gui/scene/begin_button.c \
+	show-filler/gui/scene/faster_button.c \
+	show-filler/gui/scene/slower_button.c \
 	\
 	show-filler/components/display/display.c \
 	show-filler/components/display/display_draw.c \
@@ -61,10 +69,12 @@ LFLAGS_2 = $(DEBUG_FLAGS) \
 	-L./lib \
 	-lsimplegui -lft -lSDL2 -lfreetype
 
-all: $(TARGET_1) $(TARGET_2)
+all: prebuild.$(TARGET_1) $(TARGET_1) postbuild.$(TARGET_1) \
+	prebuild.$(TARGET_2) $(TARGET_2) postbuild.$(TARGET_2)
 	@echo > /dev/null
 
-$(TARGET_1): prebuild.$(TARGET_1) .build.$(TARGET_1) postbuild.$(TARGET_1)
+$(TARGET_1): $(OBJ_1)
+	$(call link, $(LFLAGS_1))
 
 prebuild.$(TARGET_1):
 	@mkdir -p lib
@@ -74,22 +84,16 @@ prebuild.$(TARGET_1):
 	$(call dylib_install,./simple-gui/lib/libsimplegui.dylib)
 	$(call dylib_include_install,./simple-gui/lib/inc)
 	$(call dylib_include_install,./simple-gui/inc)
-	$(eval CFLAGS = $(CFLAGS_1))
-	$(eval LFLAGS = $(LFLAGS_1))
 	$(call bgn_msg,$(TARGET_1))
 
 postbuild.$(TARGET_1):
 	$(call $(END_MSG),$(TARGET_1))
 
-.build.$(TARGET_1): $(OBJ_1)
-	$(call link,$(TARGET_1))
-	@rm -f .build.$(TARGET_1)
-	@ln $(TARGET_1) .build.$(TARGET_1)
-
 $(OBJ_1): ./obj/%.o: %.c
-	$(call compile)
+	$(call compile, $(CFLAGS_1))
 
-$(TARGET_2): prebuild.$(TARGET_2) .build.$(TARGET_2) postbuild.$(TARGET_2)
+$(TARGET_2): $(OBJ_2)
+	$(call link, $(LFLAGS_2))
 
 prebuild.$(TARGET_2):
 	@mkdir -p lib
@@ -99,41 +103,30 @@ prebuild.$(TARGET_2):
 	$(call dylib_install,./simple-gui/lib/libsimplegui.dylib)
 	$(call dylib_include_install,./simple-gui/lib/inc)
 	$(call dylib_include_install,./simple-gui/inc)
-	$(eval CFLAGS = $(CFLAGS_2))
-	$(eval LFLAGS = $(LFLAGS_2))
 	$(call bgn_msg,$(TARGET_2))
 
 postbuild.$(TARGET_2):
 	$(call $(END_MSG),$(TARGET_2))
 
-.build.$(TARGET_2): $(OBJ_2)
-	$(call link,$(TARGET_2))
-	@rm -f .build.$(TARGET_2)
-	@ln $(TARGET_2) .build.$(TARGET_2)
-
 $(OBJ_2): ./obj/%.o: %.c
-	$(call compile)
+	$(call compile, $(CFLAGS_2))
 
 clean:
 	@$(MAKE) -C simple-gui clean
-	@rm .build.$(TARGET_1)
-	@rm .build.$(TARGET_2)
 	$(call clean,$(TARGET_1),$(OBJ_1))
 	$(call clean,$(TARGET_2),$(OBJ_2))
 
 fclean:
 	@$(MAKE) -C simple-gui clean
-	@rm -f .build.$(TARGET_1)
-	@rm -f .build.$(TARGET_2)
 	$(call fclean,$(TARGET_1),$(OBJ_1))
 	$(call fclean,$(TARGET_2),$(OBJ_2))
 
 libclean:
-	@make -C simple-gui libclean
+	@$(MAKE) -C simple-gui libclean
 	@rm -rf ./lib
 
 re: fclean all
 
 .PHONY: all clean fclean \
-	build.$(TARGET_1) prebuild.$(TARGET_1) postbuild.$(TARGET_1) \
-	build.$(TARGET_2) prebuild.$(TARGET_2) postbuild.$(TARGET_2)
+	prebuild.$(TARGET_1) postbuild.$(TARGET_1) \
+	prebuild.$(TARGET_2) postbuild.$(TARGET_2)
