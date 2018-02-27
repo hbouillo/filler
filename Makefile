@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2018/02/27 07:21:28 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/02/27 21:11:32 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,13 +45,11 @@ SRC_2 = show-filler/main.c show-filler/event/event.c show-filler/logic/logic.c \
 	show-filler/logic/parse.c show-filler/gui/gui.c \
 	\
 	show-filler/gui/scene/main_scene.c \
-	show-filler/gui/scene/pause_button.c \
-	show-filler/gui/scene/next_button.c \
-	show-filler/gui/scene/prev_button.c \
-	show-filler/gui/scene/end_button.c \
-	show-filler/gui/scene/begin_button.c \
-	show-filler/gui/scene/faster_button.c \
-	show-filler/gui/scene/slower_button.c \
+	show-filler/gui/scene/buttons/pause_button.c \
+	show-filler/gui/scene/buttons/next_button.c \
+	show-filler/gui/scene/buttons/prev_button.c \
+	show-filler/gui/scene/buttons/end_button.c \
+	show-filler/gui/scene/buttons/begin_button.c \
 	\
 	show-filler/components/display/display.c \
 	show-filler/components/display/display_draw.c \

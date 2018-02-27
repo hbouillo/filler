@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 03:23:32 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/27 07:21:15 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/27 21:12:24 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ static void				buttons(t_show *show, t_main_scene *main)
 	prev_button(show, main);
 	end_button(show, main);
 	begin_button(show, main);
-	faster_button(show, main);
-	slower_button(show, main);
 }
 
 static void				update_button_color(t_show *show, void *button)
@@ -100,7 +98,6 @@ void					main_update_colors(t_show *show, t_main_scene *main)
 	update_button_color(show, main->prev_button);
 	update_button_color(show, main->end_button);
 	update_button_color(show, main->begin_button);
-	update_button_color(show, main->faster_button);
 }
 
 void					init_main_scene(t_show *show, t_main_scene *main)

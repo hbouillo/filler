@@ -6,11 +6,11 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 06:41:15 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/27 07:12:12 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/27 21:13:09 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./main_scene.h"
+#include "../main_scene.h"
 
 static void				handle_next(void *component, t_component_data *data)
 {

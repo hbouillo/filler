@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 05:05:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/27 07:25:05 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/27 21:14:06 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,6 @@ static void		handle_command_key_event(t_show *show, SDL_KeyboardEvent event)
 			show->frames = show->frames->prev;
 		set_pause(show, 1);
 	}
-	else if (event.keysym.sym == SDLK_UP)
-		show->tps++;
-	else if (event.keysym.sym == SDLK_DOWN)
-		show->tps--;
 	else if (event.keysym.sym == SDLK_SPACE)
 		set_pause(show, show->gui.pause ? 0 : 1);
 	else if (event.keysym.sym == SDLK_DELETE ||
@@ -59,7 +55,6 @@ static void		handle_command_key_event(t_show *show, SDL_KeyboardEvent event)
 	else if (event.keysym.sym == SDLK_END)
 		while (show->frames && show->frames->next)
 			show->frames = show->frames->next;
-	ft_printf("%d\n", show->tps);
 }
 
 static void		handle_color_set_pick(t_show *show, SDL_KeyboardEvent event)
