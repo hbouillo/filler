@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 23:28:32 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/27 21:23:00 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/27 21:38:02 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ static void			play_frames(t_show *show)
 		last_time = current_time;
 	delta = (current_time.tv_sec - last_time.tv_sec) * 1000000000 +
 			current_time.tv_nsec - last_time.tv_nsec;
-	int i = 0;
-	if (delta > 1000000000 / show->tps)
+	if (delta > 1000000000L / (unsigned long)show->tps)
 	{
 		if (!show->gui.pause)
 		{

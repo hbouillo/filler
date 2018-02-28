@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 23:28:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/27 04:59:05 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/28 22:33:26 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ static void		handle_events(t_show *show, SDL_Event event)
 {
 	if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN &&
 			event.key.keysym.sym == SDLK_ESCAPE))
+	{
+		pthread_mutex_lock(&(show->run_mutex));
 		show->run = 0;
+		pthread_mutex_unlock(&(show->run_mutex));
+	}
 	if (event.type == SDL_KEYDOWN)
 		handle_key_event(show, event.key);
 	if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)

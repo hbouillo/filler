@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 06:41:15 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/27 21:13:05 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/27 21:45:13 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void				handle_begin(void *component, t_component_data *data)
 {
 	SDL_Event	e;
 
+	component = NULL;
+	data = NULL;
 	e.type = SDL_KEYDOWN;
 	e.key.keysym.sym = SDLK_BACKSPACE;
 	SDL_PushEvent(&e);
@@ -23,6 +25,7 @@ static void				handle_begin(void *component, t_component_data *data)
 
 void					begin_button(t_show *show, t_main_scene *main)
 {
+	show = NULL;
 	main->begin_button = sg_create_button(main->ptr);
 	sg_set_component_boundaries(main->begin_button,
 		sg_recti(MAIN_SCENE_MARGIN, MAIN_SCENE_MARGIN,

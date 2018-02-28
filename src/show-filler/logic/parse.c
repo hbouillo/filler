@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 06:54:18 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/09 01:36:11 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/27 23:53:04 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static void		parse_map_data(t_reader *reader, char *line)
 		error(ERR_DATA, ERR_CRITICAL);
 	height = ft_atoi(split[1]);
 	width = ft_atoi(split[2]);
+	ft_chartabfree(split);
 	if (width <= 0 || height <= 0 ||
 		(usual_height != -1 && usual_height != height) ||
 		(usual_width != -1 && usual_width != width))
@@ -89,7 +90,7 @@ static int		is_map_line(t_reader *reader, char *line)
 {
 	char		*line_ptr;
 
-	if (!reader->map || ft_strlen(line) != 4 + reader->map->width)
+	if (!reader->map || ft_strlen(line) != (size_t)(4 + reader->map->width))
 			return (0);
 	line_ptr = line - 1;
 	while (++line_ptr - line < 3)

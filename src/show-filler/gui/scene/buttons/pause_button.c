@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 06:41:15 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/27 21:13:16 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/27 21:44:27 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void				handle_pause(void *component, t_component_data *data)
 {
 	SDL_Event	e;
 
+	component = NULL;
+	data = NULL;
 	e.type = SDL_KEYDOWN;
 	e.key.keysym.sym = SDLK_SPACE;
 	SDL_PushEvent(&e);

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 03:23:32 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/27 21:12:24 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/28 22:35:43 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void				labels(t_show *show, t_main_scene *main)
 	sg_set_flags(main->p2_label, SG_LOCK_TOP
 		| SG_LOCK_RIGHT | SG_LOCK_SIZE
 		| SG_ALIGN_LEFT);
-	sg_set_label_text(main->p2_label, sg_new_gstr("Player 2", get_resource_path(FILLER_FONT), 20));
+	sg_set_label_text(main->p2_label, sg_new_gstr("Player 2", get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
 	main->vs_label = sg_create_label(main->ptr);
 	sg_set_component_boundaries(main->vs_label,
 		sg_recti(show->win_w / 2, show->win_h - MAIN_SCENE_MARGIN - 25, 0, 0));

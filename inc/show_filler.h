@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:47:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/27 21:21:15 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/28 22:32:29 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ typedef struct		s_gui
 
 typedef struct		s_show
 {
+	pthread_mutex_t	run_mutex;
 	SDL_Window		*window;
 	SDL_GLContext	context;
 	SDL_Rect		max_size;
@@ -141,8 +142,9 @@ void				error(int errcode, char const *const errmsg, char *errtype,
 						int errexit);
 
 void				init_gui(t_show *show);
+void				uninit_gui(t_show *show);
 
-void				start_read();
+pthread_t			start_read(t_show *show);
 
 int					run_logic(t_show *show);
 int					run_event(t_show *show);

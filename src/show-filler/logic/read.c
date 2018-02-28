@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 02:25:24 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/27 21:21:16 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/28 22:35:30 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ static void			send_events(t_reader *reader)
 		reader->p2 = NULL;
 	}
 	if (reader->result.set == 2)
-	{
 		push_user_event(FILLER_EVENT_RESULT, &(reader->result), NULL);
-	}
 }
 
 static int				read_input(void)
@@ -58,16 +56,26 @@ static int				read_input(void)
 
 static void				*run_read(void *arg)
 {
-	pthread_detach(pthread_self());
-	pthread_setname_np("Parsing");
-	while(1)
+	t_show				*show;
+	int					run;
+
+	run = 1;
+	show = (t_show *)arg;
+	while(run)
+	{
+		pthread_mutex_lock(&(show->run_mutex));
+		if (!show->run)
+			run = 0;
+		pthread_mutex_unlock(&(show->run_mutex));
 		read_input();
+	}
 	return (NULL);
 }
 
-void					start_read()
+pthread_t				start_read(t_show *show)
 {
 	pthread_t			read_thread;
 
-	pthread_create(&read_thread, NULL, &run_read, NULL);
+	pthread_create(&read_thread, NULL, &run_read, show);
+	return (read_thread);
 }

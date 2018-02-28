@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 20:08:19 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/21 02:33:28 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/27 22:22:48 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,14 @@ static t_display	*default_display_data(t_show *show)
 void				*show_create_display(void *scene, t_show *show)
 {
 	void			*display_ptr;
+	char			*fs;
+	char			*vs;
 
-	display_ptr = sg_create_component(scene,
-		get_shader_prog(get_resource_path("shaders/display.fs"),
-						get_resource_path("shaders/display.vs")));
+	fs = get_resource_path("shaders/display.fs");
+	vs = get_resource_path("shaders/display.vs");
+	display_ptr = sg_create_component(scene, get_shader_prog(fs, vs));
+	free(fs);
+	free(vs);
 	sg_set_component_draw(display_ptr, &display_draw);
 	sg_set_component_event(display_ptr, &display_event);
 	sg_set_component_data(display_ptr, default_display_data(show));

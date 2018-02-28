@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 04:25:24 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/23 18:26:16 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/28 21:15:55 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct			s_component_data
 	int					states;
 	int					full_draw;
 	GLuint				vao;
+	int					vbo_count;
 	GLuint				*vbos;
 	GLuint				shader_prog;
 	void				*data;
@@ -153,6 +154,8 @@ void					*sg_new_gstr(char const *str,
 void					sg_del_gstr(void *gstr_ptr);
 
 void					sg_draw_gstr(void *gstr, t_color color, t_pos pos);
+
+void					sg_del_all_gstr(void);
 
 # include "sg_commands.h"
 

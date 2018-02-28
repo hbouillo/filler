@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 20:10:34 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/23 20:01:03 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/28 21:19:46 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void			init_draw(GLuint vao, t_component_data *data, t_rect bounds)
 {
 	float		points[8];
 
+	data->vbo_count = 1;
 	if (!data->vbos)
 		data->vbos = (GLuint *)ft_memalloc(sizeof(GLuint) * 1);
 	else
@@ -77,9 +78,9 @@ static void		compute_texture(t_display *display)
 
 void			display_draw(void *component, t_component_data *data, t_rect bounds)
 {
-	t_pos		text_pos;
 	t_display	*display;
 
+	component = NULL;
 	display = ((t_display *)data->data);
 	glUseProgram(data->shader_prog);
 	if (data->full_draw)

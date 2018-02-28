@@ -6,11 +6,12 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:46:35 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/27 21:23:35 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/28 22:31:19 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "show_filler.h"
+#include <unistd.h>
 
 void			error(int errcode, char const *const errmsg, char *errtype,
 					int errexit)
@@ -28,22 +29,22 @@ static int			init_show(t_show *show)
 	ft_bzero(show, sizeof(t_show));
 	show->run = 1;
 	show->tps = TICKS_PER_SECOND;
+	pthread_mutex_init(&(show->run_mutex), NULL);
 	return (0);
 }
 
 static void			run(t_show *show)
 {
-	t_time			before_time;
-	t_time			after_time;
-	unsigned long	delta;
+	pthread_t		read_thread;
 
-	start_read();
+	read_thread = start_read(show);
 	while (show->run)
 	{
 		run_event(show);
 		run_logic(show);
 		run_gui(show);
 	}
+	pthread_join(read_thread, NULL);
 }
 
 void				init_sdl_window(t_show *show)
@@ -61,7 +62,31 @@ void				init_sdl_window(t_show *show)
 	SDL_SetWindowMinimumSize(show->window, 1000, 670);
 }
 
-int					main(void)
+static void			free_show_content(t_show *show)
+{
+	t_frame			*tmp;
+
+	free(show->players[0]);
+	free(show->players[1]);
+	if (show->frames)
+	{
+		while(show->frames->prev)
+			show->frames = show->frames->prev;
+		while(show->frames->next)
+		{
+			tmp = show->frames;
+			show->frames = show->frames->next;
+			free(tmp->map->map);
+			free(tmp->map);
+			free(tmp);
+		}
+		free(show->frames->map->map);
+		free(show->frames->map);
+		free(show->frames);
+	}
+}
+
+int					submain(void)
 {
 	t_show			show;
 
@@ -82,8 +107,19 @@ int					main(void)
 	glClearColor(show.gui.colors->background.r, show.gui.colors->background.g,
 		show.gui.colors->background.b, show.gui.colors->background.a);
 	run(&show);
+	uninit_gui(&show);
+	sg_del_all_gstr();
+	free_show_content(&show);
 	SDL_GL_DeleteContext(show.context);
 	SDL_DestroyWindow(show.window);
 	SDL_Quit();
+	while(1);
 	return (0);
+}
+
+int main(void)
+{
+	int r = submain();
+
+	return (r);
 }

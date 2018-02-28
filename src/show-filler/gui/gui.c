@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 02:21:03 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/27 07:22:37 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/02/28 00:06:58 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ void					set_color_set(t_show *show, int set)
 		show->gui.colors->background.b, show->gui.colors->background.a);
 }
 
+void					uninit_gui(t_show *show)
+{
+	sg_destroy_scene(show->gui.scenes[FILLER_SCENE_MAIN].ptr);
+}
+
 void					init_gui(t_show *show)
 {
 	glEnable(GL_BLEND);
@@ -72,7 +77,6 @@ void					run_gui(t_show *show)
 		last_time = current_time;
 	delta = (current_time.tv_sec - last_time.tv_sec) * 1000000000 +
 			current_time.tv_nsec - last_time.tv_nsec;
-	int i = 0;
 	if (delta > 1000000000 / FRAME_PER_SECOND)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
