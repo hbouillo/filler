@@ -5,7 +5,7 @@ cpoulet
 # Targets
 *.filler
 show-filler
-!show-filler/*
+!show-filler/
 filler.trace
 
 # Prerequisites

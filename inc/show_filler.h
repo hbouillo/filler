@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:47:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 22:15:56 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 00:02:14 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct		s_map
 
 typedef struct		s_result
 {
-	int				set;
 	int				score_1;
 	int				score_2;
 }					t_result;
@@ -70,7 +69,7 @@ typedef struct		s_frame
 
 typedef struct		s_reader
 {
-	t_result		result;
+	int				end;
 	t_map			*map;
 	char			*p1;
 	char			*p2;
@@ -137,7 +136,7 @@ typedef struct		s_show
 	t_gui			gui;
 	char			*players[2];
 	t_frame			*frames;
-	t_result		result;
+	int				end;
 	int				run;
 	int				tps;
 }					t_show;

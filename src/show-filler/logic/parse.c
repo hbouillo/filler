@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 06:54:18 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 06:51:37 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 00:07:41 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,6 @@ void			parse_line(t_reader *reader, char *line)
 		parse_map_data(reader, line);
 	else if (is_map_line(reader, line))
 		parse_map_line(reader, line);
-	else if (ft_strnequ(line, "== O fin: ", 10))
-	{
-		reader->result.score_1 = ft_atoi(ft_strrchr(line, ' '));
-		reader->result.set++;
-	}
-	else if (ft_strnequ(line, "== X fin: ", 10))
-	{
-		reader->result.score_2 = ft_atoi(ft_strrchr(line, ' '));
-		reader->result.set++;
-	}
+	else if (ft_strlen(line) > 5 && ft_strnequ(line + 5, "fin: ", 5))
+		reader->end = 1;
 }

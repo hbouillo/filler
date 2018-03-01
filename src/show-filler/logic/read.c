@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 02:25:24 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 22:22:10 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 00:03:46 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void			send_events(t_reader *reader)
 		reader->p1 = NULL;
 		reader->p2 = NULL;
 	}
-	if (reader->result.set == 2)
-		push_user_event(FILLER_EVENT_RESULT, &(reader->result), NULL);
+	if (reader->end)
+		push_user_event(FILLER_EVENT_RESULT, NULL, NULL);
 }
 
 static int			read_input(void)
