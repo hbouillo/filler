@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 06:41:54 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 06:49:56 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 22:19:13 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void				display(t_show *show, t_main_scene *main);
 void				frames(t_show *show, t_main_scene *main);
 void				labels_1(t_show *show, t_main_scene *main);
 void				labels_2(t_show *show, t_main_scene *main);
+void				score_labels(t_show *show, t_main_scene *main);
 
 #endif

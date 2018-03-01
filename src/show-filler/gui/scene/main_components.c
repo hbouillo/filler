@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/01 06:47:13 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 06:49:26 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 22:18:59 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void					display(t_show *show, t_main_scene *main)
 	if (!(main->display_frame = show_create_display(main->ptr, show)))
 		error(ERR_MALLOC, ERR_CRITICAL);
 	sg_set_component_boundaries(main->display_frame,
-		sg_recti(2 * MAIN_SCENE_MARGIN,
+		sg_recti(4 * MAIN_SCENE_MARGIN,
 				2 * MAIN_SCENE_MARGIN + MAIN_SCENE_BUTTON_HEIGHT,
-				show->win_w - 4 * MAIN_SCENE_MARGIN,
+				show->win_w - 8 * MAIN_SCENE_MARGIN,
 				show->win_h - 4 * MAIN_SCENE_MARGIN -
 							MAIN_SCENE_TOP_HEIGHT -
 							MAIN_SCENE_BUTTON_HEIGHT));
@@ -51,6 +51,30 @@ void					labels_1(t_show *show, t_main_scene *main)
 		| SG_LOCK_SIZE);
 	sg_set_label_text(main->vs_label, sg_new_gstr("vs",
 		get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
+}
+
+void					score_labels(t_show *show, t_main_scene *main)
+{
+	if (!(main->p1_score_label = sg_create_label(main->ptr)))
+		error(ERR_MALLOC, ERR_CRITICAL);
+	sg_set_component_boundaries(main->p1_score_label,
+		sg_recti(2 * MAIN_SCENE_MARGIN, show->win_h - 2 * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT,
+			0, 0));
+	sg_set_flags(main->p1_score_label, SG_LOCK_TOP
+		| SG_LOCK_LEFT | SG_LOCK_SIZE
+		| SG_ALIGN_RIGHT);
+	sg_set_label_text(main->p1_score_label, sg_new_gstr("1256",
+	get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
+	if (!(main->p2_score_label = sg_create_label(main->ptr)))
+		error(ERR_MALLOC, ERR_CRITICAL);
+	sg_set_component_boundaries(main->p2_score_label,
+		sg_recti(show->win_w - 2 * MAIN_SCENE_MARGIN,
+				show->win_h - 2 * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT, 0, 0));
+	sg_set_flags(main->p2_score_label, SG_LOCK_TOP
+		| SG_LOCK_RIGHT | SG_LOCK_SIZE
+		| SG_ALIGN_LEFT);
+	sg_set_label_text(main->p2_score_label, sg_new_gstr("1234",
+	get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
 }
 
 void					labels_2(t_show *show, t_main_scene *main)

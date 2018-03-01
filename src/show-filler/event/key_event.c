@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 05:05:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 06:18:14 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 22:17:20 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,18 @@ static void		set_pause(t_show *show, int pause)
 	}
 }
 
+static void		update_scores(t_show *show)
+{
+	sg_set_label_text(
+		show->gui.scenes[FILLER_SCENE_MAIN].main.p1_score_label,
+		sg_new_gstr(ft_itoa(show->frames->score.score_1),
+			get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
+	sg_set_label_text(
+		show->gui.scenes[FILLER_SCENE_MAIN].main.p2_score_label,
+		sg_new_gstr(ft_itoa(show->frames->score.score_2),
+			get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
+}
+
 static void		handle_command_key_event(t_show *show, SDL_KeyboardEvent event)
 {
 	if (event.keysym.sym == SDLK_RIGHT)
@@ -55,6 +67,9 @@ static void		handle_command_key_event(t_show *show, SDL_KeyboardEvent event)
 	else if (event.keysym.sym == SDLK_END)
 		while (show->frames && show->frames->next)
 			show->frames = show->frames->next;
+	else
+		return ;
+	update_scores(show);
 }
 
 static void		handle_color_set_pick(t_show *show, SDL_KeyboardEvent event)

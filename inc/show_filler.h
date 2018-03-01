@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:47:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 07:20:59 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 22:15:56 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct		s_result
 typedef struct		s_frame
 {
 	int				id;
+	t_result		score;
 	t_map			*map;
 	struct s_frame	*prev;
 	struct s_frame	*next;
@@ -86,6 +87,8 @@ typedef struct		s_main_scene
 	void			*p1_label;
 	void			*p2_label;
 	void			*vs_label;
+	void			*p1_score_label;
+	void			*p2_score_label;
 	void			*main_frame;
 	void			*display_frame;
 	void			*pause_button;
