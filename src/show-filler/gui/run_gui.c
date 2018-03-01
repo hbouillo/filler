@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 19:58:44 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/27 20:35:16 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 06:27:19 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void				run_gui(t_show *show)
 		last_time = current_time;
 	delta = (current_time.tv_sec - last_time.tv_sec) * 1000000000 +
 			current_time.tv_nsec - last_time.tv_nsec;
-	int i = 0;
 	if (delta > 1000000000 / FRAME_PER_SECOND)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -31,7 +30,6 @@ static void				run_gui(t_show *show)
 		if (show->gui.active_scene != NULL)
 			sg_draw(show->gui.active_scene->ptr);
 		pthread_mutex_unlock(&(show->mutex));
-		delta -= 1000000000 / FRAME_PER_SECOND;
 		last_time = current_time;
 		SDL_GL_SwapWindow(show->window);
 	}

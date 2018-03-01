@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 04:24:56 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/21 05:18:11 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 06:16:50 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void		push_frame(t_show *show, t_frame *frame)
 
 void			handle_new_frame_event(t_show *show, SDL_UserEvent user_event)
 {
-	t_frame 	*new_frame;
+	t_frame		*new_frame;
 
 	if (!(new_frame = (t_frame *)ft_memalloc(sizeof(t_frame))))
 		error(ERR_MALLOC, ERR_CRITICAL);

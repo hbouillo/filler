@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 06:54:18 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/27 23:53:04 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 06:51:37 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static void		parse_player_name(t_reader *reader, char *line)
 	char		*name_tmp;
 
 	if (ft_strlen(line) > 10)
-	{
 		if ((name_tmp = ft_strrchr(line, '/')))
 		{
-			name = ft_strdup(name_tmp + 1);
+			if (!(name = ft_strdup(name_tmp + 1)))
+				error(ERR_MALLOC, ERR_CRITICAL);
 			name_tmp = name;
 			while (*name_tmp && *name_tmp != '.')
 				name_tmp++;
@@ -32,12 +32,12 @@ static void		parse_player_name(t_reader *reader, char *line)
 					reader->p1 = name;
 				else
 					reader->p2 = name;
-					return ;
+				return ;
 			}
 			free(name);
 		}
-	}
-	name = ft_strdup("Unknown");
+	if (!(name = ft_strdup("Unknown")))
+		error(ERR_MALLOC, ERR_CRITICAL);
 	error(ERR_DATA, ERR_CRITICAL);
 }
 
@@ -91,7 +91,7 @@ static int		is_map_line(t_reader *reader, char *line)
 	char		*line_ptr;
 
 	if (!reader->map || ft_strlen(line) != (size_t)(4 + reader->map->width))
-			return (0);
+		return (0);
 	line_ptr = line - 1;
 	while (++line_ptr - line < 3)
 		if (!ft_isdigit(*(line_ptr)))

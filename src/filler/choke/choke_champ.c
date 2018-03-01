@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 02:01:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/17 02:30:49 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 05:42:16 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ static int			subgrade(t_pos pos, t_map *map, t_player *player, t_pos tmp)
 	subgrade = 0;
 	if (map->data[ft_nbrmax(0, pos.y + tmp.y - 1) * map->size.x
 		+ (pos.x + tmp.x)] == player->enemy_char)
-	subgrade += GRADE_PROXIMITY;
+		subgrade += GRADE_PROXIMITY;
 	if (map->data[ft_nbrmin(map->size.y - 1, pos.y + tmp.y + 1)
 		* map->size.x + (pos.x + tmp.x)] == player->enemy_char)
-	subgrade += GRADE_PROXIMITY;
+		subgrade += GRADE_PROXIMITY;
 	if (map->data[(pos.y + tmp.y) * map->size.x +
 		ft_nbrmax(0, (pos.x + tmp.x - 1))] == player->enemy_char)
-	subgrade += GRADE_PROXIMITY;
+		subgrade += GRADE_PROXIMITY;
 	if (map->data[(pos.y + tmp.y) * map->size.x +
 		ft_nbrmin(map->size.x - 1, (pos.x + tmp.x + 1))]
 		== player->enemy_char)
-	subgrade += GRADE_PROXIMITY;
-	subgrade = subgrade * subgrade;
+		subgrade += GRADE_PROXIMITY;
+	subgrade *= subgrade;
 	return (subgrade);
 }
 
@@ -71,8 +71,8 @@ static t_pos		*most_annoying_pos(t_sol *sol, t_map *map, t_player *player,
 		tmp_grade = evaluate_pos(sol->pos, map, player, piece);
 		if (tmp_grade > max_grade)
 		{
-			if (!pos)
-				pos = (t_pos *)ft_memalloc(sizeof(t_pos));
+			if (!pos && !(pos = (t_pos *)ft_memalloc(sizeof(t_pos))))
+				exit(1);
 			max_grade = tmp_grade;
 			pos->x = sol->pos.x;
 			pos->y = sol->pos.y;
@@ -86,6 +86,7 @@ static t_pos		*nextpos(t_sol *sol, t_map *map, t_player *player,
 						t_piece *piece)
 {
 	t_pos			*pos;
+
 	pos = most_annoying_pos(sol, map, player, piece);
 	if (!pos)
 		pos = default_pos(sol, map, player);

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 15:45:57 by hbouillo          #+#    #+#             */
-/*   Updated: 2017/12/12 18:04:21 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 05:39:47 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ t_pos				*get_arm_next_pos(t_sol *sol, t_arm arm)
 	aim = arm.point;
 	aim.x += arm.dir.x;
 	aim.y += arm.dir.y;
-
 	if (!(best = (t_pos *)ft_memalloc(sizeof(t_pos))))
 		exit(1);
-	while(sol)
+	while (sol)
 	{
 		tmp_dist = dist2(sol->pos, aim);
 		if (tmp_dist < smallest)

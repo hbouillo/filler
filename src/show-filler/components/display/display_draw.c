@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 20:10:34 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/28 21:19:46 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 06:27:35 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void			init_draw(GLuint vao, t_component_data *data, t_rect bounds)
 
 	data->vbo_count = 1;
 	if (!data->vbos)
-		data->vbos = (GLuint *)ft_memalloc(sizeof(GLuint) * 1);
+	{
+		if (!(data->vbos = (GLuint *)ft_memalloc(sizeof(GLuint) * 1)))
+			error(ERR_MALLOC, ERR_CRITICAL);
+	}
 	else
 		glDeleteBuffers(1, data->vbos);
 	sg_rect_to_vec2buf(bounds, points);
@@ -37,17 +40,15 @@ static void		uniforms(t_component_data *data, t_rect bounds)
 {
 	GLint		uniform;
 	t_display	*display;
-	float		fx;
-	float		fy;
+	t_pos		f;
 
 	display = (t_display *)data->data;
-	fx = (float)(*(display->win_w)) / 2.0;
-	fy = (float)(*(display->win_h)) / 2.0;
+	f.x = (float)(*(display->win_w)) / 2.0;
+	f.y = (float)(*(display->win_h)) / 2.0;
 	uniform = glGetUniformLocation(data->shader_prog, "bounds");
-	glUniform4i(uniform, (int)((bounds.x + 1.0) * fx),
-		(int)((bounds.y + 1.0) * fy),
-		(int)(bounds.w * fx),
-		(int)(bounds.h * fy));
+	glUniform4i(uniform, (int)((bounds.x + 1.0) * f.x),
+		(int)((bounds.y + 1.0) * f.y), (int)(bounds.w * f.x),
+		(int)(bounds.h * f.y));
 	uniform = glGetUniformLocation(data->shader_prog, "xcolor");
 	sg_uniform_color(uniform, display->xcolor);
 	uniform = glGetUniformLocation(data->shader_prog, "ocolor");
@@ -56,12 +57,12 @@ static void		uniforms(t_component_data *data, t_rect bounds)
 	sg_uniform_color(uniform, display->ecolor);
 	uniform = glGetUniformLocation(data->shader_prog, "gcolor");
 	sg_uniform_color(uniform, display->gcolor);
-	uniform = glGetUniformLocation(data->shader_prog, "map");
-	glUniform1i(uniform, 1);
+	glUniform1i(glGetUniformLocation(data->shader_prog, "map"), 1);
 	uniform = glGetUniformLocation(data->shader_prog, "edge");
 	glUniform1i(uniform, display->edge);
 	uniform = glGetUniformLocation(data->shader_prog, "mapSize");
-	glUniform2i(uniform, (*(display->frame))->map->width, (*(display->frame))->map->height);
+	glUniform2i(uniform, (*(display->frame))->map->width,
+		(*(display->frame))->map->height);
 }
 
 static void		compute_texture(t_display *display)
@@ -72,11 +73,14 @@ static void		compute_texture(t_display *display)
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_R32UI, (*(display->frame))->map->width, (*(display->frame))->map->height, 0, GL_RED_INTEGER, GL_UNSIGNED_BYTE, (*(display->frame))->map->map);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_R32UI, (*(display->frame))->map->width,
+		(*(display->frame))->map->height, 0, GL_RED_INTEGER,
+		GL_UNSIGNED_BYTE, (*(display->frame))->map->map);
 	display->last_frame = *(display->frame);
 }
 
-void			display_draw(void *component, t_component_data *data, t_rect bounds)
+void			display_draw(void *component, t_component_data *data,
+					t_rect bounds)
 {
 	t_display	*display;
 

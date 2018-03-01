@@ -6,23 +6,12 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:46:35 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/28 22:31:19 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 06:45:57 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "show_filler.h"
 #include <unistd.h>
-
-void			error(int errcode, char const *const errmsg, char *errtype,
-					int errexit)
-{
-	printf("%s (ERRCODE=%d, ERRMSG=\"%s\")\n", errtype, errcode, errmsg);
-	if (errexit)
-	{
-		SDL_Quit();
-		exit(1);
-	}
-}
 
 static int			init_show(t_show *show)
 {
@@ -70,9 +59,9 @@ static void			free_show_content(t_show *show)
 	free(show->players[1]);
 	if (show->frames)
 	{
-		while(show->frames->prev)
+		while (show->frames->prev)
 			show->frames = show->frames->prev;
-		while(show->frames->next)
+		while (show->frames->next)
 		{
 			tmp = show->frames;
 			show->frames = show->frames->next;
@@ -86,14 +75,15 @@ static void			free_show_content(t_show *show)
 	}
 }
 
-int					submain(void)
+int					main(void)
 {
 	t_show			show;
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		error(ERR_SDL, ERR_CRITICAL);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
+		SDL_GL_CONTEXT_PROFILE_CORE);
 	if (init_show(&show))
 		error(ERR_SDL, ERR_CRITICAL);
 	if (SDL_GetDisplayUsableBounds(0, &show.max_size) < 0)
@@ -104,8 +94,6 @@ int					submain(void)
 	}
 	init_sdl_window(&show);
 	init_gui(&show);
-	glClearColor(show.gui.colors->background.r, show.gui.colors->background.g,
-		show.gui.colors->background.b, show.gui.colors->background.a);
 	run(&show);
 	uninit_gui(&show);
 	sg_del_all_gstr();
@@ -113,13 +101,5 @@ int					submain(void)
 	SDL_GL_DeleteContext(show.context);
 	SDL_DestroyWindow(show.window);
 	SDL_Quit();
-	while(1);
 	return (0);
-}
-
-int main(void)
-{
-	int r = submain();
-
-	return (r);
 }

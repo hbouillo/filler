@@ -6,13 +6,14 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 13:29:05 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/11 03:34:27 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 05:28:36 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-static int		can_place(t_player *player, t_map *map, t_piece *piece, t_pos const pos)
+static int		can_place(t_player *player, t_map *map, t_piece *piece,
+					t_pos const pos)
 {
 	int		i;
 	int		j;
@@ -28,7 +29,8 @@ static int		can_place(t_player *player, t_map *map, t_piece *piece, t_pos const 
 		while (++j < piece->compact_size.x)
 		{
 			tmp_map = map->data[(pos.y + i) * map->size.x + pos.x + j];
-			tmp_pc = piece->data[(piece->offset.y + i) * piece->size.x + piece->offset.x + j];
+			tmp_pc = piece->data[(piece->offset.y + i) * piece->size.x +
+				piece->offset.x + j];
 			if ((tmp_pc != '.' && tmp_map == player->enemy_char) ||
 				(tmp_pc != '.' && tmp_map == player->place_char && count > 0))
 				return (0);
@@ -72,14 +74,12 @@ t_sol			*analyse(t_player *player, t_map *map, t_piece *piece)
 	{
 		i.x = -1;
 		while (++(i.x) <= map->size.x - piece->compact_size.x)
-		{
 			if (can_place(player, map, piece, i))
 			{
 				pos.x = i.x - piece->offset.x;
 				pos.y = i.y - piece->offset.y;
 				add_pos(&sol, pos);
 			}
-		}
 	}
 	if (!sol)
 	{

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 04:25:24 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/28 21:15:55 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 05:19:25 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,8 @@ t_color					sg_color(int hexcolor);
 void					sg_uniform_color(GLuint uniform, t_color color);
 void					sg_uniform_rect(GLuint uniform, t_rect bounds);
 
-GLuint					get_shader_prog(char const *fs_file, char const *vs_file);
+GLuint					get_shader_prog(char const *fs_file,
+							char const *vs_file);
 
 void					*sg_new_gstr(char const *str,
 							char const *font_file, int size);
@@ -156,7 +157,5 @@ void					sg_del_gstr(void *gstr_ptr);
 void					sg_draw_gstr(void *gstr, t_color color, t_pos pos);
 
 void					sg_del_all_gstr(void);
-
-# include "sg_commands.h"
 
 #endif

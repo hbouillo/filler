@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 12:22:15 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/17 04:22:13 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 07:05:59 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,8 +193,8 @@ typedef struct		s_args
 void				register_arg_ref(char *name, char short_name,
 						int data_len, int idx);
 int					parse_args(int argc, char **argv);
-t_args				**get_args();
-void				destroy_args();
+t_args				**get_args(void);
+void				destroy_args(void);
 t_arg				*get_arg(int idx);
 
 /*

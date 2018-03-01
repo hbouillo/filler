@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 05:05:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/27 21:14:44 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 06:18:14 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void			handle_key_event(t_show *show, SDL_KeyboardEvent event)
 		if (SDL_GetWindowFlags(show->window) & SDL_WINDOW_FULLSCREEN_DESKTOP)
 			SDL_SetWindowFullscreen(show->window, 0);
 		else
-			SDL_SetWindowFullscreen(show->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+			SDL_SetWindowFullscreen(show->window,
+				SDL_WINDOW_FULLSCREEN_DESKTOP);
 	}
 }

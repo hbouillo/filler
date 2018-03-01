@@ -6,12 +6,11 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 14:38:22 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/27 00:56:54 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 06:09:48 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-#include <stdio.h>
 
 int			init_map(t_map **map)
 {
@@ -40,6 +39,18 @@ int			init_map(t_map **map)
 	return (0);
 }
 
+static void	set_enemy_spawn(t_player *player, int i, int j)
+{
+	player->enemy_spawn.x = j;
+	player->enemy_spawn.y = i;
+}
+
+static void	set_my_spawn(t_player *player, int i, int j)
+{
+	player->enemy_spawn.x = j;
+	player->enemy_spawn.y = i;
+}
+
 int			parse_map(t_map *map, t_player *player)
 {
 	char	*line;
@@ -47,30 +58,23 @@ int			parse_map(t_map *map, t_player *player)
 	int		j;
 
 	skip_line(0);
-	if (!(map->data = (char *)ft_memalloc(sizeof(char) * (map->size.x * map->size.y + 1))))
+	if (!(map->data = (char *)ft_memalloc(sizeof(char) *
+		(map->size.x * map->size.y + 1))))
 		exit(1);
 	i = -1;
 	while (++i < map->size.y)
 	{
 		ft_gnl(0, &line);
 		ft_strcpy(map->data + map->size.x * i, line + 4);
+		j = -1;
 		if (player->enemy_spawn.x < 0 || player->my_spawn.x < 0)
-		{
-			j = -1;
 			while (line[++j])
 			{
 				if (line[j] == player->enemy_char)
-				{
-					player->enemy_spawn.x = j;
-					player->enemy_spawn.y = i;
-				}
+					set_enemy_spawn(player, i, j);
 				if (line[j] == player->place_char)
-				{
-					player->my_spawn.x = j;
-					player->my_spawn.y = i;
-				}
+					set_my_spawn(player, i, j);
 			}
-		}
 		free(line);
 	}
 	return (0);
@@ -99,48 +103,5 @@ int			init_piece(t_piece **piece)
 	(*piece)->offset.y = (*piece)->size.y;
 	(*piece)->offset.x = (*piece)->size.x;
 	ft_chartabfree(split);
-	return (0);
-}
-
-static int	analyse_piece(t_piece *piece)
-{
-	int		x;
-	int		y;
-
-	x = -1;
-	while (++x < piece->size.x)
-	{
-		y = -1;
-		while (++y < piece->size.y)
-		{
-			if (piece->data[piece->size.x * y + x] != '.')
-			{
-				piece->offset.x = ft_nbrmin(piece->offset.x, x);
-				piece->offset.y = ft_nbrmin(piece->offset.y, y);
-				piece->compact_size.x = ft_nbrmax(piece->compact_size.x, x);
-				piece->compact_size.y = ft_nbrmax(piece->compact_size.y, y);
-			}
-		}
-	}
-	piece->compact_size.x = piece->compact_size.x - piece->offset.x + 1;
-	piece->compact_size.y = piece->compact_size.y - piece->offset.y + 1;
-	//dprintf(2, "\n||| COMPACT %d, %d, OFFSET %d, %d |||\n", piece->compact_size.x, piece->compact_size.y, piece->offset.x, piece->offset.y);
-	return (0);
-}
-int			parse_piece(t_piece *piece)
-{
-	char	*line;
-	int		i;
-
-	if (!(piece->data = (char *)ft_memalloc(sizeof(char) * (piece->size.x * piece->size.y + 1))))
-		exit(1);
-	i = -1;
-	while (++i < piece->size.y)
-	{
-		ft_gnl(0, &line);
-		ft_strcpy(piece->data + piece->size.x * i, line);
-		free(line);
-	}
-	analyse_piece(piece);
 	return (0);
 }

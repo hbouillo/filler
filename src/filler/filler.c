@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 14:14:37 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/15 20:16:56 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 05:39:28 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,16 @@ static int		loop_filler(t_player *player)
 	return (0);
 }
 
+static void		init_filler_player(t_player *player)
+{
+	player->place_char = 0;
+	player->enemy_char = 0;
+	player->enemy_spawn.x = -1;
+	player->enemy_spawn.y = -1;
+	player->my_spawn.x = -1;
+	player->my_spawn.y = -1;
+}
+
 int				init_filler(void)
 {
 	char		*line;
@@ -62,12 +72,9 @@ int				init_filler(void)
 	{
 		if (ft_strlen(line) >= 10 && (line[10] == '1' || line[10] == '2'))
 		{
+			init_filler_player(player);
 			player->place_char = line[10] == '1' ? 'O' : 'X';
 			player->enemy_char = line[10] == '1' ? 'X' : 'O';
-			player->enemy_spawn.x = -1;
-			player->enemy_spawn.y = -1;
-			player->my_spawn.x = -1;
-			player->my_spawn.y = -1;
 		}
 		else
 			return (FILLER_ERR_PARSE);

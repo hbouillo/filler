@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/27 01:24:46 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/27 16:24:38 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 06:03:05 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,33 @@ static void		reset(char *grademap, t_size mapsize, t_player *player)
 	}
 }
 
-static int		grade_pos(char *grademap, t_map *map, t_player *player, t_pos pos)
+static int		check_pos_value(char *grademap, t_map *map, t_pos pos,
+					char value)
+{
+	if ((pos.x > 0 && grademap[(pos.y) * map->size.x + pos.x - 1]
+			== value) ||
+		(pos.x < map->size.x - 1 && grademap[(pos.y) * map->size.x + pos.x + 1]
+			== value) ||
+		(pos.y > 0 && grademap[(pos.y - 1) * map->size.x + pos.x]
+			== value) ||
+		(pos.y < map->size.y - 1 && grademap[(pos.y + 1) * map->size.x + pos.x]
+			== value))
+		return (1);
+	return (0);
+}
+
+static int		grade_pos(char *grademap, t_map *map, t_player *player,
+					t_pos pos)
 {
 	int			grade;
 
 	grade = 0;
-	if ((pos.x > 0 && grademap[(pos.y) * map->size.x + pos.x - 1] == player->place_char) ||
-		(pos.x < map->size.x - 1 && grademap[(pos.y) * map->size.x + pos.x + 1] == player->place_char) ||
-		(pos.y > 0 && grademap[(pos.y - 1) * map->size.x + pos.x] == player->place_char) ||
-		(pos.y < map->size.y - 1 && grademap[(pos.y + 1) * map->size.x + pos.x] == player->place_char))
+	if (check_pos_value(grademap, map, pos, player->place_char))
 	{
 		grade++;
 		grademap[(map->size.x) * pos.y + pos.x] = 1;
 	}
-	if ((pos.x > 0 && grademap[(pos.y) * map->size.x + pos.x - 1] == player->enemy_char) ||
-		(pos.x < map->size.x - 1 && grademap[(pos.y) * map->size.x + pos.x + 1] == player->enemy_char) ||
-		(pos.y > 0 && grademap[(pos.y - 1) * map->size.x + pos.x] == player->enemy_char) ||
-		(pos.y < map->size.y - 1 && grademap[(pos.y + 1) * map->size.x + pos.x] == player->enemy_char))
+	if (check_pos_value(grademap, map, pos, player->enemy_char))
 	{
 		grade--;
 		grademap[(map->size.x) * pos.y + pos.x] = 2;
@@ -60,12 +70,12 @@ int				woo_grade_map(t_map *map, char *grademap, t_player *player)
 	int			done;
 	int			grade;
 	int			pass;
-	t_pos			counter;
+	t_pos		counter;
 
-	pass = 1;
+	pass = 0;
 	grade = 0;
 	done = 0;
-	while (!done)
+	while (!done && ++pass)
 	{
 		done = 1;
 		counter.x = -1;
@@ -73,15 +83,12 @@ int				woo_grade_map(t_map *map, char *grademap, t_player *player)
 		{
 			counter.y = -1;
 			while (++counter.y < map->size.y)
-			{
 				if (grademap[(map->size.x) * counter.y + counter.x] == '.')
 				{
 					grade += pass * grade_pos(grademap, map, player, counter);
 					done = 0;
 				}
-			}
 		}
-		pass++;
 		reset(grademap, map->size, player);
 	}
 	return (grade);

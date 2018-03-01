@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 23:28:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/28 22:33:26 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 06:17:43 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static void		handle_events(t_show *show, SDL_Event event)
 	}
 	if (event.type == SDL_KEYDOWN)
 		handle_key_event(show, event.key);
-	if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+	if (event.type == SDL_WINDOWEVENT &&
+		event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
 	{
 		show->win_w = (int)event.window.data1;
 		show->win_h = (int)event.window.data2;

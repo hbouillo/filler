@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 02:25:24 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/28 22:35:30 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 06:43:01 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void			send_events(t_reader *reader)
 		push_user_event(FILLER_EVENT_RESULT, &(reader->result), NULL);
 }
 
-static int				read_input(void)
+static int			read_input(void)
 {
 	static t_reader	reader;
 	static char		*previous_line;
@@ -48,20 +48,21 @@ static int				read_input(void)
 		send_events(&reader);
 	}
 	else if (ret < 0 && ft_strlen(line))
-		previous_line = ft_strdup(line);
+		if (!(previous_line = ft_strdup(line)))
+			error(ERR_MALLOC, ERR_CRITICAL);
 	if (line)
 		free(line);
 	return (0);
 }
 
-static void				*run_read(void *arg)
+static void			*run_read(void *arg)
 {
-	t_show				*show;
-	int					run;
+	t_show			*show;
+	int				run;
 
 	run = 1;
 	show = (t_show *)arg;
-	while(run)
+	while (run)
 	{
 		pthread_mutex_lock(&(show->run_mutex));
 		if (!show->run)
@@ -72,9 +73,9 @@ static void				*run_read(void *arg)
 	return (NULL);
 }
 
-pthread_t				start_read(t_show *show)
+pthread_t			start_read(t_show *show)
 {
-	pthread_t			read_thread;
+	pthread_t		read_thread;
 
 	pthread_create(&read_thread, NULL, &run_read, show);
 	return (read_thread);

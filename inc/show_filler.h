@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:47:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/28 22:32:29 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 07:20:59 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 # include "libft.h"
 # include "sg.h"
+# include "sg_commands.h"
 
 # define FRAME_PER_SECOND 60
 # define TICKS_PER_SECOND 60
@@ -41,7 +42,7 @@
 # define FILLER_FONT "fonts/TheLightFont.ttf"
 # define FILLER_TOP_FONT_SIZE 30
 
-typedef struct	timespec	t_time;
+typedef struct timespec	t_time;
 
 typedef struct		s_map
 {

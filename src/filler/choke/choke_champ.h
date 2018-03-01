@@ -6,12 +6,12 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 02:02:20 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/01/27 06:23:18 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 05:27:26 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHOKE_CHAMP
-# define CHOKE_CHAMP
+#ifndef CHOKE_CHAMP_H
+# define CHOKE_CHAMP_H
 
 # include "filler.h"
 

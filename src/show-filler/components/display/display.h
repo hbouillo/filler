@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 20:07:36 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/02/22 05:41:32 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/01 06:17:16 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ typedef struct			s_display
 	GLuint				tex;
 }						t_display;
 
-void			display_draw(void *scene, t_component_data *data, t_rect bounds);
+void					display_draw(void *scene, t_component_data *data,
+							t_rect bounds);
 
-void			display_event(void *scene, t_component_data *data, SDL_Event e);
+void					display_event(void *scene, t_component_data *data,
+							SDL_Event e);
 
 #endif
