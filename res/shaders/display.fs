@@ -68,13 +68,16 @@ void		drawBorders(ivec2 mapCoord, vec4 newBounds)
 		(pos.y >= int(floor(newBounds.y + newBounds.w))))
 	{
 		frag_color = ecolor;
+		return ;
 	}
 	else if (under.x != mapCoord.x || under.y != mapCoord.y)
 	{
 		/* frag_color = frag_color * (1.0 - gcolor.a) + gcolor * gcolor.a;
 		frag_color.a = 1.0; */
 		frag_color = gcolor;
+		return ;
 	}
+	discard ;
 }
 
 vec4		getNewBounds()
