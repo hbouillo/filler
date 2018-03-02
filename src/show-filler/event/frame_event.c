@@ -6,11 +6,30 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 04:24:56 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 23:55:27 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 02:56:55 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "event.h"
+
+static void			update_scores(t_show *show)
+{
+	sg_set_label_text(
+		show->gui.scenes[FILLER_SCENE_MAIN].main.p1_score_label,
+		sg_new_gstr(ft_itoa(show->frames->score.score_1),
+			get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
+	sg_set_label_text(
+		show->gui.scenes[FILLER_SCENE_MAIN].main.p2_score_label,
+		sg_new_gstr(ft_itoa(show->frames->score.score_2),
+			get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
+}
+
+void				frame_update(t_show *show)
+{
+	update_scores(show);
+	if (show->end && !show->frames->next)
+		push_user_event(FILLER_EVENT_SCENE, (void *)FILLER_SCENE_END, NULL);
+}
 
 static void			push_frame(t_show *show, t_frame *frame)
 {
@@ -32,7 +51,8 @@ static void			push_frame(t_show *show, t_frame *frame)
 	}
 }
 
-void				handle_new_frame_event(t_show *show, SDL_UserEvent user_event)
+void				handle_new_frame_event(t_show *show,
+						SDL_UserEvent user_event)
 {
 	static t_result	score;
 	t_frame			*new;

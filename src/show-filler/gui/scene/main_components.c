@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/01 06:47:13 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 22:18:59 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 02:58:26 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void					score_labels(t_show *show, t_main_scene *main)
 	if (!(main->p1_score_label = sg_create_label(main->ptr)))
 		error(ERR_MALLOC, ERR_CRITICAL);
 	sg_set_component_boundaries(main->p1_score_label,
-		sg_recti(2 * MAIN_SCENE_MARGIN, show->win_h - 2 * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT,
-			0, 0));
+		sg_recti(2 * MAIN_SCENE_MARGIN,
+			show->win_h - 2 * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT, 0, 0));
 	sg_set_flags(main->p1_score_label, SG_LOCK_TOP
 		| SG_LOCK_LEFT | SG_LOCK_SIZE
 		| SG_ALIGN_RIGHT);
@@ -69,7 +69,8 @@ void					score_labels(t_show *show, t_main_scene *main)
 		error(ERR_MALLOC, ERR_CRITICAL);
 	sg_set_component_boundaries(main->p2_score_label,
 		sg_recti(show->win_w - 2 * MAIN_SCENE_MARGIN,
-				show->win_h - 2 * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT, 0, 0));
+				show->win_h - 2 * MAIN_SCENE_MARGIN - MAIN_SCENE_TOP_HEIGHT,
+				0, 0));
 	sg_set_flags(main->p2_score_label, SG_LOCK_TOP
 		| SG_LOCK_RIGHT | SG_LOCK_SIZE
 		| SG_ALIGN_LEFT);

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:47:31 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/02 00:02:14 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 03:16:06 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define FILLER_EVENT_FRAME 0
 # define FILLER_EVENT_PLAYERS 1
 # define FILLER_EVENT_RESULT 2
+# define FILLER_EVENT_SCENE 3
 
 # define FILLER_FONT "fonts/TheLightFont.ttf"
 # define FILLER_TOP_FONT_SIZE 30
@@ -75,9 +76,10 @@ typedef struct		s_reader
 	char			*p2;
 }					t_reader;
 
-# define FILLER_SCENES_AMOUNT 1
+# define FILLER_SCENES_AMOUNT 2
 
 # define FILLER_SCENE_MAIN 0
+# define FILLER_SCENE_END 1
 
 typedef struct		s_main_scene
 {
@@ -99,10 +101,23 @@ typedef struct		s_main_scene
 	void			*slower_button;
 }					t_main_scene;
 
+typedef struct		s_end_scene
+{
+	void			*ptr;
+	void			*heckyeah;
+	void			*msg;
+	void			*vs;
+	void			*score_1;
+	void			*score_2;
+	void			*popup;
+	void			*background;
+}					t_end_scene;
+
 typedef union		u_scene
 {
 	void			*ptr;
 	t_main_scene	main;
+	t_end_scene		end;
 }					t_scene;
 
 typedef struct		s_color_set
@@ -153,10 +168,10 @@ int					run_logic(t_show *show);
 int					run_event(t_show *show);
 void				run_gui(t_show *show);
 
+void				frame_update(t_show *show);
+
 unsigned int		get_user_event(void);
 void				push_user_event(int code, void *data1, void *data2);
-
-void				init_main_scene(t_show *show, t_main_scene *main);
 
 void				*show_create_display(void *scene, t_show *show);
 void				show_set_display_xcolor(void *component, t_color color);

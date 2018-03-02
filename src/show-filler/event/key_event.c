@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 05:05:45 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 22:17:20 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 03:05:50 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,6 @@ static void		set_pause(t_show *show, int pause)
 			sg_new_gstr("Pause",
 				get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
 	}
-}
-
-static void		update_scores(t_show *show)
-{
-	sg_set_label_text(
-		show->gui.scenes[FILLER_SCENE_MAIN].main.p1_score_label,
-		sg_new_gstr(ft_itoa(show->frames->score.score_1),
-			get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
-	sg_set_label_text(
-		show->gui.scenes[FILLER_SCENE_MAIN].main.p2_score_label,
-		sg_new_gstr(ft_itoa(show->frames->score.score_2),
-			get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
 }
 
 static void		handle_command_key_event(t_show *show, SDL_KeyboardEvent event)
@@ -69,7 +57,7 @@ static void		handle_command_key_event(t_show *show, SDL_KeyboardEvent event)
 			show->frames = show->frames->next;
 	else
 		return ;
-	update_scores(show);
+	frame_update(show);
 }
 
 static void		handle_color_set_pick(t_show *show, SDL_KeyboardEvent event)
@@ -96,9 +84,25 @@ static void		handle_color_set_pick(t_show *show, SDL_KeyboardEvent event)
 		set_color_set(show, 8);
 }
 
+static void		handle_escape(t_show *show)
+{
+	SDL_Event	e;
+
+	if (show->gui.active_scene == show->gui.scenes + FILLER_SCENE_MAIN)
+	{
+		e.type = SDL_QUIT;
+		SDL_PushEvent(&e);
+	}
+	else if (show->gui.active_scene == show->gui.scenes + FILLER_SCENE_END)
+		push_user_event(FILLER_EVENT_SCENE, (void *)FILLER_SCENE_MAIN, NULL);
+}
+
 void			handle_key_event(t_show *show, SDL_KeyboardEvent event)
 {
-	handle_command_key_event(show, event);
+	if (event.type == SDL_KEYDOWN && event.keysym.sym == SDLK_ESCAPE)
+		handle_escape(show);
+	if (show->gui.active_scene == show->gui.scenes + FILLER_SCENE_MAIN)
+		handle_command_key_event(show, event);
 	handle_color_set_pick(show, event);
 	if (event.keysym.sym == SDLK_RETURN)
 	{

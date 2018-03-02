@@ -6,24 +6,12 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 23:28:32 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 22:18:19 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 01:02:56 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./logic.h"
 #include <unistd.h>
-
-static void		update_scores(t_show *show)
-{
-	sg_set_label_text(
-		show->gui.scenes[FILLER_SCENE_MAIN].main.p1_score_label,
-		sg_new_gstr(ft_itoa(show->frames->score.score_1),
-			get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
-	sg_set_label_text(
-		show->gui.scenes[FILLER_SCENE_MAIN].main.p2_score_label,
-		sg_new_gstr(ft_itoa(show->frames->score.score_2),
-			get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
-}
 
 static void			play_frames(t_show *show)
 {
@@ -42,8 +30,10 @@ static void			play_frames(t_show *show)
 		{
 			if (show->frames)
 				if (show->frames->next)
+				{
 					show->frames = show->frames->next;
-			update_scores(show);
+					frame_update(show);
+				}
 		}
 		last_time = current_time;
 	}

@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/01 06:49:46 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/03/02 03:00:41 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,11 +38,14 @@ TARGET_2 = show-filler
 SRC_2 = show-filler/main.c show-filler/event/event.c show-filler/logic/logic.c \
 	show-filler/logic/read.c show-filler/event/frame_event.c \
 	show-filler/event/players_event.c show-filler/event/result_event.c \
+	show-filler/event/scene_event.c \
 	show-filler/event/key_event.c show-filler/error.c \
 	show-filler/logic/parse.c show-filler/gui/gui.c \
 	show-filler/gui/color_sets.c \
 	\
 	show-filler/gui/scene/main_scene.c \
+	show-filler/gui/scene/end_scene.c \
+	show-filler/gui/scene/end_components.c \
 	show-filler/gui/scene/main_components.c \
 	show-filler/gui/scene/buttons/pause_button.c \
 	show-filler/gui/scene/buttons/next_button.c \

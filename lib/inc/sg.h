@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 04:25:24 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 21:59:55 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 02:47:45 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,13 @@ typedef struct			s_rect
 # define SG_LOCK_LEFT 0x0400
 # define SG_LOCK_RIGHT 0x0800
 
-# define SG_LOCK_WIDTH 0x1000
-# define SG_LOCK_HEIGHT 0x2000
-# define SG_LOCK_SIZE 0x3000
+# define SG_LOCK_MID_X 0x1000
+# define SG_LOCK_MID_Y 0x2000
+# define SG_LOCK_MID 0x3000
+
+# define SG_LOCK_WIDTH 0x4000
+# define SG_LOCK_HEIGHT 0x8000
+# define SG_LOCK_SIZE 0xC000
 
 # define SG_ALIGN_TOP 0x010000
 # define SG_ALIGN_BOTTOM 0x020000

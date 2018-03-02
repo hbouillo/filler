@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 23:28:29 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 06:17:43 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 02:14:32 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ void			push_user_event(int code, void *data1, void *data2)
 
 static void		handle_events(t_show *show, SDL_Event event)
 {
-	if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN &&
-			event.key.keysym.sym == SDLK_ESCAPE))
+	if (event.type == SDL_QUIT)
 	{
 		pthread_mutex_lock(&(show->run_mutex));
 		show->run = 0;
@@ -59,6 +58,8 @@ static void		handle_events(t_show *show, SDL_Event event)
 			handle_players_event(show, event.user);
 		else if (event.user.code == FILLER_EVENT_RESULT)
 			handle_result_event(show, event.user);
+		else if (event.user.code == FILLER_EVENT_SCENE)
+			handle_scene_event(show, event.user);
 	}
 }
 

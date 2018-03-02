@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/01 06:18:49 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 06:25:28 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 03:56:15 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ static t_color_set		*get_color_set(int set)
 			0xafe2e2e2, 0x474747, 0x999999, 0xcecece, 0xbcbcbc });
 		sets[init++] = set_from_tab((int[8]) { 0xe2e2e2, 0x565656, 0x565656,
 			0xafe2e2e2, 0xa14fff, 0xff4949, 0xc593ff, 0xff8787 });
+		sets[init++] = set_from_tab((int[8]) { 0x000000, 0xf5b553, 0xf5b553,
+			0xaf000000, 0x854836, 0xfab553, 0x222222, 0x333333 });
+		sets[init++] = set_from_tab((int[8]) { 0xffdddd, 0xff7777, 0xff7777,
+			0xafffdddd, 0xff3d3d, 0xff9b9b, 0xffb7b7, 0xffa0a0 });
+		sets[init++] = set_from_tab((int[8]) { 0x08085e, 0xe8fcf6, 0xe8fcf6,
+			0xaf08085e, 0xa2ff54, 0xffb07a, 0x232368, 0x383877 });
 	}
 	if (set >= init)
 		set = 0;
@@ -51,6 +57,8 @@ void					set_color_set(t_show *show, int set)
 	show->gui.colors = get_color_set(set);
 	if (show->gui.scenes[FILLER_SCENE_MAIN].ptr)
 		main_update_colors(show, &(show->gui.scenes[FILLER_SCENE_MAIN].main));
+	if (show->gui.scenes[FILLER_SCENE_END].ptr)
+		end_update_colors(show, &(show->gui.scenes[FILLER_SCENE_END].end));
 	glClearColor(show->gui.colors->background.r, show->gui.colors->background.g,
 		show->gui.colors->background.b, show->gui.colors->background.a);
 }

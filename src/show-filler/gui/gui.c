@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 02:21:03 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 06:24:13 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 01:45:02 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,17 @@ void					init_gui(t_show *show)
 	show->gui.pause = 0;
 	set_color_set(show, 0);
 	init_main_scene(show, &(show->gui.scenes[FILLER_SCENE_MAIN].main));
+	init_end_scene(show, &(show->gui.scenes[FILLER_SCENE_END].end));
 	show->gui.active_scene = show->gui.scenes + FILLER_SCENE_MAIN;
+}
+
+static void				draw_gui(t_show *show)
+{
+	if (show->gui.active_scene == show->gui.scenes + FILLER_SCENE_END)
+	{
+		sg_draw(show->gui.scenes[FILLER_SCENE_MAIN].ptr);
+	}
+	sg_draw(show->gui.active_scene->ptr);
 }
 
 void					run_gui(t_show *show)
@@ -42,7 +52,9 @@ void					run_gui(t_show *show)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		if (show->gui.active_scene != NULL)
-			sg_draw(show->gui.active_scene->ptr);
+		{
+			draw_gui(show);
+		}
 		delta -= 1000000000 / FRAME_PER_SECOND;
 		last_time = current_time;
 		SDL_GL_SwapWindow(show->window);
