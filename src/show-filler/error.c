@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/01 06:44:22 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 06:45:39 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 21:23:00 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void				error(int errcode, char const *const errmsg, char *errtype,
 						int errexit)
 {
-	printf("%s (ERRCODE=%d, ERRMSG=\"%s\")\n", errtype, errcode, errmsg);
+	ft_printf("%s (ERRCODE=%d, ERRMSG=\"%s\")\n", errtype, errcode, errmsg);
 	if (errexit)
 	{
 		SDL_Quit();
