@@ -6,7 +6,7 @@
 #    By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/22 14:51:03 by hbouillo          #+#    #+#              #
-#    Updated: 2018/03/02 20:40:20 by hbouillo         ###   ########.fr        #
+#    Updated: 2018/03/02 20:53:48 by hbouillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -117,7 +117,7 @@ clean:
 	$(call clean,$(TARGET_2),$(OBJ_2))
 
 fclean:
-	@$(MAKE) -C simple-gui clean
+	@$(MAKE) -C simple-gui fclean
 	$(call fclean,$(TARGET_1),$(OBJ_1))
 	$(call fclean,$(TARGET_2),$(OBJ_2))
 
