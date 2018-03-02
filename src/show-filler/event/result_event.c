@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 01:03:22 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/02 03:05:26 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 04:37:03 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,25 @@
 static void		update_end_gui(t_show *show, t_result score)
 {
 	char		*end_label;
+	char		*tmp;
 
 	if (score.score_1 == score.score_2)
 		end_label = ft_strdup("It's a draw !");
 	else
 		end_label = ft_strjoin(
 			show->players[score.score_1 > score.score_2 ? 0 : 1], " wins !");
+	tmp = ft_itoa(score.score_1);
 	sg_set_label_text(
 		show->gui.scenes[FILLER_SCENE_END].end.score_1,
-		sg_new_gstr(ft_itoa(score.score_1),
+		sg_new_gstr(tmp,
 			get_resource_path(FILLER_FONT), 2 * FILLER_TOP_FONT_SIZE));
+	free(tmp);
+	tmp = ft_itoa(score.score_2);
 	sg_set_label_text(
 		show->gui.scenes[FILLER_SCENE_END].end.score_2,
-		sg_new_gstr(ft_itoa(score.score_2),
+		sg_new_gstr(tmp,
 			get_resource_path(FILLER_FONT), 2 * FILLER_TOP_FONT_SIZE));
+	free(tmp);
 	sg_set_label_text(
 		show->gui.scenes[FILLER_SCENE_END].end.msg,
 		sg_new_gstr(end_label,

@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 04:24:56 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/02 02:56:55 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 04:35:40 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,20 @@
 
 static void			update_scores(t_show *show)
 {
+	char			*tmp;
+
+	tmp = ft_itoa(show->frames->score.score_1);
 	sg_set_label_text(
 		show->gui.scenes[FILLER_SCENE_MAIN].main.p1_score_label,
-		sg_new_gstr(ft_itoa(show->frames->score.score_1),
+		sg_new_gstr(tmp,
 			get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
+	free(tmp);
+	tmp = ft_itoa(show->frames->score.score_2);
 	sg_set_label_text(
 		show->gui.scenes[FILLER_SCENE_MAIN].main.p2_score_label,
-		sg_new_gstr(ft_itoa(show->frames->score.score_2),
+		sg_new_gstr(tmp,
 			get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
+	free(tmp);
 }
 
 void				frame_update(t_show *show)

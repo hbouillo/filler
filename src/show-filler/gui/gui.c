@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 02:21:03 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/02 01:45:02 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 04:37:10 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void					uninit_gui(t_show *show)
 {
 	sg_destroy_scene(show->gui.scenes[FILLER_SCENE_MAIN].ptr);
+	sg_destroy_scene(show->gui.scenes[FILLER_SCENE_END].ptr);
 }
 
 void					init_gui(t_show *show)

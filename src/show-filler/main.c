@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 03:46:35 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/01 06:45:57 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 04:33:56 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void			free_show_content(t_show *show)
 	}
 }
 
-int					main(void)
+int					submain(void)
 {
 	t_show			show;
 
@@ -102,4 +102,10 @@ int					main(void)
 	SDL_DestroyWindow(show.window);
 	SDL_Quit();
 	return (0);
+}
+
+int main()
+{
+	submain();
+	while (1);
 }

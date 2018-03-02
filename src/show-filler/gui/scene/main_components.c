@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/01 06:47:13 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/02 02:58:26 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/02 04:34:38 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void					score_labels(t_show *show, t_main_scene *main)
 	sg_set_flags(main->p1_score_label, SG_LOCK_TOP
 		| SG_LOCK_LEFT | SG_LOCK_SIZE
 		| SG_ALIGN_RIGHT);
-	sg_set_label_text(main->p1_score_label, sg_new_gstr("1256",
+	sg_set_label_text(main->p1_score_label, sg_new_gstr("0",
 	get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
 	if (!(main->p2_score_label = sg_create_label(main->ptr)))
 		error(ERR_MALLOC, ERR_CRITICAL);
@@ -74,7 +74,7 @@ void					score_labels(t_show *show, t_main_scene *main)
 	sg_set_flags(main->p2_score_label, SG_LOCK_TOP
 		| SG_LOCK_RIGHT | SG_LOCK_SIZE
 		| SG_ALIGN_LEFT);
-	sg_set_label_text(main->p2_score_label, sg_new_gstr("1234",
+	sg_set_label_text(main->p2_score_label, sg_new_gstr("0",
 	get_resource_path(FILLER_FONT), FILLER_TOP_FONT_SIZE));
 }
 

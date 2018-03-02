@@ -32,7 +32,7 @@ INSTALL         := /usr/bin/install -c
 INSTALL_DATA    := ${INSTALL} -m 644
 INSTALL_PROGRAM := ${INSTALL}
 INSTALL_SCRIPT  := ${INSTALL}
-MKINSTALLDIRS   := /Users/hbouillo/wks/simple-gui/freetype-2.9/builds/unix/./install-sh -c -d
+MKINSTALLDIRS   := /Users/hbouillo/wks/filler-verif/simple-gui/freetype-2.9/builds/unix/./install-sh -c -d
 
 CLEAN += $(OBJ_BUILD)/freetype-config \
          $(OBJ_BUILD)/freetype2.pc

@@ -437,10 +437,10 @@ Copyright (C) 2012 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/Users/hbouillo/wks/simple-gui/freetype-2.9/builds/unix'
+ac_pwd='/Users/hbouillo/wks/filler-verif/simple-gui/freetype-2.9/builds/unix'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
-MKDIR_P='/Users/hbouillo/wks/simple-gui/freetype-2.9/builds/unix/./install-sh -c -d'
+MKDIR_P='/Users/hbouillo/wks/filler-verif/simple-gui/freetype-2.9/builds/unix/./install-sh -c -d'
 AWK='awk'
 test -n "$AWK" || AWK=awk
 # The default lists apply if the user does not specify any file.
@@ -835,7 +835,7 @@ S["ZLIB_CFLAGS"]=""
 S["XX_ANSIFLAGS"]=" -ansi"
 S["XX_CFLAGS"]="-Wall"
 S["FTSYS_SRC"]="$(BUILD_DIR)/ftsystem.c"
-S["MKDIR_P"]="/Users/hbouillo/wks/simple-gui/freetype-2.9/builds/unix/./install-sh -c -d"
+S["MKDIR_P"]="/Users/hbouillo/wks/filler-verif/simple-gui/freetype-2.9/builds/unix/./install-sh -c -d"
 S["INSTALL_DATA"]="${INSTALL} -m 644"
 S["INSTALL_SCRIPT"]="${INSTALL}"
 S["INSTALL_PROGRAM"]="${INSTALL}"
