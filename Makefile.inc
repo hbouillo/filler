@@ -102,7 +102,7 @@ endef
 define link_dylib
 	@mkdir -p lib
 	@echo "\tCompiling $(STL_BOLD)$(RGB_LRED)$@$(RGB_RESET)..."
-	@$(CC) -dynamiclib -install_name "@executable_path/lib/$(notdir $@)" -o $@ $^ $(LFLAGS)
+	@$(CC) -dynamiclib -install_name "@executable_path/lib/$(notdir $@)" -o $@ $^ $(1)
 	@$(eval END_MSG = end_msg_sdone)
 endef
 
