@@ -6,11 +6,12 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 02:25:24 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/02 00:03:46 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/03 01:03:00 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./logic.h"
+#include <sys/select.h>
 
 static void			send_events(t_reader *reader)
 {
@@ -29,6 +30,18 @@ static void			send_events(t_reader *reader)
 		push_user_event(FILLER_EVENT_RESULT, NULL, NULL);
 }
 
+static int			timeout(void)
+{
+	fd_set			set;
+	struct timeval	timeout;
+
+	timeout.tv_sec = 1;
+	timeout.tv_usec = 0;
+	FD_ZERO(&set);
+	FD_SET(0, &set);
+	return (select(1, &set, NULL, NULL, &timeout) > 0 ? 0 : 1);
+}
+
 static int			read_input(void)
 {
 	static t_reader	reader;
@@ -37,6 +50,8 @@ static int			read_input(void)
 	int				ret;
 
 	line = NULL;
+	if (timeout())
+		return (1);
 	if ((ret = ft_gnl(0, &line)) > 0)
 	{
 		if (previous_line)
@@ -68,7 +83,8 @@ static void			*run_read(void *arg)
 		if (!show->run)
 			run = 0;
 		pthread_mutex_unlock(&(show->run_mutex));
-		read_input();
+		if (read_input())
+			break ;
 	}
 	return (NULL);
 }
