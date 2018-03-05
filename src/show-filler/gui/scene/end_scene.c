@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 01:04:53 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/02 03:15:15 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/05 05:51:40 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void				background(t_end_scene *end)
 	if (!(end->background = sg_create_rectangle(end->ptr)))
 		error(ERR_MALLOC, ERR_CRITICAL);
 	sg_set_component_boundaries(end->background,
-		sg_rectf(-1.0, -1.0, 2.0, 2.0));
+		sg_rectf(-1.1, -1.1, 2.2, 2.2));
 	sg_set_flags(end->background, SG_ALIGN_RIGHT | SG_ALIGN_TOP);
 	sg_set_rectangle_edge(end->background, 0);
 	sg_set_rectangle_radius(end->background, 0);
