@@ -6,7 +6,7 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/01 06:47:13 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/05 05:56:04 by hbouillo         ###   ########.fr       */
+/*   Updated: 2018/03/05 19:18:01 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void					labels_1(t_show *show, t_main_scene *main)
 		error(ERR_MALLOC, ERR_CRITICAL);
 	sg_set_component_boundaries(main->madeby_label,
 		sg_recti(show->win_w - 5 - MAIN_SCENE_MARGIN, show->win_h - 5, 0, 0));
-	sg_set_flags(main->madeby_label, SG_LOCK_BOTTOM | SG_LOCK_RIGHT
+	sg_set_flags(main->madeby_label, SG_LOCK_TOP | SG_LOCK_RIGHT
 		| SG_LOCK_SIZE | SG_ALIGN_BOTTOM | SG_ALIGN_LEFT);
 	sg_set_label_text(main->madeby_label, sg_new_gstr("Made by hbouillo",
 		get_resource_path(FILLER_FONT), 12));
