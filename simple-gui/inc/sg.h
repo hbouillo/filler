@@ -6,12 +6,14 @@
 /*   By: hbouillo <hbouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 04:25:24 by hbouillo          #+#    #+#             */
-/*   Updated: 2018/03/02 02:47:45 by hbouillo         ###   ########.fr       */
+/*   Updated: 2019/10/28 17:57:28 by hbouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SG_H
 # define SG_H
+
+# define GL_SILENCE_DEPRECATION
 
 # include <OpenGL/gl3.h>
 # include <SDL2/SDL.h>
